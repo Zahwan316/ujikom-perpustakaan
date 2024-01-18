@@ -29,6 +29,19 @@ module.exports = function(sequelize, DataTypes) {
     role: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    perpus_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    no_hp: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    created_date: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.fn('now')
     }
   }, {
     sequelize,

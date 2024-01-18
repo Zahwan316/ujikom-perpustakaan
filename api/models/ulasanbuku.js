@@ -21,6 +21,11 @@ module.exports = function(sequelize, DataTypes) {
     rating: {
       type: DataTypes.INTEGER,
       allowNull: true
+    },
+    created_date: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.fn('now')
     }
   }, {
     sequelize,

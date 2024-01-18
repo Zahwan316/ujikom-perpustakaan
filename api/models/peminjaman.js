@@ -25,6 +25,15 @@ module.exports = function(sequelize, DataTypes) {
     statusPeminjaman: {
       type: DataTypes.STRING(50),
       allowNull: true
+    },
+    perpus_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    created_date: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.fn('now')
     }
   }, {
     sequelize,

@@ -1,4 +1,7 @@
 const express = require("express")
+const dotenv = require("dotenv")
+dotenv.config({path:"../.env"})
+require("dotenv").config()
 const router = express.Router()
 const sequelize = require("../config")
 const {DataTypes} = require("sequelize")

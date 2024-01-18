@@ -18,9 +18,22 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: true
     },
-    tahun_terbit: {
+    perpus_id: {
       type: DataTypes.INTEGER,
       allowNull: true
+    },
+    tahun_terbit: {
+      type: DataTypes.DATEONLY,
+      allowNull: true
+    },
+    kategori_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    created_date: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.fn('now')
     }
   }, {
     sequelize,

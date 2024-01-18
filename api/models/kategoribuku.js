@@ -9,6 +9,11 @@ module.exports = function(sequelize, DataTypes) {
     nama_kategori: {
       type: DataTypes.STRING(255),
       allowNull: true
+    },
+    created_date: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.fn('now')
     }
   }, {
     sequelize,

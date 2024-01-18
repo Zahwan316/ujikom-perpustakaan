@@ -13,6 +13,11 @@ module.exports = function(sequelize, DataTypes) {
     bukuID: {
       type: DataTypes.INTEGER,
       allowNull: true
+    },
+    created_date: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.fn('now')
     }
   }, {
     sequelize,
