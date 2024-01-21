@@ -35,9 +35,12 @@ router.route("/user")
     })
     .post(async(req,res) => {
         try{
+            const hashpassword = await bcrypt.hash(req.body.password,10)
+            console.log(hashpassword)
             const createItem = await User.create({
                 ...req.body,
-                userID:RandInt()
+                userID:RandInt(),
+                password:hashpassword
             })
             res.status(200).json({
                 message:'Data berhasil dibuat',
@@ -61,7 +64,8 @@ router.route("/user/:id")
             const findItem = await User.findByPk(id)
             if(findItem){
                 findItem.update({
-                    ...req.body
+                    ...req.body,
+                    password:req.body.password != null && await bcrypt.hash(req.body.password,10)
                 })
                 res.status(200).json({
                     message:'Data berhasil diedit',
