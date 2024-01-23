@@ -27,9 +27,8 @@ const AnggotaViewPage = () => {
     const fetchData = async() => {
       try{
         if(Object.keys(user).length === 0){
-          let res = await axios.get(`${process.env.REACT_APP_URL_API}user`)
-          console.log(res)
-          //setuser(res.data.data)
+          let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}user`)
+          setuser(res.data.data)
         } 
       }
       catch(e){

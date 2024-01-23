@@ -37,6 +37,11 @@ const navConfig = [
     path: '/ulasan',
     icon: icon('ic_blog'),
   },
+  {
+    title: 'kategori',
+    path: '/kategori',
+    icon: icon('ic_blog'),
+  },
 ];
 
 export default navConfig;

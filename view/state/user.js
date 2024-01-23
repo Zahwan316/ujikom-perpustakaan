@@ -1,6 +1,6 @@
 import {create} from "zustand"
 
-const useUserStore = create(() => ({
+const useUserStore = create((set) => ({
     user:[],
     setuser:(data) => set(() => ({user:data}))
 }))
