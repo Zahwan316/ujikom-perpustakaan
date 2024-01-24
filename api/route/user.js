@@ -13,6 +13,8 @@ const jwttoken = process.env.JWT_SECRET_KEY
 const RandInt = () => {
     return Math.floor(Math.random() * 99999999)
 }
+const refuser = require("../models/ref_user")
+const Refuser = refuser(sequelize,DataTypes)
 
 router.route("/user")
     .get(async(req,res) => {
@@ -196,6 +198,26 @@ router.route("/register")
 
             res.status(200).json({
                 message:'Akun berhasil dibuat',
+                method:req.method,
+            })
+            
+        }
+        catch(e){
+            res.status(400).json({
+                 message:e.message,
+                 method:req.method,
+            })
+            
+        }
+    })
+
+router.route("/refuser")
+    .get(async(req,res) => {
+        try{
+            let data = await Refuser.findAll()
+            res.status(200).json({
+                message:'Data berhasil diambil',
+                data:data,
                 method:req.method,
             })
             

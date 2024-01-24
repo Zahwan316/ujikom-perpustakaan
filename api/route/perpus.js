@@ -34,6 +34,12 @@ router.route("/perpus")
                 ...req.body,
                 perpus_id:RandInt()
             })
+
+            res.status(200).json({
+                message:'Data berhasil ditambahkan',
+                method:req.method,
+            })
+            
         }
         catch(e){
             res.status(400).json({

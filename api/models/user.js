@@ -26,10 +26,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    role: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
     perpus_id: {
       type: DataTypes.INTEGER,
       allowNull: true
@@ -42,6 +38,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: Sequelize.Sequelize.fn('now')
+    },
+    access_level: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,

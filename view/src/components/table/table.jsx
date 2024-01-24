@@ -5,8 +5,10 @@ import React, { useState, useEffect } from 'react';
 import AnggotaTableBody from './tablebody/anggota';
 
 const TableComponent = (props) => {
-  const handleClick = () => {
+  const handleClick = (e) => {
+    const typebtn = e.target.getAttribute("typebtn")
     props.handlemodal()
+    props.gettypebtn(0,typebtn)
   }
 
   return(
@@ -15,7 +17,7 @@ const TableComponent = (props) => {
         <Stack alignItems={"center"} justifyContent={"space-between"} direction={"row"}>
             <Typography variant="h4" className='w-1/2'>{props.title}</Typography>
 
-            <Button onClick={handleClick} variant='contained'>+ Tambah</Button>
+            <Button onClick={handleClick} variant='contained' typebtn="add">+ Tambah</Button>
         </Stack>
 
         <TableContainer className='p-8'>
