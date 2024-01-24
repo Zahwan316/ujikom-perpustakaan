@@ -4,10 +4,12 @@ import { Button, Input, InputLabel, MenuItem, Select, TextField } from '@mui/mat
 import { Box } from '@mui/system';
 import useFormStore from '../../../state/form';
 import useUserStore from '../../../state/user';
+import useItemStore from '../../../state/item';
 
 const AnggotaFormComponent = () => {
   const [page,setpage] = useState(1)
   const [form,setform] = useFormStore((state) => [state.form,state.setform])
+  const perpus = useItemStore((state) => state.perpus)
   const ref_user = useUserStore((state) => state.ref_user)
 
   const handleForm = (e) => {
@@ -84,9 +86,9 @@ const AnggotaFormComponent = () => {
         <TextField 
           size="small"
           type='text'
-          name='nomor_telepon'
+          name='no_hp'
           onChange={handleForm}
-          value={form.nomor_telepon}
+          value={form.no_hp}
         />
       </Box>
       <Box className="flex flex-col mb-6">
@@ -119,11 +121,16 @@ const AnggotaFormComponent = () => {
         <InputLabel className='mb-2'>Perpustakaan</InputLabel>
         <Select
           size="small"
-          name='perpustakaan_id'
+          name='perpus_id'
           onChange={handleForm}
-          value={form.perpustakaan || "0"}
+          value={form.perpus_id}
         >
           <MenuItem value="0">Pilih Perpustakaan</MenuItem>
+          {
+            perpus.map((item,index) => 
+              <MenuItem key={index} value={item.perpus_id}>{item.nama_perpus}</MenuItem>
+            )
+          }
         </Select>
       </Box>
       <Button method="-" variant='contained' onClick={handlePage} >Sebelumnya</Button>

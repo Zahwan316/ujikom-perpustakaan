@@ -41,6 +41,7 @@
     "react-hook-form": "^7.47.0",
     "react-router-dom": "^6.16.0",
     "simplebar-react": "^3.2.4",
+    "sweetalert2": "^11.10.4",
     "uuid": "^9.0.1",
     "uuidv4": "^6.2.13",
     "zustand": "^4.5.0"

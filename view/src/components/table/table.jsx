@@ -3,12 +3,34 @@ import { Stack, Container } from '@mui/system';
 
 import React, { useState, useEffect } from 'react';
 import AnggotaTableBody from './tablebody/anggota';
+import Swal from 'sweetalert2';
 
 const TableComponent = (props) => {
+
+
   const handleClick = (e) => {
     const typebtn = e.target.getAttribute("typebtn")
-    props.handlemodal()
-    props.gettypebtn(0,typebtn)
+    const id = e.target.getAttribute("id")
+    if(typebtn != "delete"){
+      props.handlemodal()
+    }
+    props.gettypebtn(typebtn,id)
+
+    if(typebtn === "delete"){
+      Swal.fire({
+        title:"Apakah anda yakin?",
+        text:"Data yang dihapus tidak dapat dikembalikan",
+        icon:"warning",
+        showCancelButton:true,
+        confirmButtonColor:"#3085d6",
+        cancelButtonColor:"#d33",
+        confirmButtonText:"Ya, Hapus!"
+      }).then((result) => {
+        if(result.isConfirmed){
+          props.handleCrud(typebtn,id)
+        }
+      })
+    }
   }
 
   return(
@@ -34,7 +56,9 @@ const TableComponent = (props) => {
                 <TableBody>
                     {
                         props.page === "anggota"  &&
-                        <AnggotaTableBody />
+                        <AnggotaTableBody
+                          handleclick={handleClick}
+                        />
                     }
                 </TableBody>
             </Table>  
