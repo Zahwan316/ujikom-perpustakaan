@@ -1,4 +1,4 @@
-import { Button, Card, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Button, Card, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import { Stack, Container } from '@mui/system';
 
 import React, { useState, useEffect } from 'react';
@@ -38,7 +38,7 @@ const TableComponent = (props) => {
       <Container>
         <Stack alignItems={"center"} justifyContent={"space-between"} direction={"row"}>
             <Typography variant="h4" className='w-1/2'>{props.title}</Typography>
-
+           
             <Button onClick={handleClick} variant='contained' typebtn="add">+ Tambah</Button>
         </Stack>
 
@@ -58,6 +58,7 @@ const TableComponent = (props) => {
                         props.page === "anggota"  &&
                         <AnggotaTableBody
                           handleclick={handleClick}
+                          
                         />
                     }
                 </TableBody>

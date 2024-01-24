@@ -1,4 +1,4 @@
-import { Card, Table, TableBody, TableHead, Typography } from '@mui/material';
+import { Card, MenuItem, Select, Table, TableBody, TableHead, Typography } from '@mui/material';
 import { Container, Stack } from '@mui/system';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
@@ -10,6 +10,7 @@ import useFormStore from '../../../../state/form';
 import useItemStore from '../../../../state/item';
 import {v4 as uuidv4} from "uuid"
 import Swal from 'sweetalert2';
+import useStateStore from '../../../../state/state';
 
 const AnggotaViewPage = () => {
   const [user,setuser] = useUserStore((state) => [state.user,state.setuser])
@@ -21,6 +22,7 @@ const AnggotaViewPage = () => {
   const [typeform,settypeform] = useState()
   const [editedid,seteditedid] = useState()
   const [form,setform] = useFormStore((state) => [state.form,state.setform])
+  const [filterrole,setfilteredrole] = useStateStore((state) => [state.filterrole,state.setfilterrole])
   const tablehead = [
     "Perpus",
     "Username",
@@ -86,6 +88,11 @@ const AnggotaViewPage = () => {
     }
   }
 
+  const handleFilteredRole = (e) => {
+    const {target,value} = e.target
+    setfilteredrole(value)
+  }
+
   useEffect(() => {
     const fetchData = async() => {
       try{
@@ -110,7 +117,7 @@ const AnggotaViewPage = () => {
   },[])
 
   useEffect(() => {
-    console.log(editedid)
+    console.log(filterrole)
   })
 
   useEffect(() => {
@@ -151,12 +158,14 @@ const AnggotaViewPage = () => {
         console.log(e)
       }
     }
-
-    refetch_data()
+    if(editedid){
+      refetch_data()
+    }
   },[editedid])
 
   return(
     <>
+    
         <TableComponent 
           tablehead={tablehead}
           title="Anggota"
@@ -164,8 +173,20 @@ const AnggotaViewPage = () => {
           handlemodal={handleModal}
           gettypebtn={getTypeBtn}
           handleCrud={handleCrud}
+          filterrole={filterrole}
         />
-
+            <Select
+              size="small"
+              onChange={handleFilteredRole}
+              value={filterrole}
+              name="Filter Role"
+              defaultValue={"0"}
+            >
+              <MenuItem value="0">Semua</MenuItem>
+              <MenuItem value="1">Admin</MenuItem>
+              <MenuItem value="2">Petugas</MenuItem>
+              <MenuItem value="3">Peminjam</MenuItem>
+            </Select>
         {
           modal &&
           <ModalComponent 
