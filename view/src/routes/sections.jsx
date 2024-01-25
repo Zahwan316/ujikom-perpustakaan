@@ -3,6 +3,8 @@ import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
 import AnggotaPage from 'src/pages/anggota';
+import BukuPage from 'src/pages/buku';
+import KategoriPage from 'src/pages/kategori';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -29,6 +31,8 @@ export default function Router() {
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
         { path: 'anggota', element: <AnggotaPage /> },
+        { path: 'kategori', element: <KategoriPage /> },
+        { path: 'buku', element: <BukuPage /> },
       ],
     },
     {

@@ -4,6 +4,8 @@ import { Stack, Container } from '@mui/system';
 import React, { useState, useEffect } from 'react';
 import AnggotaTableBody from './tablebody/anggota';
 import Swal from 'sweetalert2';
+import KategoriTableBody from './tablebody/kategori';
+import BukuTableBody from './tablebody/buku';
 
 const TableComponent = (props) => {
 
@@ -60,6 +62,20 @@ const TableComponent = (props) => {
                           handleclick={handleClick}
                           
                         />
+                    }
+
+                    {
+                      props.page === "kategori" &&
+                      <KategoriTableBody
+                        handleclick={handleClick}
+                      />
+                    }
+
+                    {
+                      props.page === "buku" &&
+                      <BukuTableBody
+                        handleclick={handleClick}
+                      />
                     }
                 </TableBody>
             </Table>  

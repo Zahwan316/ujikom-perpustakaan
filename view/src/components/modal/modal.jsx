@@ -11,7 +11,7 @@ const ModalComponent = (props) => {
          onClose={props.handlemodal}
          className='flex items-center justify-center'
       >
-        <Fade in={props.handlemodal} >
+        <Fade in={true} >
          <Box className='bg-white w-1/3 flex flex-col  justify-center h-auto rounded-md' p={4}>
             <form onSubmit={props.handlesubmit}>
               <Box className="mb-8">
