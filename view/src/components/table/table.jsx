@@ -6,6 +6,7 @@ import AnggotaTableBody from './tablebody/anggota';
 import Swal from 'sweetalert2';
 import KategoriTableBody from './tablebody/kategori';
 import BukuTableBody from './tablebody/buku';
+import PeminjamanTableBody from './tablebody/peminjaman';
 
 const TableComponent = (props) => {
 
@@ -74,6 +75,13 @@ const TableComponent = (props) => {
                     {
                       props.page === "buku" &&
                       <BukuTableBody
+                        handleclick={handleClick}
+                      />
+                    }
+
+                    {
+                      props.page === "peminjaman" && 
+                      <PeminjamanTableBody 
                         handleclick={handleClick}
                       />
                     }

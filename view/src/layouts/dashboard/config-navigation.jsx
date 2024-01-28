@@ -23,8 +23,8 @@ const navConfig = [
     icon: icon('ic_cart'),
   },
   {
-    title: 'penerbit',
-    path: '/penerbit',
+    title: 'kategori',
+    path: '/kategori',
     icon: icon('ic_blog'),
   },
   {
@@ -37,11 +37,7 @@ const navConfig = [
     path: '/ulasan',
     icon: icon('ic_blog'),
   },
-  {
-    title: 'kategori',
-    path: '/kategori',
-    icon: icon('ic_blog'),
-  },
+  
 ];
 
 export default navConfig;

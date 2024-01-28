@@ -9,6 +9,12 @@ const useItemStore = create((set) => ({
 
     buku:[],
     setbuku:(data) => set(() => ({buku:data})),
+
+    peminjaman:[],
+    setpeminjaman:(data) => set(() => ({peminjaman:data})),
+
+    ref_peminjaman:[],
+    setref_peminjaman:(data) => set(() => ({ref_peminjaman:data})),
 }))
 
 export default useItemStore

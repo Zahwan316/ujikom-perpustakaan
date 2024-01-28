@@ -5,6 +5,7 @@ import DashboardLayout from 'src/layouts/dashboard';
 import AnggotaPage from 'src/pages/anggota';
 import BukuPage from 'src/pages/buku';
 import KategoriPage from 'src/pages/kategori';
+import PeminjamanPage from 'src/pages/peminjaman';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -33,6 +34,7 @@ export default function Router() {
         { path: 'anggota', element: <AnggotaPage /> },
         { path: 'kategori', element: <KategoriPage /> },
         { path: 'buku', element: <BukuPage /> },
+        { path: 'peminjaman', element: <PeminjamanPage /> },
       ],
     },
     {
