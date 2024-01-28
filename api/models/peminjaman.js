@@ -14,16 +14,12 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    tanggalPeminjaman: {
+    tanggal_peminjaman: {
       type: DataTypes.DATEONLY,
       allowNull: true
     },
-    tanggalPengembalian: {
+    tanggal_pengembalian: {
       type: DataTypes.DATEONLY,
-      allowNull: true
-    },
-    statusPeminjaman: {
-      type: DataTypes.STRING(50),
       allowNull: true
     },
     perpus_id: {
@@ -34,6 +30,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: Sequelize.Sequelize.fn('now')
+    },
+    status_peminjaman: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,
