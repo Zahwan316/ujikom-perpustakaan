@@ -6,7 +6,7 @@ import Iconify from 'src/components/iconify';
 import useStateStore from '../../../../state/state';
 
 const AnggotaTableBody = (props) => {
-  const [user,setuser] = useUserStore((state) => [state.user,state.setuser])
+  const [user,setuser] = useItemStore((state) => [state.user,state.setuser])
   const refuser = useUserStore((state) => state.ref_user)
   const perpus = useItemStore((state) => state.perpus)
   const filterrole = useStateStore((state) => state.filterrole)

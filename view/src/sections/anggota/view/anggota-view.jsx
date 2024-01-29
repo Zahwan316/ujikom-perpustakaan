@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 import useStateStore from '../../../../state/state';
 
 const AnggotaViewPage = () => {
-  const [user,setuser] = useUserStore((state) => [state.user,state.setuser])
+  const [user,setuser] = useItemStore((state) => [state.user,state.setuser])
   const [refuser,setrefuser] = useUserStore((state) => [state.ref_user,state.setrefuser])
   const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
   const [modal,setmodal] = useState(false)
