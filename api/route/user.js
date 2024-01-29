@@ -147,8 +147,8 @@ router.route("/user/:id")
 router.route("/login")
     .post(async(req,res) => {
         try{
-            const {username,password} = req.body
-            const user = await User.findOne({where:{username}})
+            const {email,password} = req.body
+            const user = await User.findOne({where:{email}})
             if(!user){
                 res.status(404).json({ 
                     message:'Akun tidak ditemukan',
@@ -158,7 +158,7 @@ router.route("/login")
             else{
                 const validationpassword = await bcrypt.compare(password,user.password)
                 if(validationpassword){
-                    const token = jwt.sign({id:user.userID,username:user.username},jwttoken,{expiresIn:"1h"})
+                    const token = jwt.sign({id:user.userID,username:user.username,email:user.email},jwttoken,{expiresIn:"1h"})
                     res.status(200).json({
                         message:'Login Berhasil',
                         token:token,
@@ -230,5 +230,40 @@ router.route("/refuser")
             
         }
     })
+
+router.route("/auth/user/:token")
+    .get(async(req,res) => {
+        try{
+            const token = req.params.token
+            let data = {}
+            jwt.verify(token,jwttoken,(err,decoded)=>{
+                if(err){
+                    res.status(400).json({
+                        message:err,
+                    })
+                }
+                else{
+                    data=decoded
+                }
+            })
+            if(data){
+                const findItem = await User.findByPk(data.id)
+                if(findItem){
+                    res.status(200).json({
+                        message:'Data berhasil diambil',
+                        data:findItem,
+                        method:req.method,
+                    })
+                }
+            }
+        }
+        catch(e){
+            res.status(400).json({
+                 message:e.message,
+                 method:req.method,
+            })
+        }
+    })
+
 
 module.exports = router
