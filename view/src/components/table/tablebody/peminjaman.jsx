@@ -8,7 +8,7 @@ const PeminjamanTableBody = (props) => {
   const peminjaman = useItemStore((state) => state.peminjaman)
   const perpus = useItemStore((state) => state.perpus)
   const buku = useItemStore((state) => state.buku)
-  const user = useUserStore((state) => state.user)
+  const user = useItemStore((state) => state.user)
   const ref_peminjaman = useItemStore((state) => state.ref_peminjaman)
 
   const [open,setopen] = useState({})

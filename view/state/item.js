@@ -15,6 +15,9 @@ const useItemStore = create((set) => ({
 
     ref_peminjaman:[],
     setref_peminjaman:(data) => set(() => ({ref_peminjaman:data})),
+
+    user:[],
+    setuser:(data) => set(() => ({user:data})),
 }))
 
 export default useItemStore

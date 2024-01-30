@@ -22,11 +22,14 @@ import Scrollbar from 'src/components/scrollbar';
 
 import { NAV } from './config-layout';
 import navConfig from './config-navigation';
+import useUserStore from '../../../state/user';
 
 // ----------------------------------------------------------------------
 
 export default function Nav({ openNav, onCloseNav }) {
   const pathname = usePathname();
+  const user = useUserStore((state) => state.user)
+  const refuser = useUserStore((state) => state.ref_user)
 
   const upLg = useResponsive('up', 'lg');
 
@@ -53,10 +56,13 @@ export default function Nav({ openNav, onCloseNav }) {
       <Avatar src={account.photoURL} alt="photoURL" />
 
       <Box sx={{ ml: 2 }}>
-        <Typography variant="subtitle2">{account.displayName}</Typography>
+        <Typography variant="subtitle2">{user.nama_lengkap}</Typography>
 
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {account.role}
+          {refuser.map(item => 
+              item.user_ref_id === user.access_level &&
+              item.nama
+            )}
         </Typography>
       </Box>
     </Box>
@@ -118,7 +124,7 @@ export default function Nav({ openNav, onCloseNav }) {
 
       <Box sx={{ flexGrow: 1 }} />
 
-      {renderUpgrade}
+     
     </Scrollbar>
   );
 

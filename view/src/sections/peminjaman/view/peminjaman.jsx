@@ -23,7 +23,7 @@ const PeminjamanViewPage = () => {
   const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
   const [form,setform,resetform] = useFormStore((state) => [state.form,state.setform,state.resetform])
   const [refpeminjaman,setrefpeminjaman] = useItemStore((state) => [state.ref_peminjaman,state.setref_peminjaman])
-  const [user,setuser] = useUserStore((state) => [state.user,state.setuser])
+  const [user,setuser] = useItemStore((state) => [state.user,state.setuser])
   const [modal,setmodal] = useState(false)
   const [editedid,seteditedid] = useState()
   const [typeform,settypeform] = useState()
