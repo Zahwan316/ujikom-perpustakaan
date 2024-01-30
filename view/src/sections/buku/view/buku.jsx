@@ -38,12 +38,16 @@ const BukuViewPage = () => {
     seteditedid(id)
   }
 
-  const handleCrud = async(method,id) => {
+  const handleCrud = async(method,id,forminput) => {
     try{
       let res;
       switch(method){
         case "post":
-          res = await axios.post(`${import.meta.env.VITE_APP_URL_API}buku`,form)
+          res = await axios.post(`${import.meta.env.VITE_APP_URL_API}buku`,forminput,{
+            headers: {
+              'Content-Type':'multipart/form-data'
+            }
+          })
           break;
         case "put":
           res = await axios.put(`${import.meta.env.VITE_APP_URL_API}buku/${id}`,form)
@@ -77,9 +81,15 @@ const BukuViewPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
+    const formdata = new FormData()
+    for(const key in form){
+      formdata.append(key,form[key])
+      console.log(key,form[key])
+    }
+
     switch(typeform){
       case "add":
-        handleCrud("post")
+        handleCrud("post",null,formdata)
         break;
       case "edit":
         handleCrud("put",editedid)
