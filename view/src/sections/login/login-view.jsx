@@ -236,6 +236,7 @@ export default function LoginView() {
               onChange={handleform}
               error={error.username}
               helperText={error.username}
+              value={form.username}
            />
             <TextField 
               type='email'
@@ -244,6 +245,7 @@ export default function LoginView() {
               onChange={handleform}
               error={error.email}
               helperText={error.email}
+              value={form.email}
             />
              <TextField
                 name="password"
@@ -277,6 +279,7 @@ export default function LoginView() {
               onChange={handleform}
               error={error.nama_lengkap}
               helperText={error.nama_lengkap}
+              value={form.nama_lengkap}
             />
           
             <TextField 
@@ -285,6 +288,7 @@ export default function LoginView() {
               onChange={handleform}
               error={error.no_hp}
               helperText={error.no_hp}
+              value={form.no_hp}
             />
             <TextField 
               label="Alamat"
@@ -292,6 +296,7 @@ export default function LoginView() {
               onChange={handleform}
               error={error.alamat}
               helperText={error.alamat}
+              value={form.alamat}
               rows={4}
             />
              <Button variant='outlined' onClick={handlePage} method="-">Sebelumnya</Button>

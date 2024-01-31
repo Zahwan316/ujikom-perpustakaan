@@ -4,6 +4,7 @@ const buku = require("../models/buku")
 const {DataTypes} = require("sequelize")
 const router = express.Router()
 const Buku = buku(Sequelize,DataTypes)
+const multer = require("multer")
 
 const RandId = () => {
     return Math.floor(Math.random() * 9999999)
