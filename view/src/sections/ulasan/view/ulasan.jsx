@@ -53,8 +53,24 @@ const UlasanViewPage = () => {
   },[])
 
   useEffect(() => {
-
+    const fetchdata = async() => {
+      try{
+        let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}ulasanbuku`)
+        setulasan(res.data.data)
+      }
+      catch(e){
+        console.log(e)
+      }
+    }
+    if(editedid){
+      fetchdata()
+    }
   },[editedid])
+
+  useEffect(() => {
+    console.log(editedid)
+    console.log(ulasan)
+  })
 
   return(
     <>
@@ -93,7 +109,7 @@ const UlasanViewPage = () => {
           title="Semua Ulasan"
           handlemodal={handleModal}
           size="lg"
-          body={<UlasanModalContent />}
+          body={<UlasanModalContent id={editedid} />}
         />
       }
     </>
