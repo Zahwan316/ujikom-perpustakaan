@@ -50,7 +50,11 @@ const BukuViewPage = () => {
           })
           break;
         case "put":
-          res = await axios.put(`${import.meta.env.VITE_APP_URL_API}buku/${id}`,form)
+          res = await axios.put(`${import.meta.env.VITE_APP_URL_API}buku/${id}`,forminput,{
+            headers: {
+              'Content-Type':'multipart/form-data'
+            }
+          })
           break;
         case "delete":
           res = await axios.delete(`${import.meta.env.VITE_APP_URL_API}buku/${id}`)
@@ -70,6 +74,8 @@ const BukuViewPage = () => {
       resetform()
     }
     catch(e){
+      setmodal(false)
+      console.log(e)
       Swal.fire({
         title:"Error",
         text:e.message,
@@ -84,7 +90,7 @@ const BukuViewPage = () => {
     const formdata = new FormData()
     for(const key in form){
       formdata.append(key,form[key])
-      console.log(key,form[key])
+     
     }
 
     switch(typeform){
@@ -92,7 +98,7 @@ const BukuViewPage = () => {
         handleCrud("post",null,formdata)
         break;
       case "edit":
-        handleCrud("put",editedid)
+        handleCrud("put",editedid,formdata)
         break;
     }
   }

@@ -12,6 +12,7 @@ const UlasanViewPage = () => {
   const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
   const [kategori,setkategori] = useItemStore((state) => [state.kategori,state.setkategori])
   const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
+  const [user,setuser] = useItemStore((state) => [state.user,state.setuser])
   const [modal,setmodal] = useState(false)
   const [ulasan,setulasan] = useItemStore((state) => [state.ulasan,state.setulasan])
   const [editedid,seteditedid] = useState()
@@ -43,6 +44,10 @@ const UlasanViewPage = () => {
         if(Object.keys(ulasan).length === 0){
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}ulasanbuku`)
           setulasan(res.data.data)
+        }
+        if(Object.keys(user).length === 0){
+          let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}user`)
+          setuser(res.data.data)
         }
       }
       catch(e){
@@ -80,12 +85,12 @@ const UlasanViewPage = () => {
     
         </Stack>
         <Stack flexWrap={"wrap"} direction={"row"} gap={"2em"}>
-          <BookComponent
+          {/* <BookComponent
             img="./assets/images/zee.jpg"
             title="Zee"
             penulis="Azizi Shafa Ashadel"
             rating="8"
-          />
+          /> */}
           {
             buku.map((item,index) =>
               <BookComponent
@@ -110,6 +115,7 @@ const UlasanViewPage = () => {
           handlemodal={handleModal}
           size="lg"
           body={<UlasanModalContent id={editedid} />}
+          type="view"
         />
       }
     </>

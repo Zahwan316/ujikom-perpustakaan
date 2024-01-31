@@ -45,7 +45,7 @@ router.route("/buku")
     })
     .post(upload.single("img"),async(req,res) => {
         try{
-            console.log(req.file)
+            
             let createItem = await Buku.create({
                 bukuID:RandId(),
                 img:req.file.filename,
@@ -72,7 +72,7 @@ router.route("/buku/:id")
         try{
             let id = req.params.id
             const findItem = await Buku.findByPk(id)
-    
+            console.log(req.file)
             if(findItem){
                 findItem.update({
                     ...req.body,

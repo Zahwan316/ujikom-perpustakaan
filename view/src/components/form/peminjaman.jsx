@@ -9,7 +9,7 @@ const PeminjamanForm = () => {
   const [form,setform] = useFormStore((state) => [state.form,state.setform])
   const perpus = useItemStore((state) => state.perpus)
   const buku = useItemStore((state) => state.buku)
-  const user = useUserStore((state => state.user))
+  const user = useItemStore((state => state.user))
   const ref_peminjaman = useItemStore((state) => state.ref_peminjaman)
 
   const handleForm = (e) => {

@@ -15,6 +15,8 @@ const RandInt = () => {
 }
 const refuser = require("../models/ref_user")
 const Refuser = refuser(sequelize,DataTypes)
+const peminjaman = require("../models/peminjaman")
+const Peminjaman = peminjaman(sequelize,DataTypes)
 
 router.route("/user")
     .get(async(req,res) => {
@@ -94,8 +96,10 @@ router.route("/user/:id")
         try{
             let id = req.params.id
             const findItem = await User.findByPk(id)
+            const findPeminjamanItem = await Peminjaman.findOne({where:{userID:id}})
             if(findItem){
                 findItem.destroy()
+                findPeminjamanItem.destroy()
                 res.status(200).json({
                     message:'Data berhasil dihapus',
                     method:req.method,

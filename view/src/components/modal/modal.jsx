@@ -25,10 +25,19 @@ const ModalComponent = (props) => {
                   {props.body}
                 </Box>
               </Box>
-              <Stack direction={"row"} justifyContent={"flex-end"} gap={"1em"}>
-                <Button variant='contained' color="error" onClick={props.handlemodal}>Batal</Button>
-                <Button variant='contained' color="success" type="submit">Simpan</Button>
-              </Stack>
+              {
+                props.type != "view" ?
+                <Stack direction={"row"} justifyContent={"flex-end"} gap={"1em"}>
+                  <Button variant='contained' color="error" onClick={props.handlemodal}>Batal</Button>
+                  <Button variant='contained' color="success" type="submit">Simpan</Button>
+                </Stack>
+                :
+                <Stack direction={"row"} justifyContent={"flex-end"} gap={"1em"}>
+                  <Button variant='contained' color="primary" onClick={props.handlemodal}>Tutup</Button>
+                
+                </Stack>
+
+              }
             </form>
          </Box>
 
