@@ -26,6 +26,7 @@ app.use(Ulasanbuku)
 app.use(Koleksipribadi)
 app.use(User)
 app.use(Perpus)
+app.use("/img",express.static("uploads"))
 
 app.listen(port,() => {
     console.log(`listening at port ${port}`)

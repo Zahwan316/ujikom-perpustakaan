@@ -5,6 +5,21 @@ const {DataTypes} = require("sequelize")
 const router = express.Router()
 const Buku = buku(Sequelize,DataTypes)
 const multer = require("multer")
+<<<<<<< HEAD
+=======
+
+// Konfigurasi Multer
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/'); // Folder tempat menyimpan gambar
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname); // Nama file unik
+    },
+  });
+
+const upload = multer({ storage: storage });
+>>>>>>> d19d62dba147ee834441e392e6a598894fcb79e3
 
 const RandId = () => {
     return Math.floor(Math.random() * 9999999)
@@ -30,11 +45,13 @@ router.route("/buku")
             
         }
     })
-    .post(async(req,res) => {
+    .post(upload.single("img"),async(req,res) => {
         try{
+            console.log(req.file)
             let createItem = await Buku.create({
                 bukuID:RandId(),
-                ...req.body
+                img:req.file.filename,
+                ...req.body,
             })
 
             res.status(200).json({
@@ -53,14 +70,15 @@ router.route("/buku")
     })
 
 router.route("/buku/:id")
-    .put(async(req,res) => {
+    .put(upload.single("img"),async(req,res) => {
         try{
             let id = req.params.id
             const findItem = await Buku.findByPk(id)
     
             if(findItem){
                 findItem.update({
-                    ...req.body
+                    ...req.body,
+                    img:req.file.filename
                 })
 
                 res.status(200).json({

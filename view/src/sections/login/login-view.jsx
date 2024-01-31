@@ -298,6 +298,7 @@ export default function LoginView() {
               helperText={error.alamat}
               value={form.alamat}
               rows={4}
+              value={form.alamat}
             />
              <Button variant='outlined' onClick={handlePage} method="-">Sebelumnya</Button>
           </>
