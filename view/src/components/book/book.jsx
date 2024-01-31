@@ -7,11 +7,15 @@ const icon = (name) => (
     <SvgColor src={`./assets/icons/${name}.svg`} sx={{ width: 1, height: 1 }} />
   );
 
+  
 const BookComponent = (props) => {
+  const openmodal = () => {
+    props.handlemodal(props.id)
+  }
   return(
     <>
       <Card className="w-64 h-96 border border-gray-200 ">
-        <CardActionArea>
+        <CardActionArea onClick={openmodal}>
           <CardMedia 
             component="img"
             className="h-64"

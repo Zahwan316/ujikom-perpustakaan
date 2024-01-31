@@ -3,6 +3,7 @@ const router = express.Router()
 const sequelize = require("../config")
 const {DataTypes} = require("sequelize")
 const ulasanbuku = require("../models/ulasanbuku")
+const buku = require("../models/buku")
 const Ulasanbuku = ulasanbuku(sequelize,DataTypes)
 const RandInt = () => {
     return Math.floor(Math.random() * 9999999)
@@ -112,6 +113,35 @@ router.route("/ulasanbuku/:id")
                     method:req.method,
                 })
                 
+            }
+        }
+        catch(e){
+            res.status(400).json({
+                 message:e.message,
+                 method:req.method,
+            })
+            
+        }
+    })
+
+router.route("/ulasanbuku/:bukuid")
+    .get(async(req,res) => {
+        try{
+            const bukuid = req.params.bukuid
+            const finditem = await Ulasanbuku.find({bukuID:bukuid})
+            if(finditem){
+                res.status(200).json({
+                    message:'Data berhasil diambil',
+                    data:finditem,
+                    method:req.method,
+                })
+                
+            }
+            else{
+                res.status(404).json({ 
+                    message:'Data tidak ditemukan',
+                    method:req.method 
+                }) 	
             }
         }
         catch(e){

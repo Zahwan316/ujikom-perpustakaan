@@ -5,8 +5,7 @@ const {DataTypes} = require("sequelize")
 const router = express.Router()
 const Buku = buku(Sequelize,DataTypes)
 const multer = require("multer")
-<<<<<<< HEAD
-=======
+
 
 // Konfigurasi Multer
 const storage = multer.diskStorage({
@@ -19,7 +18,6 @@ const storage = multer.diskStorage({
   });
 
 const upload = multer({ storage: storage });
->>>>>>> d19d62dba147ee834441e392e6a598894fcb79e3
 
 const RandId = () => {
     return Math.floor(Math.random() * 9999999)

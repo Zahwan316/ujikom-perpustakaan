@@ -5,11 +5,25 @@ import React, { useState, useEffect } from 'react';
 import BookComponent from 'src/components/book/book';
 import useItemStore from '../../../../state/item';
 import axios from 'axios';
+import ModalComponent from 'src/components/modal/modal';
+import UlasanModalContent from 'src/components/modal/content/ulasan';
 
 const UlasanViewPage = () => {
   const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
   const [kategori,setkategori] = useItemStore((state) => [state.kategori,state.setkategori])
   const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
+  const [modal,setmodal] = useState(false)
+  const [ulasan,setulasan] = useItemStore((state) => [state.ulasan,state.setulasan])
+  const [editedid,seteditedid] = useState()
+
+  const handleModal = (id) => {
+    setmodal(!modal)
+    handleGetId(id)
+  }
+
+  const handleGetId = (id) => {
+    seteditedid(id)
+  }
 
   useEffect(() => {
     const fetchdata = async() => {
@@ -26,6 +40,10 @@ const UlasanViewPage = () => {
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}perpus`)
           setperpus(res.data.data)
         }
+        if(Object.keys(ulasan).length === 0){
+          let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}ulasanbuku`)
+          setulasan(res.data.data)
+        }
       }
       catch(e){
         console.log(e)
@@ -34,12 +52,16 @@ const UlasanViewPage = () => {
     fetchdata()
   },[])
 
+  useEffect(() => {
+
+  },[editedid])
+
   return(
     <>
       <Container>
         <Stack alignItems={"center"} justifyContent={"space-between"} direction={"row"} mb={5}>
             <Typography variant="h4" className='w-1/2'>Ulasan</Typography>
-            <Button variant='contained' typebtn="add">+ Ulas</Button>
+    
         </Stack>
         <Stack flexWrap={"wrap"} direction={"row"} gap={"2em"}>
           <BookComponent
@@ -56,12 +78,24 @@ const UlasanViewPage = () => {
                 title={item.judul}
                 penulis={item.penulis}
                 rating={item.rating}
+                id={item.bukuID}
+                handlemodal={handleModal}
+                
               />
             )
           }
          
         </Stack>
       </Container>
+      {
+        modal &&
+        <ModalComponent 
+          title="Semua Ulasan"
+          handlemodal={handleModal}
+          size="lg"
+          body={<UlasanModalContent />}
+        />
+      }
     </>
   )
 }
