@@ -11,31 +11,37 @@ const navConfig = [
     title: 'dashboard',
     path: '/',
     icon: icon('ic_analytics'),
+    level:[1],
   },
   {
     title: 'anggota',
     path: '/anggota',
     icon: icon('ic_user'),
+    level:[1],
   },
   {
     title: 'buku',
     path: '/buku',
     icon: icon('ic_cart'),
+    level:[1,2]
   },
   {
     title: 'kategori',
     path: '/kategori',
     icon: icon('ic_blog'),
+    level:[1]
   },
   {
     title: 'peminjaman',
     path: '/peminjaman',
     icon: icon('ic_blog'),
+    level:[1,2]
   },
   {
     title: 'ulasan',
     path: '/ulasan',
     icon: icon('ic_blog'),
+    level:[1]
   },
   
 ];

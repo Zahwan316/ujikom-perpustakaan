@@ -66,6 +66,7 @@ export default function Router() {
         { path: 'buku', element: <BukuPage /> },
         { path: 'peminjaman', element: <PeminjamanPage /> },
         { path: 'ulasan', element: <UlasanPage /> },
+        { path: 'uome', element: <UlasanPage /> },
       ],
     },
     {

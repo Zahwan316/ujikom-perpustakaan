@@ -21,7 +21,7 @@ const AnggotaViewPage = () => {
   const [isload,setisload] = useState()
   const [typeform,settypeform] = useState()
   const [editedid,seteditedid] = useState()
-  const [form,setform] = useFormStore((state) => [state.form,state.setform])
+  const [form,setform,resetform] = useFormStore((state) => [state.form,state.setform,state.resetform])
   const [filterrole,setfilteredrole] = useStateStore((state) => [state.filterrole,state.setfilterrole])
   const tablehead = [
     "Perpus",
@@ -34,6 +34,7 @@ const AnggotaViewPage = () => {
 
   const handleModal = () => {
     setmodal(!modal)
+    modal != false && resetform()
   }
 
   const getTypeBtn = (typebtn,id) => {
@@ -60,6 +61,7 @@ const AnggotaViewPage = () => {
         text:`Data berhasil ${typeform == "add" ? "ditambahkan" : (typeform == "edit" ? "diperbarui" : "dihapus")}`,
         icon:"success"
       })
+      resetform()
       setmodal(false)
       setupdater(uuidv4())
       setisload(true)

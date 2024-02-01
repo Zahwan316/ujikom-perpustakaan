@@ -5,7 +5,8 @@ const {DataTypes} = require("sequelize")
 const router = express.Router()
 const Buku = buku(Sequelize,DataTypes)
 const multer = require("multer")
-
+const ulasanbuku = require("../models/ulasanbuku")
+const Ulasanbuku = ulasanbuku(Sequelize,DataTypes)
 
 // Konfigurasi Multer
 const storage = multer.diskStorage({
@@ -103,9 +104,11 @@ router.route("/buku/:id")
         try{
             let id = req.params.id
             let findItem = await Buku.findByPk(id)
+            let findItemUlasanBuku = await Ulasanbuku.findOne({where:{bukuID:id}})
 
             if(findItem){
                 findItem.destroy()
+                findItemUlasanBuku.destroy()
                 res.status(200).json({
                     message:'Data berhasil dihapus',
                     method:req.method,
