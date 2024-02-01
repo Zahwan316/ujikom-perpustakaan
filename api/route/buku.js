@@ -49,7 +49,7 @@ router.route("/buku")
             
             let createItem = await Buku.create({
                 bukuID:RandId(),
-                img:req.file.filename,
+                img:req.file && req.file.filename,
                 ...req.body,
             })
 
@@ -77,7 +77,7 @@ router.route("/buku/:id")
             if(findItem){
                 findItem.update({
                     ...req.body,
-                    img:req.file.filename
+                    img:req.file && req.file.filename
                 })
 
                 res.status(200).json({

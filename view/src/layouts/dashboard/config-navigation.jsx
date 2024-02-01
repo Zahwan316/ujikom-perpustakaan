@@ -43,6 +43,12 @@ const navConfig = [
     icon: icon('ic_blog'),
     level:[1]
   },
+  {
+    title: 'home',
+    path: '/home',
+    icon: icon('ic_blog'),
+    level:[3]
+  },
   
 ];
 

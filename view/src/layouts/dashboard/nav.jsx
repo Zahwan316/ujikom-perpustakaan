@@ -60,7 +60,7 @@ export default function Nav({ openNav, onCloseNav }) {
 
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           {refuser.map(item => 
-              item.user_ref_id === user.access_level &&
+              item.user_ref_id == user.access_level &&
               item.nama
             )}
         </Typography>

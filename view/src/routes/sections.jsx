@@ -10,6 +10,7 @@ import KategoriPage from 'src/pages/kategori';
 import PeminjamanPage from 'src/pages/peminjaman';
 import UlasanPage from 'src/pages/ulasan';
 import useUserStore from '../../state/user';
+import HomePage from 'src/pages/home';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -24,13 +25,29 @@ export default function Router() {
   const token = Cookies.get("token")
   const navigate = useNavigate()
   const [user,setuser] = useUserStore((state) => [state.user,state.setuser])
+  const [refuser,setrefuser] = useUserStore((state) => [state.ref_user,state.setrefuser])
+  const redirect = useNavigate()
 
   useEffect(() => {
     const fetchakun = async() => {
       try{
+        if(Object.keys(refuser).length === 0){
+          const res = await axios.get(`${import.meta.env.VITE_APP_URL_API}refuser`)
+          setrefuser(res.data.data)
+        }
         if(token){
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}auth/user/${token}`)
           setuser(res.data.data)
+          const data = res.data.data
+          if(data.access_level === 1){
+            redirect("/")
+          }
+          else if(data.access_level === 2){
+            redirect("/buku")
+          }
+          else if(data.access_level === 3){
+            redirect("/home")
+          }
         }
       }
       catch(e){
@@ -66,7 +83,7 @@ export default function Router() {
         { path: 'buku', element: <BukuPage /> },
         { path: 'peminjaman', element: <PeminjamanPage /> },
         { path: 'ulasan', element: <UlasanPage /> },
-        { path: 'uome', element: <UlasanPage /> },
+        { path: 'home', element: <HomePage /> },
       ],
     },
     {

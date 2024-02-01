@@ -14,16 +14,17 @@ const BookComponent = (props) => {
   }
   return(
     <>
-      <Card className="w-64 h-96 border border-gray-200 ">
+      <Card className="w-52 h-96">
         <CardActionArea onClick={openmodal}>
           <CardMedia 
             component="img"
-            className="h-64"
+            className="h-72"
             image={props.img || "./assets/images/noimage.jpg"}
             alt={props.alt}
+            sx={{objectFit:'fill'}}
           />
-          <CardContent className="h-32">
-            <Typography variant="h6">
+          <CardContent className="h-32  ">
+            <Typography variant="h6" noWrap>
               {props.title}
             </Typography>
             <Typography variant="subtitle2">
