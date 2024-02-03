@@ -16,6 +16,13 @@ const BukuForm = () => {
     const {name,value} = e.target
     setform(name,value)
   }
+
+  const handleSlug = () => {
+    let nama = form.judul
+    const slug = nama.replace(/\s+/g,'-')
+    setform("slug",slug)
+  }
+
   const handlePage = (e) => {
     const method = e.target.getAttribute("method")
     if(method === "+"){
@@ -42,12 +49,13 @@ const BukuForm = () => {
         <>
           <Box className="flex flex-col mb-6">
             <InputLabel className='mb-2'>Judul</InputLabel>
-            <TextField
+            <TextField  
               size='small'
               type='text'
               name="judul"
-              onChange={handleForm}
+              onChange={(e) => {handleForm(e),handleSlug()}}
               value={form.judul}
+              onBlur={handleSlug}
             />
           </Box>
           <Box className="flex flex-col mb-6">
@@ -61,6 +69,25 @@ const BukuForm = () => {
             />
           </Box>
           <Box className="flex flex-col mb-6">
+            <InputLabel className='mb-2'>Sinopsis</InputLabel>
+            <TextField
+              size='small'
+              type='text'
+              name="sinopsis"
+              onChange={handleForm}
+              value={form.sinopsis} 
+              multiline
+              rows={5}
+            />
+          </Box>
+         
+          <Button onClick={handlePage} method="+" variant='contained'>Selanjutnya</Button>
+        </>
+      }
+      {
+        page === 2 &&
+        <>
+         <Box className="flex flex-col mb-6">
             <InputLabel className='mb-2'>Penerbit</InputLabel>
             <TextField
               size='small'
@@ -80,13 +107,7 @@ const BukuForm = () => {
               value={form.tahun_terbit}
             />
           </Box>
-          <Button onClick={handlePage} method="+" variant='contained'>Selanjutnya</Button>
-        </>
-      }
-      {
-        page === 2 &&
-        <>
-    <Box className="flex flex-col mb-6">
+        <Box className="flex flex-col mb-6">
             <InputLabel className='mb-2'>Kategori</InputLabel>
             <Select
               size='small'
@@ -102,6 +123,14 @@ const BukuForm = () => {
               }
             </Select>
           </Box>
+          
+          <Button onClick={handlePage} method="-" variant='contained' sx={{marginRight:"1em"}}>Sebelumnya</Button>
+          <Button onClick={handlePage} method="+" variant='contained'>Selanjutnya</Button>
+        </>
+      }
+      {
+        page === 3 &&
+        <>
           <Box className="flex flex-col mb-6">
             <InputLabel className='mb-2'>Perpustakaan</InputLabel>
             <Select
@@ -117,8 +146,8 @@ const BukuForm = () => {
                 )
               }
             </Select>
-          </Box>
-          <Box className="mb-8">
+           </Box>
+           <Box className="mb-8">
             <InputLabel className='mb-2'>Cover Buku</InputLabel>
             <TextField type='file' onChange={handleImg} />
             {
@@ -127,8 +156,8 @@ const BukuForm = () => {
                 <img src={URL.createObjectURL(img)} className='mt-4 border rounded-lg h-64  w-full' />
               </>
             }
-          </Box>
-          <Button onClick={handlePage} method="-" variant='contained'>Sebelumnya</Button>
+           </Box>
+            <Button onClick={handlePage} method="-" variant='contained'>Sebelumnya</Button>
         </>
       }
       

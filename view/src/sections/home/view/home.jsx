@@ -6,6 +6,7 @@ import useItemStore from '../../../../state/item';
 import axios from 'axios';
 import BtnGroup from 'src/components/button/buttongroup';
 import ModalComponent from 'src/components/modal/modal';
+import { useNavigate } from 'react-router-dom';
 
 const HomePageView = () => {
   const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
@@ -13,6 +14,7 @@ const HomePageView = () => {
   const [currkategori,setcurrkategori] = useState(0)
   const [ulasan,setulasan] = useItemStore((state => [state.ulasan,state.setulasan]))
   const [modal,setmodal] = useState(false)
+  const navigate = useNavigate()
 
   const limitbuku = buku.slice(0,5)
 
@@ -41,9 +43,16 @@ const HomePageView = () => {
     setmodal(!modal)
   }
 
+  const redirect = (slug) => {
+    navigate(`/buku/${slug}`)
+  }
+
   const bukuOrderByKategori = buku.filter(item => currkategori != 0 ? item.kategori_id == currkategori : item)
   const bukuOrderByKategoriLimit = bukuOrderByKategori.slice(0,5)
 
+  const redirectToRekomendasiPage = () => {
+    navigate("/rekomendasi")
+  }
 
   useEffect(() => {
     const fetchdata = async() => {
@@ -70,7 +79,7 @@ const HomePageView = () => {
 
   useEffect(() => {
     console.log(bukuOrderByKategori)
-    //console.log(bukuwithrating)
+    console.log(grouprating)
     
   })
 
@@ -82,7 +91,7 @@ const HomePageView = () => {
             <Typography variant='h4'>
               Rekomendasi
             </Typography>
-            <Button variant='contained'>Lihat Semua</Button>
+            <Button variant='contained' onClick={redirectToRekomendasiPage}>Lihat Semua</Button>
           </Box>
           <Box className='flex flex-row gap-6 '>
             {
@@ -91,9 +100,11 @@ const HomePageView = () => {
                   img={`${import.meta.env.VITE_APP_URL_API}img/${item.img}`}
                   title={item.judul}
                   penulis={item.penulis}
-                  handlemodal={handlemodal}
+
                   id={item.id}
                   rating={1}
+                  slug={item.slug}
+                  redirect={redirect}
                 />
                 )
             }
@@ -101,10 +112,13 @@ const HomePageView = () => {
           </Box>
         </Stack>
         <Stack>
+            <Box className='flex justify-between'>
+              <Typography variant='h4' mb={2}>
+                Kategori
+              </Typography>
+              <Button variant='contained' >Lihat Semua</Button>
+            </Box>
           <Box mb={4}>
-            <Typography variant='h4' mb={2}>
-              Kategori
-            </Typography>
             <BtnGroup 
               buttongroup={buttongroup}
               handlecategory={handleCurrKategori}
@@ -120,6 +134,8 @@ const HomePageView = () => {
                   penulis={item.penulis}
                   handlemodal={handlemodal}
                   id={item.id}
+                  redirect={redirect}
+                  slug={item.slug}
                 />
                 )
                 :

@@ -14,6 +14,12 @@ const navConfig = [
     level:[1],
   },
   {
+    title: 'home',
+    path: '/home',
+    icon: icon('ic_blog'),
+    level:[3]
+  },
+  {
     title: 'anggota',
     path: '/anggota',
     icon: icon('ic_user'),
@@ -35,17 +41,18 @@ const navConfig = [
     title: 'peminjaman',
     path: '/peminjaman',
     icon: icon('ic_blog'),
-    level:[1,2]
+    level:[1,2,3]
   },
   {
     title: 'ulasan',
     path: '/ulasan',
     icon: icon('ic_blog'),
-    level:[1]
+    level:[1,3]
   },
+  
   {
-    title: 'home',
-    path: '/home',
+    title: 'Bookmark',
+    path: '/Bookmark',
     icon: icon('ic_blog'),
     level:[3]
   },

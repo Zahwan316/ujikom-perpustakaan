@@ -11,6 +11,8 @@ import PeminjamanPage from 'src/pages/peminjaman';
 import UlasanPage from 'src/pages/ulasan';
 import useUserStore from '../../state/user';
 import HomePage from 'src/pages/home';
+import RekomendasiPage from 'src/pages/rekomendasi';
+import DetailBukuPage from 'src/pages/detailbuku';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -39,7 +41,7 @@ export default function Router() {
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}auth/user/${token}`)
           setuser(res.data.data)
           const data = res.data.data
-          if(data.access_level === 1){
+          /* if(data.access_level === 1){
             redirect("/")
           }
           else if(data.access_level === 2){
@@ -47,7 +49,7 @@ export default function Router() {
           }
           else if(data.access_level === 3){
             redirect("/home")
-          }
+          } */
         }
       }
       catch(e){
@@ -84,6 +86,8 @@ export default function Router() {
         { path: 'peminjaman', element: <PeminjamanPage /> },
         { path: 'ulasan', element: <UlasanPage /> },
         { path: 'home', element: <HomePage /> },
+        { path: 'rekomendasi', element: <RekomendasiPage /> },
+        { path: 'buku/:slug', element: <DetailBukuPage /> },
       ],
     },
     {

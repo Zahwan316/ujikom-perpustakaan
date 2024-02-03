@@ -10,7 +10,8 @@ const icon = (name) => (
   
 const BookComponent = (props) => {
   const openmodal = () => {
-    props.handlemodal(props.id)
+    props.handlemodal && props.handlemodal(props.id)
+    props.redirect && props.redirect(props.slug)
   }
   return(
     <>
