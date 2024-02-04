@@ -9,10 +9,10 @@ const RandInt = () => {
 }
 
 
-router.route("/koleksipribadi")
+router.route("/bookmark")
     .get(async(req,res) =>{
         try{
-            const allItem = await koleksipribadi.findAll()
+            const allItem = await Koleksipribadi.findAll()
             res.status(200).json({
                 message:'Data berhasil diambil',
                 data:allItem,
@@ -30,7 +30,7 @@ router.route("/koleksipribadi")
     })
     .post(async(req,res) => {
         try{
-            const createItem = await koleksipribadi.create({
+            const createItem = await Koleksipribadi.create({
                 koleksiID:RandInt(),
                 ...req.body
             })
@@ -44,7 +44,7 @@ router.route("/koleksipribadi")
         }
     })
 
-router.route("/koleksipribadi/:id")
+router.route("/bookmark/:id")
     .put(async(req,res) => {
         try{
             const id = req.params.id
@@ -76,8 +76,9 @@ router.route("/koleksipribadi/:id")
     })
     .delete(async(req,res) => {
         try{
-            const id = req.paramas.id
+            const id = req.params.id
             const findItem = await Koleksipribadi.findByPk(id)
+            
             if(findItem){
                 findItem.destroy()
                 res.status(200).json({
@@ -105,6 +106,7 @@ router.route("/koleksipribadi/:id")
         try{    
             const id = req.params.id
             const findItem = await Koleksipribadi.findByPk(id)
+            console.log("trigger")
             if(findItem){
                 res.status(200).json({
                     message:'Data berhasil diambil',
@@ -129,4 +131,31 @@ router.route("/koleksipribadi/:id")
         }
     })
 
+router.route('/v2/bookmark/user/:userid/buku/:bukuid')
+    .delete(async(req,res) => {
+        try{
+            const {userid,bukuid} = req.params
+            console.log(req.params)
+            const findItem = await Koleksipribadi.findOne({where:{userID:userid,bukuID:bukuid}})
+            if(findItem){
+                findItem.destroy()
+                res.status(200).json({
+                    message:'Data berhasil dihapus',
+                    method:req.method,
+                })
+            }
+            else{
+                res.status(404).json({ 
+                    message:'Data tidak ditemukan',
+                    method:req.method 
+                })
+            }
+        }   
+        catch(e){
+            res.status(400).json({
+                 message:e.message,
+                 method:req.method,
+            })
+        }
+    })
 module.exports = router

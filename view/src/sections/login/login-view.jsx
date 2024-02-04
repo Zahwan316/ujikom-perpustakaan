@@ -95,10 +95,16 @@ export default function LoginView() {
       if(validateinput()){
         let res = await axios.post(`${import.meta.env.VITE_APP_URL_API}login`,form)
         const token = res.data.token
+        const data = res.data
         Cookies.set("token",token)
         setsuccess(true)
         setTimeout(() => {
-          window.location.href = "/"
+          if(data.access_level === 1 || data.access_level === 2){
+            window.location.href = "/"
+          }
+          else if(data.access_level === 3){
+            window.location.href = "/home"
+          }
         }, 1000);
       }
     }

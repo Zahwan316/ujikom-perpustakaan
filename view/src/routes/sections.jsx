@@ -13,6 +13,7 @@ import useUserStore from '../../state/user';
 import HomePage from 'src/pages/home';
 import RekomendasiPage from 'src/pages/rekomendasi';
 import DetailBukuPage from 'src/pages/detailbuku';
+import KoleksiPage from 'src/pages/koleksi';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -88,6 +89,7 @@ export default function Router() {
         { path: 'home', element: <HomePage /> },
         { path: 'rekomendasi', element: <RekomendasiPage /> },
         { path: 'buku/:slug', element: <DetailBukuPage /> },
+        { path: 'koleksi', element: <KoleksiPage /> },
       ],
     },
     {

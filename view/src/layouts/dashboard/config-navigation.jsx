@@ -51,8 +51,8 @@ const navConfig = [
   },
   
   {
-    title: 'Bookmark',
-    path: '/Bookmark',
+    title: 'Koleksi',
+    path: '/koleksi',
     icon: icon('ic_blog'),
     level:[3]
   },

@@ -167,6 +167,7 @@ router.route("/login")
                         message:'Login Berhasil',
                         token:token,
                         method:req.method,
+                        access_level:user.access_level
                     })
                     
                 }

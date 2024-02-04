@@ -7,6 +7,7 @@ import axios from 'axios';
 import BtnGroup from 'src/components/button/buttongroup';
 import ModalComponent from 'src/components/modal/modal';
 import { useNavigate } from 'react-router-dom';
+import useFormStore from '../../../../state/form';
 
 const HomePageView = () => {
   const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
@@ -14,6 +15,7 @@ const HomePageView = () => {
   const [currkategori,setcurrkategori] = useState(0)
   const [ulasan,setulasan] = useItemStore((state => [state.ulasan,state.setulasan]))
   const [modal,setmodal] = useState(false)
+  const [form,setform] = useFormStore((state) => [state.form,state.setform])
   const navigate = useNavigate()
 
   const limitbuku = buku.slice(0,5)
@@ -78,8 +80,8 @@ const HomePageView = () => {
   },[])
 
   useEffect(() => {
-    console.log(bukuOrderByKategori)
-    console.log(grouprating)
+    console.log(form)
+   
     
   })
 

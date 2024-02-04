@@ -21,6 +21,9 @@ const useItemStore = create((set) => ({
 
     ulasan:[],
     setulasan:(data) => set(() => ({ulasan:data})),
+
+    koleksi:[],
+    setkoleksi:(data) => set(() => ({koleksi:data})),
 }))
 
 export default useItemStore
