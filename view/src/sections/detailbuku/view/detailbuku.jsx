@@ -87,7 +87,7 @@ const DetailBukuView = () => {
 
         }
         <Stack direction={"row"} gap={8} mb={6}>
-          <Box className='w-72'>
+          <Box className='w-72 h-2/3'>
             <img 
               src={`${import.meta.env.VITE_APP_URL_API}img/${detailbuku && detailbuku.img}`}
               className='rounded-md w-full h-full'
