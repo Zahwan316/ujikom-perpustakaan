@@ -45,6 +45,10 @@ const DetailBukuView = () => {
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}buku`)
           setBuku(res.data.data)
         }
+        if(Object.keys(perpus).length === 0){
+          let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}perpus`)
+          setperpus(res.data.data)
+        }
         if(Object.keys(ulasan).length === 0){
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}ulasanbuku`)
           setUlasan(res.data.data)
@@ -52,10 +56,6 @@ const DetailBukuView = () => {
         if(Object.keys(user).length === 0){
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}user`)
           setuser(res.data.data)
-        }
-        if(Object.keys(perpus).length === 0){
-          let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}perpus`)
-          setperpus(res.data.data)
         }
         if(Object.keys(kategori).length === 0){
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}kategori`)
@@ -70,7 +70,7 @@ const DetailBukuView = () => {
   },[])
 
   useEffect(() => {
-    console.log(detailulasan)
+    
   })
 
   return(
@@ -97,6 +97,7 @@ const DetailBukuView = () => {
            buku={detailbuku} 
            handlebookmark={handleBookmark}
            handleremovebookmark={handleRemoveBookmark}
+           perpus={perpus}
           />
         </Stack>
         <UlasanDetailBukuComponent 

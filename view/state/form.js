@@ -6,8 +6,11 @@ const useFormStore = create((set) => ({
     resetform:() => set(() => ({form:""})),
 
     error:{},
-    seterror:(data) => set(() => ({error:data}))
+    seterror:(data) => set(() => ({error:data})),
 
+    formdetailbuku:{},
+    setformdetailbuku:(name,value) => set((state) => ({formdetailbuku:{...state.formdetailbuku,[name]:value}})),
+    resetformdetailbuku:() => set(() => ({form_detail_buku:""}))
 }))
 
 export default useFormStore

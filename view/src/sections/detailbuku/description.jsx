@@ -7,14 +7,18 @@ import useItemStore from '../../../state/item';
 import axios from 'axios';
 import {v4 as uuidv4} from 'uuid'
 import { Alert, AlertTitle, Snackbar } from '@mui/material';
+import Swal from 'sweetalert2';
 
 const DescriptionDetailBukuComponent = (props) => {
-  const [form,setform,resetform] = useFormStore((state) => [state.form,state.setform,state.resetform])
+  const [form,setform,resetform] = useFormStore((state) => [state.formdetailbuku,state.setformdetailbuku,state.resetformdetailbuku])
   const user = useUserStore((state) => state.user)
   const [koleksi,setkoleksi] = useItemStore((state) => [state.koleksi,state.setkoleksi])
   const [updater,setupdate] = useState()
   const [isload,setisload] = useState(false)
   const [success,setsuccess] = useState(false)
+  const [alerttype,setalerttype] = useState("")
+  const [peminjaman,setpeminjaman] = useItemStore((state) => [state.peminjaman,state.setpeminjaman])
+  const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
 
   const Bookmarkicon = (<i><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"/></svg></i>)
 
@@ -23,6 +27,7 @@ const DescriptionDetailBukuComponent = (props) => {
     setupdate(uuidv4())
     setisload(true)
     setsuccess(true)
+    setalerttype("bookmark")
     setTimeout(() => {
       setisload(false)
       setsuccess(false)
@@ -34,20 +39,57 @@ const DescriptionDetailBukuComponent = (props) => {
     setupdate(uuidv4())
     setisload(true)
     setsuccess(true)
+    setalerttype("bookmark")
     setTimeout(() => {
       setisload(false)
       setsuccess(false)
     }, 1500);
   }
 
+  const handlePinjamBuku = async() => {
+    try{
+      Swal.fire({
+        title:"Yakin",
+        text:"Apakah anda ingin meminjam buku ini ?",
+        icon:"warning",
+        showCancelButton:true,
+      }).then(async(result) => {
+        if(result.isConfirmed){
+          let res = await axios.post(`${import.meta.env.VITE_APP_URL_API}peminjaman`,form) 
+          setupdate(uuidv4())
+          setalerttype("pinjam")
+          setisload(true)
+          setsuccess(true)
+          setTimeout(() => {
+            setsuccess(false)
+            setisload(false)
+          }, 1500);
+        }
+      })
+    }
+    catch(e){
+      console.log(e)
+    }
+  }
+
   const selectedbookmark = koleksi.find(item => item.userID === user.userID && item.bukuID === props.buku.bukuID) || false
+  const selectedpeminjaman = peminjaman.find(item => item.userID === user.userID && item.bukuID === props.buku.bukuID) || false
 
   useEffect(() => {
-    if(props.buku){
-      setform("bukuID",props.buku.bukuID)
-      setform('userID',user.userID)
+    if(props.perpus && props.perpus.length > 0){
+      const now = new Date()
+      const option = {year:"numeric",month:'2-digit',day:"2-digit"}
+      const formatteddate = now.toLocaleDateString("en-US",option)
+      if(props.buku ){
+        setform("bukuID",props.buku.bukuID)
+        setform('userID',user.userID)
+        setform('perpus_id',perpus[0].perpus_id)
+        setform('status_pinjam',1)
+        setform('tanggal_pinjam',formatteddate)
+      }
+
     }
-  },[props.buku,user])
+  },[props.buku,user,props.perpus])
 
   useEffect(() => {
     const fetchdata = async() => {
@@ -55,6 +97,10 @@ const DescriptionDetailBukuComponent = (props) => {
         if(Object.keys(koleksi).length === 0){
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}bookmark`)
           setkoleksi(res.data.data)
+        }
+        if(Object.keys(peminjaman).length === 0){
+          let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}peminjaman`)
+          setpeminjaman(res.data.data)
         }
       }
       catch(e){
@@ -69,6 +115,9 @@ const DescriptionDetailBukuComponent = (props) => {
       try{
         let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}bookmark`)
         setkoleksi(res.data.data)
+
+        let res_peminjaman = await axios.get(`${import.meta.env.VITE_APP_URL_API}peminjaman`)
+        setpeminjaman(res_peminjaman.data.data)
       }
       catch(e){
         console.log(e)
@@ -80,7 +129,8 @@ const DescriptionDetailBukuComponent = (props) => {
   },[updater])
 
   useEffect(() => {
-    console.log(form)
+    console.log(selectedpeminjaman)
+    console.log(peminjaman)
   })
 
   return(
@@ -92,11 +142,19 @@ const DescriptionDetailBukuComponent = (props) => {
               <Alert variant='filled' severity='success' className='w-full'>
                 <AlertTitle>Berhasil</AlertTitle>
                 {
+                  alerttype === "bookmark" &&
                   Object.keys(selectedbookmark).length !== 0 ?
                   'Buku berhasil ditambahkan ke dalam koleksi pribadi'
                   :
                   'Buku berhasil dihapus dari koleksi pribadi'
 
+                }
+                {
+                  alerttype === "pinjam" &&
+                  Object.keys(selectedpeminjaman).length !== 0?
+                  'Buku berhasil dipinjam'
+                  :
+                  'Buku berhasil dikembalikan'
                 }
               </Alert>
           </Snackbar>
@@ -115,15 +173,20 @@ const DescriptionDetailBukuComponent = (props) => {
             </Box>
             <Box>
                 <Box className='flex gap-3 mb-4'>
-                    <Button variant='contained' >Pinjam</Button>
+                  {
+                    selectedpeminjaman != undefined &&
+                    Object.keys(selectedpeminjaman).length === 0 ?
+                    <Button variant='contained' onClick={handlePinjamBuku} >Pinjam</Button>
+                    :
+                    <Button variant='contained' >Buku sedang dipinjam</Button>
+                  }
+
                     {
                       selectedbookmark != undefined &&
                       Object.keys(selectedbookmark).length === 0 ?
                       <Button variant='contained' onClick={handlebookmark} startIcon={Bookmarkicon }>Bookmark</Button>
                       :
                       <Button variant='contained' onClick={handleRemoveBookmark}>Buku sudah di bookmark</Button>
-                     
-
                     }
                 </Box>
                 <Box>
