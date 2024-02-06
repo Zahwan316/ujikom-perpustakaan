@@ -73,19 +73,30 @@ const DescriptionDetailBukuComponent = (props) => {
   }
 
   const selectedbookmark = koleksi.find(item => item.userID === user.userID && item.bukuID === props.buku.bukuID) || false
-  const selectedpeminjaman = peminjaman.find(item => item.userID === user.userID && item.bukuID === props.buku.bukuID) || false
+  const selectedpeminjamanlast = peminjaman.filter(item => item.userID === user.userID && item.bukuID === props.buku.bukuID) || false
+  const selectedpeminjaman = selectedpeminjamanlast[selectedpeminjamanlast.length - 1] || false
+
+  const checkobjvalue = (obj,key,value) => {
+    const keys = Object.keys(obj)
+    for(const k of keys){
+      if(k === key && obj[k] === value){
+        return true
+      }
+    }
+    return false
+  }
 
   useEffect(() => {
     if(props.perpus && props.perpus.length > 0){
       const now = new Date()
       const option = {year:"numeric",month:'2-digit',day:"2-digit"}
-      const formatteddate = now.toLocaleDateString("en-US",option)
+      const formatteddate = now.toLocaleDateString("en-CA",option)
       if(props.buku ){
         setform("bukuID",props.buku.bukuID)
         setform('userID',user.userID)
         setform('perpus_id',perpus[0].perpus_id)
-        setform('status_pinjam',1)
-        setform('tanggal_pinjam',formatteddate)
+        setform('status_peminjaman',1)
+        setform('tanggal_peminjaman',formatteddate)
       }
 
     }
@@ -129,15 +140,15 @@ const DescriptionDetailBukuComponent = (props) => {
   },[updater])
 
   useEffect(() => {
+   // console.log(checkobjvalue(selectedpeminjaman,"status_peminjaman",2))
+    console.log(selectedpeminjaman.status_peminjaman)
     console.log(selectedpeminjaman)
-    console.log(peminjaman)
   })
 
   return(
     <>
         {
           success &&
-          
           <Snackbar open={true} autoHideDuration={1000} anchorOrigin={{vertical:"top",horizontal:"right"}} className='w 3/2'>
               <Alert variant='filled' severity='success' className='w-full'>
                 <AlertTitle>Berhasil</AlertTitle>
@@ -175,7 +186,7 @@ const DescriptionDetailBukuComponent = (props) => {
                 <Box className='flex gap-3 mb-4'>
                   {
                     selectedpeminjaman != undefined &&
-                    Object.keys(selectedpeminjaman).length === 0 ?
+                    selectedpeminjaman.status_peminjaman === 2 || Object.keys(selectedpeminjaman).length === 0 ?
                     <Button variant='contained' onClick={handlePinjamBuku} >Pinjam</Button>
                     :
                     <Button variant='contained' >Buku sedang dipinjam</Button>
