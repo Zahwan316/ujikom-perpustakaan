@@ -12,15 +12,18 @@ const UlasanDetailBukuComponent = (props) => {
             {
               props.ulasan.length != 0 ?
                 props.ulasan.map((item,index) => 
-                    <Box className='bg-gray-300 p-4 rounded-lg'>
-                    <Typography variant='h6'>
-                        {
-                            props.user.map(items => 
-                            items.userID === item.userID &&
-                            items.username
-                            )
-                        }
-                    </Typography>
+                    <Box className=' p-4 rounded-lg'>
+                      <Box className='flex flex-row items-center gap-2'>
+                        <Typography variant='h5'>
+                            {
+                                props.user.map(items => 
+                                items.userID === item.userID &&
+                                items.username
+                                )
+                            }
+                        </Typography>
+                        <Typography variant='subtitle2'>2 jam yang lalu</Typography>
+                      </Box>
                     <Typography variant='caption' className='mb-8'>
                         {item.rating}
                     </Typography>
