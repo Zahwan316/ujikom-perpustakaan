@@ -98,6 +98,7 @@ const PeminjamanUserViewPage = () => {
           </Typography>
           <Box className='flex flex-wrap flex-row ' gap={3}>
             {
+              selectedpeminjaman.length != 0 ?
               selectedpeminjaman.map(item => 
                 buku.map(items => 
                   item.bukuID === items.bukuID &&
@@ -112,6 +113,8 @@ const PeminjamanUserViewPage = () => {
                   />
                 )
               )
+              :
+              <Typography>Belum ada buku yang dimpinjam </Typography>
             }
            
           </Box>

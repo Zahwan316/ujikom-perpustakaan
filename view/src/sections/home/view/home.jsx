@@ -49,6 +49,10 @@ const HomePageView = () => {
     navigate(`/buku/${slug}`)
   }
 
+  const redirectToKategoriPage = () => {
+    navigate("/kategori")
+  }
+
   const bukuOrderByKategori = buku.filter(item => currkategori != 0 ? item.kategori_id == currkategori : item)
   const bukuOrderByKategoriLimit = bukuOrderByKategori.slice(0,5)
 
@@ -118,7 +122,7 @@ const HomePageView = () => {
               <Typography variant='h4' mb={2}>
                 Kategori
               </Typography>
-              <Button variant='contained' >Lihat Semua</Button>
+              <Button variant='contained' onClick={redirectToKategoriPage} >Lihat Semua</Button>
             </Box>
           <Box mb={4}>
             <BtnGroup 
@@ -126,10 +130,10 @@ const HomePageView = () => {
               handlecategory={handleCurrKategori}
              />
           </Box>
-          <Box className='flex flex-row gap-6 '>
+          <Box className='flex flex-row gap-6 flex-wrap'>
             {
-              bukuOrderByKategoriLimit.length != 0?
-              bukuOrderByKategoriLimit.map(item => 
+              bukuOrderByKategori.length != 0?
+              bukuOrderByKategori.map(item => 
                 <BookComponent 
                   img={`${import.meta.env.VITE_APP_URL_API}img/${item.img}`}
                   title={item.judul}
