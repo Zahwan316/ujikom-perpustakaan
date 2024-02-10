@@ -17,6 +17,18 @@ const refuser = require("../models/ref_user")
 const Refuser = refuser(sequelize,DataTypes)
 const peminjaman = require("../models/peminjaman")
 const Peminjaman = peminjaman(sequelize,DataTypes)
+const multer = require("multer")
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/'); // Folder tempat menyimpan gambar
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname); // Nama file unik
+    },
+  });
+
+const upload = multer({ storage: storage });
 
 router.route("/user")
     .get(async(req,res) => {
@@ -37,14 +49,15 @@ router.route("/user")
             
         }
     })
-    .post(async(req,res) => {
+    .post(upload.single("img"),async(req,res) => {
         try{
             const hashpassword = await bcrypt.hash(req.body.password,10)
             console.log(hashpassword)
             const createItem = await User.create({
                 ...req.body,
                 userID:RandInt(),
-                password:hashpassword
+                password:hashpassword,
+                img:req.file && req.file.filename 
             })
             res.status(200).json({
                 message:'Data berhasil dibuat',
@@ -62,19 +75,32 @@ router.route("/user")
     })
 
 router.route("/user/:id")
-    .put(async(req,res) => {
+    .put(upload.single("img"),async(req,res) => {
         try{
             let id = req.params.id
             const findItem = await User.findByPk(id)
             if(findItem){
-                findItem.update({
-                    ...req.body,
-                    password:req.body.password != null && await bcrypt.hash(req.body.password,10)
-                })
-                res.status(200).json({
-                    message:'Data berhasil diedit',
-                    method:req.method,
-                })
+                if(req.body.password){
+                    findItem.update({
+                        ...req.body,
+                        password: await bcrypt.hash(req.body.password,10),
+                        img:req.file && req.file.filename
+                    })
+                    res.status(200).json({
+                        message:'Data berhasil diedit',
+                        method:req.method,
+                    })
+                }
+                else{
+                    findItem.update({
+                        ...req.body,
+                        img:req.file && req.file.filename
+                    })
+                    res.status(200).json({
+                        message:'Data berhasil diedit',
+                        method:req.method,
+                    })
+                }
                 
             }
             else{

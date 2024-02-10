@@ -42,6 +42,10 @@ module.exports = function(sequelize, DataTypes) {
     access_level: {
       type: DataTypes.INTEGER,
       allowNull: true
+    },
+    img: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     sequelize,

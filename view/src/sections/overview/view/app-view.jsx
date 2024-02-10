@@ -15,10 +15,45 @@ import AppWidgetSummary from '../app-widget-summary';
 import AppTrafficBySite from '../app-traffic-by-site';
 import AppCurrentSubject from '../app-current-subject';
 import AppConversionRates from '../app-conversion-rates';
+import useItemStore from '../../../../state/item';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 // ----------------------------------------------------------------------
 
-export default function AppView() {
+const AppView = () => {
+  const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
+  const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
+  const [peminjaman,setpeminjaman] = useItemStore((state) => [state.peminjaman,state.setpeminjaman])
+  const [user,setuser] = useItemStore((state) => [state.user,state.setuser])
+
+  useEffect(() => {
+    const fetchData = async() => {
+      try{
+        if(Object.keys(buku).length === 0){
+          const res = await axios.get(`${import.meta.env.VITE_APP_URL_API}buku`)
+          setbuku(res.data.data)
+        }
+        if(Object.keys(perpus).length === 0){
+          const res = await axios.get(`${import.meta.env.VITE_APP_URL_API}perpus`)
+          setperpus(res.data.data)
+        }
+        if(Object.keys(peminjaman).length === 0){
+          const res = await axios.get(`${import.meta.env.VITE_APP_URL_API}peminjaman`)
+          setpeminjaman(res.data.data)
+        }
+        if(Object.keys(user).length === 0){
+          const res = await axios.get(`${import.meta.env.VITE_APP_URL_API}user`)
+          setuser(res.data.data)
+        }
+      }
+      catch(e){
+        console.log(e)
+      }
+    }
+    fetchData()
+  },[])
+
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
@@ -28,8 +63,8 @@ export default function AppView() {
       <Grid container spacing={3}>
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-            title="Weekly Sales"
-            total={714000}
+            title="Buku tersimpan"
+            total={buku.length}
             color="success"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_bag.png" />}
           />
@@ -37,8 +72,8 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-            title="New Users"
-            total={1352831}
+            title="Pengguna terdaftar"
+            total={user.length}
             color="info"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
           />
@@ -46,8 +81,8 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-            title="Item Orders"
-            total={1723315}
+            title="Buku yang dipinjam"
+            total={peminjaman.length}
             color="warning"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
           />
@@ -55,14 +90,14 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-            title="Bug Reports"
-            total={234}
+            title="Perpus terdaftar"
+            total={perpus.length}
             color="error"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
           />
         </Grid>
 
-        <Grid xs={12} md={6} lg={8}>
+       {/*  <Grid xs={12} md={6} lg={8}>
           <AppWebsiteVisits
             title="Website Visits"
             subheader="(+43%) than last year"
@@ -102,9 +137,9 @@ export default function AppView() {
               ],
             }}
           />
-        </Grid>
+        </Grid> */}
 
-        <Grid xs={12} md={6} lg={4}>
+       {/*  <Grid xs={12} md={6} lg={4}>
           <AppCurrentVisits
             title="Current Visits"
             chart={{
@@ -116,9 +151,9 @@ export default function AppView() {
               ],
             }}
           />
-        </Grid>
+        </Grid> */}
 
-        <Grid xs={12} md={6} lg={8}>
+       {/*  <Grid xs={12} md={6} lg={8}>
           <AppConversionRates
             title="Conversion Rates"
             subheader="(+43%) than last year"
@@ -137,9 +172,9 @@ export default function AppView() {
               ],
             }}
           />
-        </Grid>
+        </Grid> */}
 
-        <Grid xs={12} md={6} lg={4}>
+        {/* <Grid xs={12} md={6} lg={4}>
           <AppCurrentSubject
             title="Current Subject"
             chart={{
@@ -151,7 +186,7 @@ export default function AppView() {
               ],
             }}
           />
-        </Grid>
+        </Grid> */}
 
         <Grid xs={12} md={6} lg={8}>
           <AppNewsUpdate
@@ -166,7 +201,7 @@ export default function AppView() {
           />
         </Grid>
 
-        <Grid xs={12} md={6} lg={4}>
+       {/*  <Grid xs={12} md={6} lg={4}>
           <AppOrderTimeline
             title="Order Timeline"
             list={[...Array(5)].map((_, index) => ({
@@ -182,9 +217,9 @@ export default function AppView() {
               time: faker.date.past(),
             }))}
           />
-        </Grid>
+        </Grid> */}
 
-        <Grid xs={12} md={6} lg={4}>
+        {/* <Grid xs={12} md={6} lg={4}>
           <AppTrafficBySite
             title="Traffic by Site"
             list={[
@@ -223,8 +258,10 @@ export default function AppView() {
               { id: '5', name: 'Sprint Showcase' },
             ]}
           />
-        </Grid>
+        </Grid> */}
       </Grid>
     </Container>
   );
 }
+
+export default AppView

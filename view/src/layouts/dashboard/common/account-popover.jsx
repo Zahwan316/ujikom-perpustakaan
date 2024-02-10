@@ -14,23 +14,32 @@ import Router from 'src/routes/sections';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import useUserStore from '../../../../state/user';
+import useFormStore from '../../../../state/form';
 
 // ----------------------------------------------------------------------
 
+
 const MENU_OPTIONS = [
-  
+  {
+    label:"Pengaturan",
+    onclick:""
+  }
 ];
 
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
-  const [open, setOpen] = useState(null);
   const navigate = useNavigate()
+  const [open, setOpen] = useState(null);
   const user = useUserStore((state) => state.user)
+  const resetform = useFormStore((state) => state.resetform)
 
   const handleLogout = () => {
     Cookies.remove('token')
-    navigate("/login")
+    resetform()
+    setTimeout(() => {
+      navigate("/login")
+    },400)
   }
 
   const handleOpen = (event) => {
@@ -40,6 +49,10 @@ export default function AccountPopover() {
   const handleClose = () => {
     setOpen(null);
   };
+
+  const redirectToSetting = () => {
+    navigate("setting/")
+  }
 
   return (
     <>
@@ -56,7 +69,7 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src={account.photoURL}
+          src={`${import.meta.env.VITE_APP_URL_API}img/${user.img}`}
           alt={account.displayName}
           sx={{
             width: 36,
@@ -95,7 +108,7 @@ export default function AccountPopover() {
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         {MENU_OPTIONS.map((option) => (
-          <MenuItem key={option.label} onClick={handleClose}>
+          <MenuItem key={option.label} page='settings' onClick={redirectToSetting}>
             {option.label}
           </MenuItem>
         ))}

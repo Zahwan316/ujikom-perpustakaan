@@ -99,8 +99,11 @@ export default function LoginView() {
         Cookies.set("token",token)
         setsuccess(true)
         setTimeout(() => {
-          if(data.access_level === 1 || data.access_level === 2){
+          if(data.access_level === 1 ){
             window.location.href = "/"
+          }
+          else if(data.access_level === 2){
+            window.location.href = "/buku"
           }
           else if(data.access_level === 3){
             window.location.href = "/home"

@@ -85,8 +85,6 @@ const HomePageView = () => {
 
   useEffect(() => {
     console.log(form)
-   
-    
   })
 
   return(
@@ -106,9 +104,8 @@ const HomePageView = () => {
                   img={`${import.meta.env.VITE_APP_URL_API}img/${item.img}`}
                   title={item.judul}
                   penulis={item.penulis}
-
                   id={item.id}
-                  rating={1}
+                  
                   slug={item.slug}
                   redirect={redirect}
                 />

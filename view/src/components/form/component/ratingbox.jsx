@@ -6,6 +6,7 @@ const RatingBox = (props) => {
   const [value,setvalue] = useState(0)
   const clickButtonRating = (index) => {
     setvalue(index)
+    props.setform("rating",index + 1)
   }
 
   const box = (value,index) => {

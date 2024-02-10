@@ -5,6 +5,7 @@ import useItemStore from '../../../../state/item';
 import BookComponent from 'src/components/book/book';
 import axios from 'axios';
 import useUserStore from '../../../../state/user';
+import Swal from 'sweetalert2';
 
 const KoleksiViewPage = () => {
   const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
@@ -12,6 +13,25 @@ const KoleksiViewPage = () => {
   const user = useUserStore((item) => item.user)
 
   const filteredkoleksi = koleksi && koleksi.filter((item) => item.userID === user.userID)
+  const handleOpenSwal = (id) => {
+    Swal.fire({
+      title: 'Apakah anda yakin?',
+      text: "Anda tidak akan dapat mengembalikan data ini!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+        'success'
+        )
+      }
+    })
+  }
 
   useEffect(() => {
     const fetchdata = async() => {
@@ -54,7 +74,7 @@ const KoleksiViewPage = () => {
               )
             )
             :
-            <Typography variant='subtitle2'>
+            <Typography variant='body1'>
               Anda belum memiliki koleksi buku
             </Typography>
           }

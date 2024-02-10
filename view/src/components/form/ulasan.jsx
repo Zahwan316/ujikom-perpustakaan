@@ -3,8 +3,9 @@ import { InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import RatingBox from './component/ratingbox';
 import useFormStore from '../../../state/form';
+import useUserStore from '../../../state/user';
 
-const UlasanForm = () => {
+const UlasanForm = (props) => {
   const ratingdata = [
     {
         value:1,
@@ -37,7 +38,7 @@ const UlasanForm = () => {
         value:10,
     },
   ]
-
+  const user = useUserStore((state) => state.user)
   const [active,setactive] = useState(false)
   const [form,setform] = useFormStore((state) => [state.form,state.setform])
   
@@ -46,6 +47,17 @@ const UlasanForm = () => {
     setform(name,value)
     
   }
+
+  useEffect(() => {
+    console.log(form)
+  })
+
+  useEffect(() => {
+    if(typeof props.id === 'number'){
+      setform("userID",user.userID)  
+      setform("bukuID",props.id)
+    }
+  },[])
   
   return(
     <>
@@ -56,6 +68,7 @@ const UlasanForm = () => {
           multiline
           size='small'
           rows={4}
+          onChange={handleform}
         />
       </Box>
       <Box className='flex flex-col mb-6'>
@@ -63,6 +76,7 @@ const UlasanForm = () => {
         <Box className="flex flex-row flex-wrap gap-2">
           <RatingBox 
             btn={ratingdata}
+            setform={setform}
           />
         </Box>
       </Box>

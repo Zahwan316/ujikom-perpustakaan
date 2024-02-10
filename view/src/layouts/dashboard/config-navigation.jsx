@@ -20,7 +20,7 @@ const navConfig = [
     level:[3]
   },
   {
-    title: 'anggota',
+    title: 'pengguna',
     path: '/anggota',
     icon: icon('ic_user'),
     level:[1],

@@ -119,7 +119,7 @@ const AnggotaViewPage = () => {
   },[])
 
   useEffect(() => {
-    console.log(filterrole)
+    console.log(form)
   })
 
   useEffect(() => {
@@ -152,7 +152,9 @@ const AnggotaViewPage = () => {
         let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}user/${editedid}`)
         const data = res.data.data
         for(const key in data){
-          setform(key,data[key])
+          if(key != "password"){
+            setform(key,data[key])
+          }
         }
        
       }

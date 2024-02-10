@@ -114,7 +114,7 @@ const PeminjamanUserViewPage = () => {
                 )
               )
               :
-              <Typography>Belum ada buku yang dimpinjam </Typography>
+              <Typography>Belum ada buku yang dipinjam </Typography>
             }
            
           </Box>
