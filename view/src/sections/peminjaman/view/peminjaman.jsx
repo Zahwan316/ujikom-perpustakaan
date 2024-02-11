@@ -23,6 +23,7 @@ const PeminjamanViewPage = () => {
   const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
   const [form,setform,resetform] = useFormStore((state) => [state.form,state.setform,state.resetform])
   const [refpeminjaman,setrefpeminjaman] = useItemStore((state) => [state.ref_peminjaman,state.setref_peminjaman])
+  const [message,setmessage] = useItemStore((state) => [state.message,state.setmessage])
   const [user,setuser] = useItemStore((state) => [state.user,state.setuser])
   const [modal,setmodal] = useState(false)
   const [editedid,seteditedid] = useState()
@@ -111,6 +112,10 @@ const PeminjamanViewPage = () => {
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}user`)
           setuser(res.data.data)
         }
+        if(Object.keys(message).length === 0){
+          let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}message`)
+          setmessage(res.data.data)
+        }
       }
       catch(e){
         console.log(e)
@@ -135,6 +140,9 @@ const PeminjamanViewPage = () => {
         
         let res_perpus = await axios.get(`${import.meta.env.VITE_APP_URL_API}perpus`)
         setperpus(res_perpus.data.data)
+
+        let res_message = await axios.get(`${import.meta.env.VITE_APP_URL_API}message`)
+        setmessage(res_message.data.data)
       }
       catch(e){
         console.log(e)

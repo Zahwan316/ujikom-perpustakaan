@@ -69,7 +69,7 @@ const BukuForm = () => {
             />
           </Box>
           <Box className="flex flex-col mb-6">
-            <InputLabel className='mb-2'>Sinopsis</InputLabel>
+            <InputLabel className='mb-2'>Sinopsis / Tentang</InputLabel>
             <TextField
               size='small'
               type='text'

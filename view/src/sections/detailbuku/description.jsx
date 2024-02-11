@@ -94,7 +94,7 @@ const DescriptionDetailBukuComponent = (props) => {
       if(props.buku ){
         setform("bukuID",props.buku.bukuID)
         setform('userID',user.userID)
-        setform('perpus_id',perpus[0].perpus_id)
+        setform('perpus_id',user.perpus_id)
         setform('status_peminjaman',1)
         setform('tanggal_peminjaman',formatteddate)
       }

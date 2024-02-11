@@ -95,7 +95,7 @@ const HomePageView = () => {
             <Typography variant='h4'>
               Rekomendasi
             </Typography>
-            <Button variant='contained' onClick={redirectToRekomendasiPage}>Lihat Semua</Button>
+           
           </Box>
           <Box className='flex flex-row gap-6 '>
             {
@@ -119,9 +119,9 @@ const HomePageView = () => {
               <Typography variant='h4' mb={2}>
                 Kategori
               </Typography>
-              <Button variant='contained' onClick={redirectToKategoriPage} >Lihat Semua</Button>
+              
             </Box>
-          <Box mb={4}>
+          <Box mb={4} className='flex flex-wrap gap-2'>
             <BtnGroup 
               buttongroup={buttongroup}
               handlecategory={handleCurrKategori}

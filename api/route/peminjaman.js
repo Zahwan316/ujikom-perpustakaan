@@ -6,6 +6,12 @@ const {DataTypes} = require("sequelize")
 const Peminjaman = peminjaman(sequelize,DataTypes)
 const ref_peminjaman = require("../models/ref_peminjaman")
 const Ref_peminjaman = ref_peminjaman(sequelize,DataTypes)
+const message = require("../models/message")
+const Message = message(sequelize,DataTypes)
+const user = require("../models/user")
+const buku = require("../models/buku")
+const User = user(sequelize,DataTypes)
+const Buku = buku(sequelize,DataTypes)
 const RandInt = () => {
     return Math.floor(Math.random() * 9999999)
 }
@@ -35,6 +41,15 @@ router.route("/peminjaman")
                 peminjamanID:RandInt(),
                 ...req.body,
             })
+            let user_data = await User.findByPk(req.body.userID)
+            let buku_data = await Buku.findByPk(req.body.bukuID)
+
+            let sendMessage = await Message.create({
+                message_id:RandInt(),
+                text:`${user_data.username} meminjam buku ${buku_data.judul}`,
+                title:"Meminjam Buku"
+            })
+
             res.status(200).json({
                 message:'Data berhasil ditambahkan',
                 method:req.method,
@@ -55,6 +70,17 @@ router.route("/peminjaman/:id")
         try{
             let id = req.params.id
             let findItem = await Peminjaman.findByPk(id)
+            let user_data = await User.findByPk(req.body.userID)
+            let buku_data = await Buku.findByPk(req.body.bukuID)
+
+            if(req.body.status_peminjaman === 2){
+                let sendMessage = await Message.create({
+                    message_id:RandInt(),
+                    text:`${user_data.username} sudah mengembalikan buku ${buku_data.judul}`,
+                    title:"Mengembalikan Buku"
+                })
+
+            }
 
             if(findItem){
                 findItem.update({

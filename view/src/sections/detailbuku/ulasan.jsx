@@ -28,7 +28,7 @@ const UlasanDetailBukuComponent = (props) => {
                         {
                           props.user.map((items) => 
                             items.userID === item.userID &&
-                            <Box component={"img"} src={`${`${import.meta.env.VITE_APP_URL_API}img/${items.img}`}`} className='w-12 h-12 rounded-lg' />
+                            <Box component={"img"} src={`${items.img ? `${import.meta.env.VITE_APP_URL_API}img/${items.img}` : "/assets/images/noprofile.png"}`} className='w-12 h-12 rounded-lg' />
 
                           )
                         }

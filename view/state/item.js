@@ -24,6 +24,9 @@ const useItemStore = create((set) => ({
 
     koleksi:[],
     setkoleksi:(data) => set(() => ({koleksi:data})),
+
+    message:[],
+    setmessage:(data) => set(() => ({message:data})),
 }))
 
 export default useItemStore

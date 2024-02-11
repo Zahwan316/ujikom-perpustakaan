@@ -18,9 +18,12 @@ const KategoriViewPage = () => {
   const [editedid,seteditedid] = useState()
   const [updater,setupdater] = useState()
   const [isload,setisload] = useState()
-  const [form,setform] = useFormStore((state) => [state.form,state.setform])
+  const [form,setform,resetform] = useFormStore((state) => [state.form,state.setform,state.resetform])
 
-  const handleModal = () => setmodal(!modal)
+  const handleModal = () => {
+    setmodal(!modal)
+    typeform === "add" && resetform()
+  }
 
   const getTypeBtn = (typebtn,id) => {
     settypeform(typebtn)
@@ -50,6 +53,7 @@ const KategoriViewPage = () => {
       setmodal(false)
       setupdater(uuidv4())
       setisload(true)
+      resetform()
       setTimeout(() => {
         setisload(false)
       },500)

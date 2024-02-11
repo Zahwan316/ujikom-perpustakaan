@@ -8,6 +8,7 @@ const Kategori = require("./route/kategoribuku")
 const Ulasanbuku = require("./route/ulasanbuku")
 const Koleksipribadi = require("./route/koleksipribadi")
 const User = require("./route/user")
+const Message = require("./route/message")
 const Perpus = require("./route/perpus")
 
 app.use(express.json())
@@ -26,6 +27,7 @@ app.use(Ulasanbuku)
 app.use(Koleksipribadi)
 app.use(User)
 app.use(Perpus)
+app.use(Message)
 app.use("/img",express.static("uploads"))
 
 app.listen(port,() => {

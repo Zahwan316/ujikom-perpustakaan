@@ -26,6 +26,7 @@ const AppView = () => {
   const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
   const [peminjaman,setpeminjaman] = useItemStore((state) => [state.peminjaman,state.setpeminjaman])
   const [user,setuser] = useItemStore((state) => [state.user,state.setuser])
+  const [message,setmessage] = useItemStore((state) => [state.message,state.setmessage])
 
   useEffect(() => {
     const fetchData = async() => {
@@ -45,6 +46,10 @@ const AppView = () => {
         if(Object.keys(user).length === 0){
           const res = await axios.get(`${import.meta.env.VITE_APP_URL_API}user`)
           setuser(res.data.data)
+        }
+        if(Object.keys(message).length === 0){
+          const res = await axios.get(`${import.meta.env.VITE_APP_URL_API}message`)
+          setmessage(res.data.data)
         }
       }
       catch(e){
@@ -191,12 +196,12 @@ const AppView = () => {
         <Grid xs={12} md={6} lg={8}>
           <AppNewsUpdate
             title="News Update"
-            list={[...Array(5)].map((_, index) => ({
-              id: faker.string.uuid(),
-              title: faker.person.jobTitle(),
-              description: faker.commerce.productDescription(),
+            list={message.map((item, index) => ({
+              id: item.message_id,
+              title: item.title,
+              description: item.text,
               image: `/assets/images/covers/cover_${index + 1}.jpg`,
-              postedAt: faker.date.recent(),
+              postedAt: item.created_date,
             }))}
           />
         </Grid>
