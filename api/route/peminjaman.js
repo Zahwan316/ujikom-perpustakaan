@@ -70,8 +70,8 @@ router.route("/peminjaman/:id")
         try{
             let id = req.params.id
             let findItem = await Peminjaman.findByPk(id)
-            let user_data = await User.findByPk(req.body.userID)
-            let buku_data = await Buku.findByPk(req.body.bukuID)
+            let user_data = await User.findByPk(findItem.userID)
+            let buku_data = await Buku.findByPk(findItem.bukuID)
 
             if(req.body.status_peminjaman === 2){
                 let sendMessage = await Message.create({

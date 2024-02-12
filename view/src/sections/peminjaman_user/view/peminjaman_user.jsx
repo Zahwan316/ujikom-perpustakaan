@@ -77,7 +77,7 @@ const PeminjamanUserViewPage = () => {
   },[updater])
 
   useEffect(() => {
-    console.log(selectedpeminjaman)
+    console.log()
   })
 
   return(
