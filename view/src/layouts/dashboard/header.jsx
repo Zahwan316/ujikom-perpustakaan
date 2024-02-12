@@ -18,12 +18,13 @@ import { NAV, HEADER } from './config-layout';
 import AccountPopover from './common/account-popover';
 import LanguagePopover from './common/language-popover';
 import NotificationsPopover from './common/notifications-popover';
+import useUserStore from '../../../state/user';
 
 // ----------------------------------------------------------------------
 
 export default function Header({ onOpenNav }) {
   const theme = useTheme();
-
+  const user = useUserStore((state) => state.user)
   const lgUp = useResponsive('up', 'lg');
 
   const renderContent = (
@@ -34,13 +35,16 @@ export default function Header({ onOpenNav }) {
         </IconButton>
       )}
 
-      <Searchbar />
+      {
+        user.access_level === 3 &&
+        <Searchbar />
+      }
 
       <Box sx={{ flexGrow: 1 }} />
 
       <Stack direction="row" alignItems="center" spacing={1}>
        
-        <NotificationsPopover />
+        {/* <NotificationsPopover /> */}
         <AccountPopover />
       </Stack>
     </>

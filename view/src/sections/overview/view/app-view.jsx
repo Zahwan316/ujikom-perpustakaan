@@ -28,6 +28,11 @@ const AppView = () => {
   const [user,setuser] = useItemStore((state) => [state.user,state.setuser])
   const [message,setmessage] = useItemStore((state) => [state.message,state.setmessage])
 
+  const filteredDate = (item) => {
+    const date = new Date(item)
+    return date.toLocaleDateString("en-CA")
+  }
+
   useEffect(() => {
     const fetchData = async() => {
       try{
@@ -58,6 +63,11 @@ const AppView = () => {
     }
     fetchData()
   },[])
+
+  useEffect(() => {
+    console.log(filteredDate("2024-01-31T06:42:20.729Z"))
+    //filteredDate(item.created_date)
+  })
 
   return (
     <Container maxWidth="xl">
@@ -196,12 +206,12 @@ const AppView = () => {
         <Grid xs={12} md={6} lg={8}>
           <AppNewsUpdate
             title="News Update"
-            list={message.map((item, index) => ({
+            list={message.slice(message.length - 6,message.length - 1).map((item, index) => ({
               id: item.message_id,
               title: item.title,
               description: item.text,
               image: `/assets/images/covers/cover_${index + 1}.jpg`,
-              postedAt: item.created_date,
+              postedAt: filteredDate(item.created_date),
             }))}
           />
         </Grid>

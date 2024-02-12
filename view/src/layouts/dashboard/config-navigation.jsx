@@ -16,7 +16,7 @@ const navConfig = [
   {
     title: 'home',
     path: '/home',
-    icon: icon('ic_blog'),
+    icon: icon('house-solid'),
     level:[3]
   },
   {
@@ -28,32 +28,32 @@ const navConfig = [
   {
     title: 'buku',
     path: '/buku',
-    icon: icon('ic_cart'),
+    icon: icon('book-solid'),
     level:[1,2]
   },
   {
     title: 'kategori',
     path: '/kategori',
-    icon: icon('ic_blog'),
+    icon: icon('list-solid'),
     level:[1]
   },
   {
     title: 'peminjaman',
     path: '/peminjaman',
-    icon: icon('ic_blog'),
+    icon: icon('exchange'),
     level:[1,2,3]
   },
   {
     title: 'ulasan',
     path: '/ulasan',
-    icon: icon('ic_blog'),
+    icon: icon('comment-solid'),
     level:[1,3]
   },
   
   {
     title: 'Koleksi',
     path: '/koleksi',
-    icon: icon('ic_blog'),
+    icon: icon('bookmark-solid'),
     level:[3]
   },
   

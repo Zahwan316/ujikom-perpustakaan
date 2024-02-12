@@ -172,13 +172,13 @@ const AnggotaViewPage = () => {
     
         <TableComponent 
           tablehead={tablehead}
-          title="Anggota"
+          title="Pengguna"
           page="anggota"
           handlemodal={handleModal}
           gettypebtn={getTypeBtn}
           handleCrud={handleCrud}
           filterrole={filterrole}
-        />
+          filter={<> 
             <Select
               size="small"
               onChange={handleFilteredRole}
@@ -190,7 +190,10 @@ const AnggotaViewPage = () => {
               <MenuItem value="1">Admin</MenuItem>
               <MenuItem value="2">Petugas</MenuItem>
               <MenuItem value="3">Peminjam</MenuItem>
-            </Select>
+            </Select> 
+          </>}
+        />
+           
         {
           modal &&
           <ModalComponent 

@@ -1,4 +1,4 @@
-import { Button, Card, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Button, Card, MenuItem, Select,TableFooter, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography ,TablePagination} from '@mui/material';
 import { Stack, Container } from '@mui/system';
 
 import React, { useState, useEffect } from 'react';
@@ -9,8 +9,17 @@ import BukuTableBody from './tablebody/buku';
 import PeminjamanTableBody from './tablebody/peminjaman';
 
 const TableComponent = (props) => {
+  const [page,setpage] = useState(0)
+  const [rowsPerPage,setrowsPerPage] = useState(10)
 
-
+  const handleChangePage = (event,newPage) => {
+    setpage(newPage)
+  }
+  
+  const handleChangeRowsPerPage = (e) => {
+    setrowsPerPage(parseInt(e.target.value,10))
+    setpage(0)
+  }
   const handleClick = (e) => {
     const typebtn = e.target.getAttribute("typebtn")
     const id = e.target.getAttribute("id")
@@ -39,11 +48,13 @@ const TableComponent = (props) => {
   return(
     <>
       <Container>
-        <Stack alignItems={"center"} justifyContent={"space-between"} direction={"row"}>
+        <Stack alignItems={"center"} justifyContent={"space-between"} direction={"row"} mb={2}>
             <Typography variant="h4" className='w-1/2'>{props.title}</Typography>
            
             <Button onClick={handleClick} variant='contained' typebtn="add">+ Tambah</Button>
         </Stack>
+
+        {props.filter && props.filter}
 
         <TableContainer className='p-8'>
             <Table>
@@ -83,10 +94,21 @@ const TableComponent = (props) => {
                       props.page === "peminjaman" && 
                       <PeminjamanTableBody 
                         handleclick={handleClick}
+                        page={page}
+                        rowsPerPage={rowsPerPage}
                       />
                     }
                 </TableBody>
             </Table>  
+            <TablePagination
+                    rowsPerPageOptions={[10,25,50]}
+                    component={"div"}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    count={20}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                  />
         </TableContainer> 
       </Container>
     </>

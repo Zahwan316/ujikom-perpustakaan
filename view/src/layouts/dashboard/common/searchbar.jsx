@@ -1,4 +1,3 @@
-import { useState } from 'react';
 
 import Slide from '@mui/material/Slide';
 import Input from '@mui/material/Input';
@@ -11,6 +10,10 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { bgBlur } from 'src/theme/css';
 
 import Iconify from 'src/components/iconify';
+import useFormStore from '../../../../state/form';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 // ----------------------------------------------------------------------
 
@@ -41,14 +44,28 @@ const StyledSearchbar = styled('div')(({ theme }) => ({
 
 export default function Searchbar() {
   const [open, setOpen] = useState(false);
+  const [form,setform] = useFormStore((state) => [state.form,state.setform])
+  const navigate = useNavigate()
 
   const handleOpen = () => {
     setOpen(!open);
   };
 
+  const handleform = (e) => {
+    setform("search",e.target.value)
+  }
+
+  const handleSearch = () => {
+    navigate(`search/${form.search}`)
+  }
+
   const handleClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    console.log(form)
+  })
 
   return (
     <ClickAwayListener onClickAway={handleClose}>
@@ -65,7 +82,8 @@ export default function Searchbar() {
               autoFocus
               fullWidth
               disableUnderline
-              placeholder="Search…"
+              placeholder="Cari buku yang anda inginkan...."
+              onChange={handleform}
               startAdornment={
                 <InputAdornment position="start">
                   <Iconify
@@ -76,7 +94,7 @@ export default function Searchbar() {
               }
               sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
             />
-            <Button variant="contained" onClick={handleClose}>
+            <Button variant="contained" onClick={handleSearch}>
               Search
             </Button>
           </StyledSearchbar>

@@ -4,7 +4,7 @@ import useUserStore from '../../../state/user';
 
 const UlasanDetailBukuComponent = (props) => {
   const convertedDate = (item) => {
-    const dateObject = new Date()
+    const dateObject = new Date(item)
     const year = dateObject.getFullYear();
     const month = dateObject.getMonth() + 1
     const date = dateObject.getDate();

@@ -25,7 +25,7 @@ const PeminjamanTableBody = (props) => {
     <>
       {
         peminjaman.length != 0 ?
-         peminjaman.map((item,index) => 
+         peminjaman.slice(props.page * props.rowsPerPage,props.page * props.rowsPerPage + props.rowsPerPage).map((item,index) => 
           <TableRow key={index}>
             <TableCell key={index}>
               {
