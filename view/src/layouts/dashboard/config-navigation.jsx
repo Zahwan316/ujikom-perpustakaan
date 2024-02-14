@@ -49,12 +49,17 @@ const navConfig = [
     icon: icon('comment-solid'),
     level:[1,3]
   },
-  
   {
     title: 'Koleksi',
     path: '/koleksi',
     icon: icon('bookmark-solid'),
     level:[3]
+  },
+  {
+    title: 'Laporan',
+    path: '/laporan',
+    icon: icon('file-solid'),
+    level:[1,2]
   },
   
 ];

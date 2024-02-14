@@ -16,6 +16,7 @@ import DetailBukuPage from 'src/pages/detailbuku';
 import KoleksiPage from 'src/pages/koleksi';
 import SettingPage from 'src/pages/settings';
 import SearchPage from 'src/pages/search';
+import LaporanPage from 'src/pages/laporan';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -93,6 +94,7 @@ export default function Router() {
         { path: 'buku/:slug', element: <DetailBukuPage /> },
         { path: 'koleksi', element: <KoleksiPage /> },
         { path: 'setting', element: <SettingPage /> },
+        { path: 'laporan', element: <LaporanPage /> },
         { path: 'search/:text', element: <SearchPage /> },
       ],
     },

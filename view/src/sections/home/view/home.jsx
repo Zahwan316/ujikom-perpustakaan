@@ -18,7 +18,17 @@ const HomePageView = () => {
   const [form,setform] = useFormStore((state) => [state.form,state.setform])
   const navigate = useNavigate()
 
-  const limitbuku = buku.slice(0,5)
+  function getRandomSubarray(arr, size) {
+    const shuffled = arr.slice();
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled.slice(0, size);
+  }
+  
+  const limitbuku = buku.slice(buku.length - 6,buku.length - 1)
+
 
   const grouprating = ulasan.reduce((acc,rating) => {
     if(!acc[rating.bukuID]){
