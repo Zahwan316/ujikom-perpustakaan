@@ -5,14 +5,11 @@ import { InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import useItemStore from '../../../../state/item';
 import { Input } from 'postcss';
 import axios from 'axios';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-import jsPDF from 'jspdf';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import useFormStore from '../../../../state/form';
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 
 const styles = StyleSheet.create({
   body:{
