@@ -8,6 +8,9 @@ import useFormStore from '../../../../state/form';
 import ModalComponent from 'src/components/modal/modal';
 import PeminjamanForm from 'src/components/form/peminjaman';
 import useUserStore from '../../../../state/user';
+import { Box } from '@mui/system';
+import { Button, Input, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import useStateStore from '../../../../state/state';
 
 const PeminjamanViewPage = () => {
   const tablehead = [
@@ -30,6 +33,7 @@ const PeminjamanViewPage = () => {
   const [typeform,settypeform] = useState()
   const [updater,setupdater] = useState()
   const [isload,setisload] = useState()
+  const [search,setsearch] = useStateStore((state) => [state.search,state.setsearch])
 
   const handleModal = () => {
     setmodal(!modal)
@@ -39,6 +43,10 @@ const PeminjamanViewPage = () => {
   const getTypeBtn = (typebtn,id) => {
     settypeform(typebtn)
     seteditedid(id)
+  }
+
+  const handleSearch = (e) => {
+    setsearch(e.target.value)
   }
 
   const handleCrud = async(method,id) => {
@@ -179,6 +187,7 @@ const PeminjamanViewPage = () => {
     }
   },[editedid])
 
+
   return(
     <>
       <TableComponent 
@@ -188,6 +197,13 @@ const PeminjamanViewPage = () => {
         title="Buku Yang Dipinjam"
         handleCrud={handleCrud}
         page="peminjaman"
+        filter={ <Box>
+          <TextField 
+            size='small'
+            placeholder='Cari nama peminjam'
+            onChange={handleSearch}
+          />
+        </Box>}
       />
   
       {
@@ -199,6 +215,7 @@ const PeminjamanViewPage = () => {
           body={<PeminjamanForm />}
         />
       }
+     
     </>
   )
 }
