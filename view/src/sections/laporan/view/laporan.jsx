@@ -8,8 +8,12 @@ import axios from 'axios';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import useFormStore from '../../../../state/form';
+<<<<<<< HEAD
 
 
+=======
+import dayjs from 'dayjs';
+>>>>>>> e40833dcb9348226760cfa4333ba798e1ad2eae4
 
 const styles = StyleSheet.create({
   body:{
@@ -21,21 +25,30 @@ const styles = StyleSheet.create({
     color:'#000000',
     textAlign:'center',
     marginBottom:30,
+  },
+  text:{
+    fontSize:14
   }
 })
 
 const PDFviewpage = (props) => {
-  //const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
+ 
 
   return(
     <Document>
       <Page style={styles.body}>
-        <Text style={styles.title}>Laporan Buku</Text>
+        <Text style={styles.title}>Laporan Buku Bulan {props.month}</Text>
         {
-          props.buku.map(item => 
-            <Text>
-              {item.judul}
-            </Text>
+          props.data.map(item => 
+            <>
+              <Text style={styles.text}>
+                {item.bukuID}
+              </Text> 
+              <Text style={styles.text}>
+                {item.tanggal_peminjaman}
+              </Text> 
+            
+            </>
             )
         }
       </Page>
@@ -49,6 +62,19 @@ const LaporanViewPage = () => {
   const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
   const [peminjaman,setpeminjaman] = useItemStore((state) => [state.peminjaman,state.setpeminjaman])
   const [form,setform,resetform] = useFormStore((state) => [state.form,state.setform,state.resetform])
+  const [month,setmonth] = useState()
+  const [filteredData, setFilteredData] = useState([]);
+
+  const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
+                   "Juli", "Agustus", "September", "Oktober", "November", "December"];
+
+  const currentMonthStart = new Date();
+  currentMonthStart.setDate(1);
+  currentMonthStart.setHours(0, 0, 0, 0);
+
+  const currentMonthEnd = new Date();
+  currentMonthEnd.setMonth(currentMonthEnd.getMonth() + 1);
+  currentMonthEnd.setHours(23, 59, 59, 999);
 
   const handleSelectedOption = (e) => {
     setselectedoption(e.target.value)
@@ -78,6 +104,8 @@ const LaporanViewPage = () => {
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}peminjaman`)
           setpeminjaman(res.data.data)
         }
+        const date = new Date()
+        setmonth(monthNames[date.getMonth() + 1])
       }
       catch(e){
         console.log(e)
@@ -87,8 +115,27 @@ const LaporanViewPage = () => {
   },[])
 
   useEffect(() => {
-    console.log(form)
+    console.log(filteredData)
   })
+
+  useEffect(() => {
+    // const currentMonthStart = dayjs().startOf('month');
+    // const currentMonthEnd = dayjs().endOf('month');
+
+    // const filtered = peminjaman.filter((item) => {
+    //   const date = dayjs(item.tanggal_peminjaman);
+    //   return date.isSame(currentMonthStart, 'month') || date.isBetween(currentMonthStart, currentMonthEnd, 'month', '[]');
+    // });
+    const filtered = peminjaman.filter((item) => {
+      const date = new Date(item.tanggal_peminjaman );
+      return (
+        date >= currentMonthStart && date <= currentMonthEnd
+      );
+    });
+    setFilteredData(filtered);
+
+    //setFilteredData(filtered);
+  }, [peminjaman]);
 
   return(
     <>
@@ -98,79 +145,13 @@ const LaporanViewPage = () => {
             Laporan
           </Typography>
         </Stack>
-        <Box mb={4}>
-          <InputLabel className='mb-2'>Pilih Laporan Yang Akan Diunduh</InputLabel>
-          <Select
-            size='small'
-            defaultValue={0}
-            onChange={handleSelectedOption}
-          >
-            <MenuItem value="0">Pilih Laporan</MenuItem>
-            <MenuItem value="user">User</MenuItem>
-            <MenuItem value="buku">Buku</MenuItem>
-          </Select>
+        <Box>
+          <InputLabel className='mb-4'>Unduh laporan bulan ini</InputLabel>
+          <PDFDownloadLink document={<PDFviewpage buku={buku} month={month} data={filteredData} />} fileName='FORM'>
+          <Button variant='contained'>Unduh Laporan</Button>
+            {({loading}) => (loading ? "Loading..." : "Download")}
+          </PDFDownloadLink>
         </Box>
-        {
-          selectedoption != "0" &&
-           <Box className="mb-6">
-             {
-                selectedoption === "user" &&
-                <Box className="mb-4">
-                <InputLabel className='mb-2'>Nama User</InputLabel>
-                <Select
-                    defaultValue={0}
-                    size="small"
-                    name="userID"
-                    onChange={handleForm}
-                >
-                    <MenuItem value="0">Pilih User</MenuItem>
-                    {
-                    user.map((item,index) => 
-                        <MenuItem key={index} value={item.userID}>{item.nama_lengkap}</MenuItem>
-                    )
-                    }
-                </Select>
-                </Box>
-             }
-             {
-                selectedoption === "buku" &&
-                <Box className="mb-4">
-                <InputLabel className='mb-2'>Judul Buku</InputLabel>
-                <Select
-                    defaultValue={0}
-                    size="small"
-                    name="bukuID"
-                    onChange={handleForm}
-                >
-                    <MenuItem value="0">Pilih Buku</MenuItem>
-                    {
-                      buku.map((item,index) => 
-                        <MenuItem key={index} value={item.bukuID}>{item.judul}</MenuItem>
-                      )
-                    }
-                </Select>
-              </Box>
-
-             }
-             <Box className="mb-4">
-               <InputLabel className='mb-2'>Dari Tanggal</InputLabel>
-               <TextField type='date' size='small' name='tanggal_mulai' onChange={handleForm} value={form.tanggal_mulai} />
-             </Box>
-             <Box className="mb-4">
-               <InputLabel className='mb-2'>Sampai Tanggal</InputLabel>
-               <TextField type='date' size='small' name="tanggal_akhir" onChange={handleForm} value={form.tanggal_akhir} />
-             </Box>
-           </Box>
-        }
-        {
-          selectedoption != "0" &&
-          <>
-            <PDFDownloadLink document={<PDFviewpage buku={buku} />} fileName='FORM'>
-            <Button variant='contained'>Unduh Laporan</Button>
-              {({loading}) => (loading ? "Loading..." : "Download")}
-            </PDFDownloadLink>
-          </>
-        }
       </Container>
     </>
   )
