@@ -71,9 +71,10 @@ const AnggotaViewPage = () => {
     }
     catch(e){
       console.log(e)
+      setmodal(false)
       Swal.fire({
         title:"Gagal",
-        text:e.message,
+        text:e.response.data.message,
         icon:"error"
       })
     }

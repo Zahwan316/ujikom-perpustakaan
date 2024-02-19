@@ -8,11 +8,8 @@ import axios from 'axios';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import useFormStore from '../../../../state/form';
-<<<<<<< HEAD
-=======
 import dayjs from 'dayjs';
-import { Html } from 'react-pdf-html';
->>>>>>> 07b08636052d3c488a72029e0c97c97e846cd259
+
 
 const styles = StyleSheet.create({
   body:{
@@ -54,18 +51,8 @@ const PDFviewpage = (props) => {
           props.data.map((item,index) => 
             <>
               <Text style={styles.text}>
-
-                {
-                  propsdbuku.map(items => 
-                    items.bukuID === item.bukuID &&
-                    items.judul  
-                Nama:
-                {
-                  props.user.map(items => 
-                    item.userID === items.userID &&
-                    items.nama_lengkap
-                  )
-                }
+      
+          
               </Text> 
               <Text style={styles.text}>
                 Tanggal Peminjaman : 
@@ -188,7 +175,6 @@ const LaporanViewPage = () => {
         </Stack>
         <Box>
           <InputLabel className='mb-4'>Unduh laporan bulan ini</InputLabel>
-<<<<<<< HEAD
           <PDFDownloadLink 
             document={
             <PDFviewpage 
@@ -198,17 +184,6 @@ const LaporanViewPage = () => {
               user={user}
 
              />} fileName='laporan-peminjaman'>
-=======
-          <PDFDownloadLink document={
-            <PDFviewpage
-             buku={buku}
-             month={month}
-             data={filteredData} 
-             user={user}
-             perpus={namaperpus}
-             />
-            } fileName={`Laporan perpus bulan ${month }`}>
->>>>>>> 07b08636052d3c488a72029e0c97c97e846cd259
           <Button variant='contained'>Unduh Laporan</Button>
             {({loading}) => (loading ? "Loading..." : "Download")}
           </PDFDownloadLink>

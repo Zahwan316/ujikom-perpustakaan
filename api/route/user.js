@@ -53,17 +53,30 @@ router.route("/user")
         try{
             const hashpassword = await bcrypt.hash(req.body.password,10)
             console.log(hashpassword)
-            const createItem = await User.create({
-                ...req.body,
-                userID:RandInt(),
-                password:hashpassword,
-                img:req.file && req.file.filename 
-            })
-            res.status(200).json({
-                message:'Data berhasil dibuat',
-                method:req.method,
-            })
-            
+            const sameUser = await User.findOne({where:{
+                email:req.body.email,
+                no_hp:req.body.no_hp,
+                username:req.body.username
+            }})
+
+            if(sameUser){
+                res.status(400).json({
+                    message:"Email atau Username sudah terdaftar",
+                    method:req.method,
+                })
+            }else{
+                const createItem = await User.create({
+                    ...req.body,
+                    userID:RandInt(),
+                    password:hashpassword,
+                    img:req.file && req.file.filename 
+                })
+                res.status(200).json({
+                    message:"Data berhasil dibuat",
+                    method:req.method
+                })
+            }
+        
         }
         catch(e){
             res.status(400).json({
@@ -125,7 +138,9 @@ router.route("/user/:id")
             const findPeminjamanItem = await Peminjaman.findOne({where:{userID:id}})
             if(findItem){
                 findItem.destroy()
-                findPeminjamanItem.destroy()
+                if(findPeminjamanItem){
+                    findPeminjamanItem.destroy()
+                }
                 res.status(200).json({
                     message:'Data berhasil dihapus',
                     method:req.method,
@@ -220,17 +235,30 @@ router.route("/register")
             const {username,password} = req.body
             const hashpass = await bcrypt.hash(password,10)
             const randint = Math.floor(Math.random() * 99999999)
+            const sameuser = await User.findOne({where:{
+                email:req.body.email,
+                no_hp:req.body.no_hp,
+                username:req.body.username
+            }})
 
-            const user = await User.create({
-                ...req.body,
-                password:hashpass,
-                userID:randint,
-            })
+            if(sameuser) {
+                res.status(400).json({
+                    message:"Email atau Username sudah terdaftar",
+                    method:req.method,
+                })
+            }else{
+                const user = await User.create({
+                    ...req.body,
+                    password:hashpass,
+                    userID:randint,
+                })
+                res.status(200).json({
+                    message:'Akun berhasil dibuat',
+                    method:req.method,
+                })
 
-            res.status(200).json({
-                message:'Akun berhasil dibuat',
-                method:req.method,
-            })
+            }
+
             
         }
         catch(e){

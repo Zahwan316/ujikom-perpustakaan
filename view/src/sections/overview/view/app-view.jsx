@@ -206,7 +206,7 @@ const AppView = () => {
         <Grid xs={12} md={6} lg={8}>
           <AppNewsUpdate
             title="News Update"
-            list={message.slice(message.length - 6,message.length - 1).map((item, index) => ({
+            list={message.slice(message.length - 6,message.length - 1).sort((a,b) => b.created_date.localeCompare(a.created_date)).map((item, index) => ({
               id: item.message_id,
               title: item.title,
               description: item.text,
@@ -217,7 +217,7 @@ const AppView = () => {
         </Grid>
 
        {/*  <Grid xs={12} md={6} lg={4}>
-          <AppOrderTimeline
+          <AppOrderTimeline 
             title="Order Timeline"
             list={[...Array(5)].map((_, index) => ({
               id: faker.string.uuid(),

@@ -20,7 +20,7 @@ import { bgGradient } from 'src/theme/css';
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 import useFormStore from '../../../state/form';
-import { Alert, AlertTitle, Snackbar } from '@mui/material';
+import { Alert, AlertTitle, Snackbar, InputLabel } from '@mui/material';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import validator from 'validator';
@@ -51,8 +51,6 @@ export default function LoginView() {
         errors.email = "Email tidak boleh kosong"
       }
   
-     
-  
       if(!form.password){
         errors.password = "Password tidak boleh kosong"
       }
@@ -62,8 +60,10 @@ export default function LoginView() {
       if(!form.email){
         errors.email = "Email tidak boleh kosong"
       }
-  
-      
+      if(!validator.isEmail(form.email)){
+        errors.email = "Email tidak valid"
+
+      }
   
       if(!form.password){
         errors.password = "Password tidak boleh kosong"
@@ -79,6 +79,9 @@ export default function LoginView() {
 
       if(!form.no_hp){
         errors.no_hp = "No hp tidak boleh kosong"
+      }
+      else if(!validator.isMobilePhone(form.no_hp,"id-ID")){
+        errors.no_hp = "No hp tidak valid"
       }
 
       if(!form.alamat){
@@ -145,6 +148,7 @@ export default function LoginView() {
   }
 
   const handleTypeLogin = () => {
+    resetform()
     if(typelogin === "login"){
       settypelogin("register")
     }else{
@@ -180,6 +184,7 @@ export default function LoginView() {
 
   useEffect(() => {
     resetform()
+    seterror("")
     if(typelogin === "register"){
       setform("perpus_id",perpus[0].perpus_id)
       setform("access_level",3)
@@ -236,34 +241,45 @@ export default function LoginView() {
   const renderRegister = (
     <>
       <Stack spacing={3} mb={2}>
-        {
-          page === 1 &&
-          <>
-           <TextField 
-              label="Username"
-              name='username'
-              onChange={handleform}
-              error={error.username}
-              helperText={error.username}
-              value={form.username}
-           />
-            <TextField 
-              type='email'
-              label="Email"
-              name='email'
-              onChange={handleform}
-              error={error.email}
-              helperText={error.email}
-              value={form.email}
-            />
+          <Box className='flex flex-wrap flex-row gap-4'>
+            <Box className='w-full flex flex-row gap-8'>
+              <Box className='flex flex-col w-1/2'>
+                <InputLabel className='mb-2'>Username</InputLabel>
+                <TextField 
+                    name='username'
+                    onChange={handleform}
+                    error={error.username}
+                    helperText={error.username}
+                    value={form.username}
+                    size='small'
+                    className='border border-gray-600'
+                />
+              </Box>
+              <Box className='flex flex-col w-1/2'>
+                <InputLabel className='mb-2'>Email</InputLabel>
+                <TextField 
+                  type='email'
+                  name='email'
+                  onChange={handleform}
+                  error={error.email}
+                  helperText={error.email}
+                  value={form.email}
+                  size='small'
+                />
+              </Box>
+
+            </Box>
+            <Box className='w-full flex flex-row gap-8'>
+            <Box className='flex flex-col  w-1/2'>
+            <InputLabel className='mb-2'>Password</InputLabel>
              <TextField
                 name="password"
-                label="Password"
                 type={showPassword ? 'text' : 'password'}
                 onChange={handleform}
                 value={form.password}
                 error={error.password}
                 helperText={error.password}
+                size='small'
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -274,43 +290,52 @@ export default function LoginView() {
                   ),
                 }}
               />
-              <Button variant='outlined' method="+" onClick={handlePage}>Selanjutnya</Button>
-          </>
-          
-        }
 
-        {
-          page === 2 &&
-          <>
+            </Box>
+            
+            <Box className='flex flex-col  w-1/2'>
+              <InputLabel className='mb-2'>Nama Lengkap</InputLabel>
+              <TextField 
+                name='nama_lengkap'
+                onChange={handleform}
+                error={error.nama_lengkap}
+                helperText={error.nama_lengkap}
+                value={form.nama_lengkap}
+                size='small'
+              />
+            </Box>
+
+            </Box>
+
+          </Box>
+          <Box className='flex flex-col flex-wrap'>
+            <InputLabel className='mb-2'>No Telpon</InputLabel>
             <TextField 
-              label="Nama Lengkap"
-              name='nama_lengkap'
-              onChange={handleform}
-              error={error.nama_lengkap}
-              helperText={error.nama_lengkap}
-              value={form.nama_lengkap}
-            />
-          
-            <TextField 
-              label="Nomor Telepon"
               name='no_hp'
               onChange={handleform}
               error={error.no_hp}
               helperText={error.no_hp}
               value={form.no_hp}
+              size='small'
+              type='number'
             />
+          </Box>
+
+          <Box className='flex flex-col flex-wrap'>
+            <InputLabel className='mb-2'>Alamat</InputLabel>
             <TextField 
-              label="Alamat"
               name='alamat'
               onChange={handleform}
               error={error.alamat}
               helperText={error.alamat}
               value={form.alamat}
+              size='small'
               rows={4}
+              multiline
             />
-             <Button variant='outlined' onClick={handlePage} method="-">Sebelumnya</Button>
-          </>
-        }
+          </Box>
+          
+        
        
 
         <Typography variant='subtitle2' mb={4}>Sudah mempunyai akun? <span onClick={handleTypeLogin} className='text-blue-500 cursor-pointer'>Login Sekarang</span></Typography>
@@ -359,7 +384,7 @@ export default function LoginView() {
           sx={{
             p: 5,
             width: 1,
-            maxWidth: 420,
+            maxWidth: typelogin === "login" ? 420 : 720,
           }}
         >
           <Typography variant="h4" mb={4}>{typelogin === "login" ? "Login" : "Registrasi"} Perpus</Typography>

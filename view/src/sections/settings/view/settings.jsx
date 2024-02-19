@@ -144,6 +144,7 @@ const SettingViewPage = () => {
                     name='nama_lengkap'
                     value={form.nama_lengkap}
                     onChange={handleform}
+                    
                     />
                 </Box>
                 <Box className='flex flex-col mb-6'>
@@ -172,7 +173,7 @@ const SettingViewPage = () => {
                     type='password'
                     size='small'
                     name='password'
-                   
+                    placeholder="************"
                     onChange={handleform}
                     />
                 </Box>
@@ -186,7 +187,7 @@ const SettingViewPage = () => {
                     onChange={handleform}
                     />
                 </Box>
-                <Box className='flex flex-col mb-6'>
+                {/* <Box className='flex flex-col mb-6'>
                     <InputLabel className="mb-2">Perpustakaan</InputLabel>
                     <Select
                     size='small'
@@ -201,7 +202,7 @@ const SettingViewPage = () => {
                         ))
                     }
                     </Select>
-                </Box>
+                </Box> */}
                 </Box>
 
                 <Box className='flex flex-col mb-6'>
