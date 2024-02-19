@@ -3,6 +3,7 @@ import useItemStore from '../../../../state/item';
 import useUserStore from '../../../../state/user';
 import { IconButton, MenuItem, Popover, TableCell, TableRow } from '@mui/material';
 import Iconify from 'src/components/iconify';
+import useStateStore from '../../../../state/state';
 
 const PeminjamanTableBody = (props) => {
   const peminjaman = useItemStore((state) => state.peminjaman)
@@ -10,6 +11,7 @@ const PeminjamanTableBody = (props) => {
   const buku = useItemStore((state) => state.buku)
   const user = useItemStore((state) => state.user)
   const ref_peminjaman = useItemStore((state) => state.ref_peminjaman)
+  const search = useStateStore((state) => state.search)
 
   const [open,setopen] = useState({})
 
@@ -25,7 +27,7 @@ const PeminjamanTableBody = (props) => {
     <>
       {
         peminjaman.length != 0 ?
-         peminjaman.slice(props.page * props.rowsPerPage,props.page * props.rowsPerPage + props.rowsPerPage).map((item,index) => 
+         peminjaman.filter(item => !search || user.some((user) => user.userID === item.userID && user.nama_lengkap.toLowerCase().includes(search.toLowerCase()))).slice(props.page * props.rowsPerPage,props.page * props.rowsPerPage + props.rowsPerPage).map((item,index) => 
           <TableRow key={index}>
             <TableCell key={index}>
               {

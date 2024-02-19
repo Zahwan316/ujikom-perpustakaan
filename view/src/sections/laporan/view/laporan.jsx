@@ -8,21 +8,37 @@ import axios from 'axios';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import useFormStore from '../../../../state/form';
+<<<<<<< HEAD
+=======
+import dayjs from 'dayjs';
+import { Html } from 'react-pdf-html';
+>>>>>>> 07b08636052d3c488a72029e0c97c97e846cd259
 
 const styles = StyleSheet.create({
   body:{
     padding:25,
   },
   title:{
-    fontSize:20,
+    fontSize:25,
     fontWeight:'bold',
     color:'#000000',
     textAlign:'center',
-    marginBottom:30,
+    
   },
   text:{
     fontSize:14
+  },
+  perpus_title:{
+    fontsize:18,
+    textAlign:"center",
+    color:'#000000',
+    marginBottom:30,
+  },
+  text_bottom:{
+    marginBottom:16,
+    fontSize:14
   }
+ 
 })
 
 const PDFviewpage = (props) => {
@@ -30,23 +46,46 @@ const PDFviewpage = (props) => {
     <Document>
       <Page style={styles.body}>
         <Text style={styles.title}>Laporan Buku Bulan {props.month}</Text>
+        <Text style={styles.perpus_title}>Perpustakaan {props.perpus}</Text>
+        
+        <Text style={styles.text}>Jumlah buku yang pernah dipinjam : {props.data.length} buku</Text>
+        <Text style={styles.text_bottom}>List orang yang pernah meminjam buku : </Text>
         {
-          props.data.map(item => 
+          props.data.map((item,index) => 
             <>
               <Text style={styles.text}>
+<<<<<<< HEAD
                 {
                   propsdbuku.map(items => 
                     items.bukuID === item.bukuID &&
                     items.judul  
+=======
+                {index + 1}.   
+                Nama:
+                {
+                  props.user.map(items => 
+                    item.userID === items.userID &&
+                    items.nama_lengkap
+>>>>>>> 07b08636052d3c488a72029e0c97c97e846cd259
                   )
                 }
               </Text> 
               <Text style={styles.text}>
+                Tanggal Peminjaman : 
                 {item.tanggal_peminjaman}
               </Text> 
+              <Text style={styles.text_bottom}>
+                Buku yang dipinjam : 
+                {
+                  props.buku.map(items => 
+                    item.bukuID === items.bukuID &&
+                    items.judul
+                  )
+                }
+              </Text>
             
             </>
-            )
+          )
         }
       </Page>
     </Document>
@@ -61,6 +100,8 @@ const LaporanViewPage = () => {
   const [form,setform,resetform] = useFormStore((state) => [state.form,state.setform,state.resetform])
   const [month,setmonth] = useState()
   const [filteredData, setFilteredData] = useState([]);
+  const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
+  const [namaperpus,setnamaperpus] = useState("")
 
   const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
                    "Juli", "Agustus", "September", "Oktober", "November", "December"];
@@ -101,8 +142,14 @@ const LaporanViewPage = () => {
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}peminjaman`)
           setpeminjaman(res.data.data)
         }
+        if(Object.keys(perpus).length === 0){
+          let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}perpus`)
+          setperpus(res.data.data)
+          const data = res.data.data
+          setnamaperpus(data[0].nama_perpustakaan)
+        }
         const date = new Date()
-        setmonth(monthNames[date.getMonth() + 1])
+        setmonth(monthNames[date.getMonth() ])
       }
       catch(e){
         console.log(e)
@@ -144,6 +191,7 @@ const LaporanViewPage = () => {
         </Stack>
         <Box>
           <InputLabel className='mb-4'>Unduh laporan bulan ini</InputLabel>
+<<<<<<< HEAD
           <PDFDownloadLink 
             document={
             <PDFviewpage 
@@ -153,6 +201,17 @@ const LaporanViewPage = () => {
               user={user}
 
              />} fileName='laporan-peminjaman'>
+=======
+          <PDFDownloadLink document={
+            <PDFviewpage
+             buku={buku}
+             month={month}
+             data={filteredData} 
+             user={user}
+             perpus={namaperpus}
+             />
+            } fileName={`Laporan perpus bulan ${month }`}>
+>>>>>>> 07b08636052d3c488a72029e0c97c97e846cd259
           <Button variant='contained'>Unduh Laporan</Button>
             {({loading}) => (loading ? "Loading..." : "Download")}
           </PDFDownloadLink>
