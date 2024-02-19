@@ -141,6 +141,7 @@ const HomePageView = () => {
             {
               bukuOrderByKategori.length != 0?
               bukuOrderByKategori.map(item => 
+                item.stok != 0 &&
                 <BookComponent 
                   img={`${import.meta.env.VITE_APP_URL_API}img/${item.img}`}
                   title={item.judul}

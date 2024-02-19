@@ -103,7 +103,7 @@ export default function LoginView() {
         setsuccess(true)
         setTimeout(() => {
           if(data.access_level === 1 ){
-            window.location.href = "/"
+            window.location.href = "/dashboard"
           }
           else if(data.access_level === 2){
             window.location.href = "/buku"

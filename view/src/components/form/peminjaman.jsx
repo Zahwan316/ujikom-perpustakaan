@@ -49,6 +49,7 @@ const PeminjamanForm = () => {
             <MenuItem value="0">Pilih Nama Buku</MenuItem>
             {
               buku.map((item,index) => (
+                item.stok != 0 &&
                 <MenuItem key={index} value={item.bukuID}>{item.judul}</MenuItem>
               ))
             }

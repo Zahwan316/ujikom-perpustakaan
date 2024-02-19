@@ -108,7 +108,7 @@ const PeminjamanUserViewPage = () => {
                     penulis={items.penulis}
                     //id={items.bukuID}
                     slug={items.slug}
-                    handlemodal={handleModal}
+                    //handlemodal={handleModal}
                     id={item.peminjamanID}
                   />
                 )

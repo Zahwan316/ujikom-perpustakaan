@@ -43,6 +43,9 @@ router.route("/peminjaman")
             })
             let user_data = await User.findByPk(req.body.userID)
             let buku_data = await Buku.findByPk(req.body.bukuID)
+            buku_data.update({
+                stok:buku_data.stok - 1
+            })
 
             let sendMessage = await Message.create({
                 message_id:RandInt(),
@@ -79,7 +82,9 @@ router.route("/peminjaman/:id")
                     text:`${user_data.username} sudah mengembalikan buku ${buku_data.judul}`,
                     title:"Mengembalikan Buku"
                 })
-
+                buku_data.update({
+                    stok:buku_data.stok + 1
+                })
             }
 
             if(findItem){

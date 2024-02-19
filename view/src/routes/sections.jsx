@@ -17,6 +17,7 @@ import KoleksiPage from 'src/pages/koleksi';
 import SettingPage from 'src/pages/settings';
 import SearchPage from 'src/pages/search';
 import LaporanPage from 'src/pages/laporan';
+import LandingPage from 'src/pages/landing-page';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -80,7 +81,8 @@ export default function Router() {
         </DashboardLayout>
       ),
       children: [
-        { element: <IndexPage />, index: true },
+        //{ element: <IndexPage />, index: true },
+        {path:"dashboard",element:<IndexPage />},
         { path: 'user', element: <UserPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
@@ -110,6 +112,11 @@ export default function Router() {
       path: '*',
       element: <Navigate to="/404" replace />,
     },
+    {
+      path:"/",
+      element:<LandingPage />,
+      index:true
+    }
   ]);
 
   return routes;

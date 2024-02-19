@@ -123,6 +123,16 @@ const BukuForm = () => {
               }
             </Select>
           </Box>
+          <Box className="flex flex-col mb-6">
+            <InputLabel className='mb-2'>Stok</InputLabel>
+            <TextField
+              size='small'
+              type='number'
+              name="stok"
+              onChange={handleForm} 
+              value={form.stok}
+            />
+          </Box>
           
           <Button onClick={handlePage} method="-" variant='contained' sx={{marginRight:"1em"}}>Sebelumnya</Button>
           <Button onClick={handlePage} method="+" variant='contained'>Selanjutnya</Button>

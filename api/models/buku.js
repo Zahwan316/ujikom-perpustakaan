@@ -46,6 +46,10 @@ module.exports = function(sequelize, DataTypes) {
     slug: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    stok: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,
