@@ -54,19 +54,16 @@ const PDFviewpage = (props) => {
           props.data.map((item,index) => 
             <>
               <Text style={styles.text}>
-<<<<<<< HEAD
+
                 {
                   propsdbuku.map(items => 
                     items.bukuID === item.bukuID &&
                     items.judul  
-=======
-                {index + 1}.   
                 Nama:
                 {
                   props.user.map(items => 
                     item.userID === items.userID &&
                     items.nama_lengkap
->>>>>>> 07b08636052d3c488a72029e0c97c97e846cd259
                   )
                 }
               </Text> 
