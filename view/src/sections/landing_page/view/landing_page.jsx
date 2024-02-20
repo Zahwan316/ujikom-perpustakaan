@@ -60,14 +60,14 @@ const LandingPageView = () => {
             <Button variant='contained' size='lg' onClick={redirectLogin}>Login Sekarang</Button>
           </Box>
           <Box className=' w-3/5 h-3/4'>
-            <img src="assets/images/5836.jpg" className='w-full h-full' />
+            <img src="assets/images/5836.png" className='w-full h-full ' />
           </Box>
         </Box>
         <Box className='w-100 h-2/3  p-4 flex flex-col mb-12'>
          
           <Box className='flex flex-row'>
             <Box className='w-2/3'>
-              <img src="assets/images/551.jpg" className='h-full w-full' />
+              <img src="assets/images/551.png" className='h-full w-full' />
             </Box>
             <Box className='w-2/5 flex justify-center flex-col'>
               <Typography variant='h3' mb={1}>Tentang Kami</Typography>

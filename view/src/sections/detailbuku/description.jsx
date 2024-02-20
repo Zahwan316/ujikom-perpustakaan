@@ -157,8 +157,9 @@ const DescriptionDetailBukuComponent = (props) => {
                   Object.keys(selectedbookmark).length !== 0 ?
                   'Buku berhasil ditambahkan ke dalam koleksi pribadi'
                   :
-                  'Buku berhasil dihapus dari koleksi pribadi'
-
+                  (alerttype === "pinjam" &&
+                  Object.keys(selectedpeminjaman).length !== 0 ?
+                   'Buku berhasil dipinjam' : 'Buku berhasil dikembalikan')
                 }
                 {
                   alerttype === "pinjam" &&

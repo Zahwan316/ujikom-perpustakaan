@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { lazy, Suspense, useEffect } from 'react';
-import { Outlet, Navigate, useRoutes, useNavigate } from 'react-router-dom';
+import { Outlet, Navigate, useRoutes, useNavigate, useLocation } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
 import AnggotaPage from 'src/pages/anggota';
@@ -18,6 +18,7 @@ import SettingPage from 'src/pages/settings';
 import SearchPage from 'src/pages/search';
 import LaporanPage from 'src/pages/laporan';
 import LandingPage from 'src/pages/landing-page';
+import NotifNewsPage from 'src/pages/notif_news';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -34,6 +35,7 @@ export default function Router() {
   const [user,setuser] = useUserStore((state) => [state.user,state.setuser])
   const [refuser,setrefuser] = useUserStore((state) => [state.ref_user,state.setrefuser])
   const redirect = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     const fetchakun = async() => {
@@ -62,7 +64,7 @@ export default function Router() {
       }
     }
     fetchakun()
-    if(!token){
+    if(!token && !location.pathname === "/"){
       navigate("/login")
     }
   },[])
@@ -97,6 +99,7 @@ export default function Router() {
         { path: 'koleksi', element: <KoleksiPage /> },
         { path: 'setting', element: <SettingPage /> },
         { path: 'laporan', element: <LaporanPage /> },
+        { path: 'news', element: <NotifNewsPage /> },
         { path: 'search/:text', element: <SearchPage /> },
       ],
     },
