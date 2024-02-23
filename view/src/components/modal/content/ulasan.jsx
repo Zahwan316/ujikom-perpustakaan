@@ -31,7 +31,7 @@ const UlasanModalContent = (props) => {
             buku.map(item => 
               item.bukuID == props.id &&
               <>
-                <img src={`${import.meta.env.VITE_APP_URL_API}img/${item.img}`} className="w-full h-64 mb-4" />
+                <img src={`${import.meta.env.VITE_APP_URL_API}img/${item.img}`} className="w-full h-64 mb-4 object-cover" />
                 <Box className='mb-6'>
                   <Typography variant="h5">
                     {item.judul}

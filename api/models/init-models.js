@@ -4,6 +4,7 @@ var _kategoribuku = require("./kategoribuku");
 var _koleksipribadi = require("./koleksipribadi");
 var _message = require("./message");
 var _peminjaman = require("./peminjaman");
+var _peminjaman_detail = require("./peminjaman_detail");
 var _perpus = require("./perpus");
 var _ref_peminjaman = require("./ref_peminjaman");
 var _ref_user = require("./ref_user");
@@ -16,6 +17,7 @@ function initModels(sequelize) {
   var koleksipribadi = _koleksipribadi(sequelize, DataTypes);
   var message = _message(sequelize, DataTypes);
   var peminjaman = _peminjaman(sequelize, DataTypes);
+  var peminjaman_detail = _peminjaman_detail(sequelize, DataTypes);
   var perpus = _perpus(sequelize, DataTypes);
   var ref_peminjaman = _ref_peminjaman(sequelize, DataTypes);
   var ref_user = _ref_user(sequelize, DataTypes);
@@ -29,6 +31,7 @@ function initModels(sequelize) {
     koleksipribadi,
     message,
     peminjaman,
+    peminjaman_detail,
     perpus,
     ref_peminjaman,
     ref_user,

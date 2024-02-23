@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import React, { useState, useEffect } from 'react';
 import useFormStore from '../../../state/form';
 import useItemStore from '../../../state/item';
-import { fromJSON } from 'postcss';
+import { Input, fromJSON } from 'postcss';
 
 const BukuForm = () => {
   const [form,setform] = useFormStore((state) => [state.form,state.setform])
@@ -11,6 +11,7 @@ const BukuForm = () => {
   const kategori = useItemStore((state) => state.kategori)
   const [page,setpage] = useState(1)
   const [img,setimg] = useState()
+  const [pdf,setpdf] = useState()
 
   const handleForm = (e) => {
     const {name,value} = e.target
@@ -37,6 +38,14 @@ const BukuForm = () => {
     if(file){
       setimg(file)
       setform("img",file)
+    }
+  }
+
+  const handlePdf = (e) => {
+    const file = e.target.files[0]
+    if(file){
+      setpdf(file)
+      setform("isi_buku",file)
     }
   }
 
@@ -157,13 +166,22 @@ const BukuForm = () => {
               }
             </Select>
            </Box>
+           <Box className='flex flex-col mb-6'>
+              <InputLabel className='mb-2'>Isi Buku</InputLabel>
+              <TextField 
+                size='small'
+                onChange={handlePdf}
+                type='file'
+                
+              />
+           </Box>
            <Box className="mb-8">
             <InputLabel className='mb-2'>Cover Buku</InputLabel>
-            <TextField type='file' onChange={handleImg} />
+            <TextField type='file' onChange={handleImg}  />
             {
               img && 
               <>
-                <img src={URL.createObjectURL(img)} className='mt-4 border rounded-lg h-64  w-full' />
+                <img src={URL.createObjectURL(img)} className='mt-4 border rounded-lg h-64  w-full object-contain' />
               </>
             }
            </Box>

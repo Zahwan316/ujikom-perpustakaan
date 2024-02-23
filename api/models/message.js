@@ -6,6 +6,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     text: {
       type: DataTypes.STRING,
       allowNull: true
@@ -14,10 +18,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: Sequelize.Sequelize.fn('now')
-    },
-    title: {
-      type: DataTypes.STRING,
-      allowNull: true
     }
   }, {
     sequelize,

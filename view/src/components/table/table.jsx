@@ -100,15 +100,7 @@ const TableComponent = (props) => {
                     }
                 </TableBody>
             </Table>  
-            <TablePagination
-                    rowsPerPageOptions={[10,25,50]}
-                    component={"div"}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    count={20}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                  />
+            
         </TableContainer> 
       </Container>
     </>
