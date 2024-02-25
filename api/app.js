@@ -15,11 +15,28 @@ app.use(express.json())
 app.use(cors())
 app.use(express.urlencoded({extended: true}))
 
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+});
+
+app.use('/img', (req, res, next) => {
+    res.setHeader('Content-Disposition', 'inline');
+    next();
+  });
+
 app.get("/",(req,res) => {
     res.status(200).json({
         message:"success"
     })
 })
+
+const options = {
+    setHeaders:function(res,path,stat){
+        res.setHeader('Content-Disposition',"inline")
+    }
+}
+
 app.use(Buku)
 app.use(Peminjaman)
 app.use(Kategori)
@@ -28,7 +45,7 @@ app.use(Koleksipribadi)
 app.use(User)
 app.use(Perpus)
 app.use(Message)
-app.use("/img",express.static("uploads"))
+app.use("/img",express.static("uploads",options))
 
 app.listen(port,() => {
     console.log(`listening at port ${port}`)

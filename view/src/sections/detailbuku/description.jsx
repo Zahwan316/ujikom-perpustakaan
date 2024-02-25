@@ -19,9 +19,14 @@ const DescriptionDetailBukuComponent = (props) => {
   const [alerttype,setalerttype] = useState("")
   const [peminjaman,setpeminjaman] = useItemStore((state) => [state.peminjaman,state.setpeminjaman])
   const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
+  const [limitbuku,setlimitbuku] = useState(false)
 
   const Bookmarkicon = (<i><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"/></svg></i>)
-
+  const selectedbookmark = koleksi.find(item => item.userID === user.userID && item.bukuID === props.buku.bukuID) || false
+  const selectedpeminjamanlast = peminjaman.filter(item => item.userID === user.userID && item.bukuID === props.buku.bukuID) || false
+  const selectedpeminjaman = selectedpeminjamanlast[selectedpeminjamanlast.length - 1] || false
+ // const findPeminjamantest = peminjaman.find(item => item.bukuID === props.buku.bukuID && item.userID === user.userID )
+  const BookHasOwnedByUser = peminjaman != [] && peminjaman.filter(item => item.userID === user.userID && item.status_peminjaman === 1)
   const handlebookmark = () => {
     props.handlebookmark(form)
     setupdate(uuidv4())
@@ -46,6 +51,12 @@ const DescriptionDetailBukuComponent = (props) => {
     }, 1500);
   }
 
+  const hitungTanggalPengembalian = (tanggalPinjam, durasiPeminjaman) => {
+    const tanggalPinjamObj = new Date(tanggalPinjam);
+    const tanggalKembaliObj = new Date(tanggalPinjamObj.getTime() + durasiPeminjaman * 24 * 60 * 60 * 1000);
+    return tanggalKembaliObj.toLocaleDateString('en-CA'); 
+};
+
   const handlePinjamBuku = async() => {
     try{
       Swal.fire({
@@ -60,10 +71,17 @@ const DescriptionDetailBukuComponent = (props) => {
           setalerttype("pinjam")
           setisload(true)
           setsuccess(true)
+       
           setTimeout(() => {
             setsuccess(false)
             setisload(false)
           }, 1500);
+          setTimeout(async() => {
+            // const findPeminjaman = peminjaman.find(item => item.bukuID === props.buku.bukuID && item.userID === user.userID && item.status_peminjaman === 1)
+            // console.log(findPeminjaman)
+            // const settanggalkembali = hitungTanggalPengembalian(findPeminjaman.tanggal_peminjaman,props.buku.durasi_buku)
+            // const res_update = await axios.put(`${import.meta.env.VITE_APP_URL_API}peminjaman/${findPeminjaman.peminjamanID}`,{tanggal_pengembalian:settanggalkembali})
+          },3000)
         }
       })
     }
@@ -71,10 +89,6 @@ const DescriptionDetailBukuComponent = (props) => {
       console.log(e)
     }
   }
-
-  const selectedbookmark = koleksi.find(item => item.userID === user.userID && item.bukuID === props.buku.bukuID) || false
-  const selectedpeminjamanlast = peminjaman.filter(item => item.userID === user.userID && item.bukuID === props.buku.bukuID) || false
-  const selectedpeminjaman = selectedpeminjamanlast[selectedpeminjamanlast.length - 1] || false
 
   const checkobjvalue = (obj,key,value) => {
     const keys = Object.keys(obj)
@@ -85,6 +99,11 @@ const DescriptionDetailBukuComponent = (props) => {
     }
     return false
   }
+
+
+  useEffect(() => {
+    console.log(BookHasOwnedByUser)
+  },[BookHasOwnedByUser])
 
   useEffect(() => {
     if(props.perpus && props.perpus.length > 0){
@@ -134,15 +153,30 @@ const DescriptionDetailBukuComponent = (props) => {
         console.log(e)
       }
     }
+    
     if(isload){
       refetchdata()
+    
     }
   },[updater])
 
   useEffect(() => {
+    const updateDataKembali = async() => {
+      const findPeminjaman = peminjaman.find(item => item.bukuID === props.buku.bukuID && item.userID === user.userID && item.status_peminjaman === 1)
+      console.log(findPeminjaman)
+      console.log(props.buku.bukuID)
+      const settanggalkembali = hitungTanggalPengembalian(findPeminjaman.tanggal_peminjaman,props.buku.durasi_buku)
+      const res = await axios.put(`${import.meta.env.VITE_APP_URL_API}peminjaman/${findPeminjaman.peminjamanID}`,{tanggal_pengembalian:settanggalkembali})
+    }
+    if(isload){
+      updateDataKembali()
+    }
+  },[peminjaman,updater])
+
+  useEffect(() => {
    // console.log(checkobjvalue(selectedpeminjaman,"status_peminjaman",2))
-    console.log(selectedpeminjaman.status_peminjaman)
-    console.log(selectedpeminjaman)
+   //console.log(hitungTanggalPengembalian(BookHasOwnedByUser[0].tanggal_peminjaman,props.buku.durasi_buku))
+  //console.log(selectedpeminjaman)
   })
 
   return(
@@ -187,10 +221,13 @@ const DescriptionDetailBukuComponent = (props) => {
                 <Box className='flex gap-3 mb-4'>
                   {
                     selectedpeminjaman != undefined &&
+                    Object.keys(BookHasOwnedByUser).length === 3 ?
+                    <Button variant='contained' >Buku yang dipinjam sudah dalam batas maksimal  </Button>                   
+                    : 
                     selectedpeminjaman.status_peminjaman === 2 || Object.keys(selectedpeminjaman).length === 0 ?
                     <Button variant='contained' onClick={handlePinjamBuku} >Pinjam</Button>
-                    :
-                    <Button variant='contained' >Buku sedang dipinjam</Button>
+                    :    
+                    <Button variant='contained' >Buku sedang dipinjam</Button>                   
                   }
 
                     {

@@ -44,13 +44,13 @@ router.route("/buku")
             
         }
     })
-    .post(upload.single("img"),upload.single("isi_buku"),async(req,res) => {
+    .post(upload.fields([{name:"img",maxCount:1},{name:"isi_buku",maxCount:1}]),async(req,res) => {
         try{
             
             let createItem = await Buku.create({
                 bukuID:RandId(),
-                img:req.file && req.file.filename,
-                isi_buku:req.file && req.file.filename,
+                img:req.files['img'] && req.files['img'][0].filename,
+                isi_buku:req.files['isi_buku'] && req.files['isi_buku'][0].filename,
                 ...req.body,
             })
 
@@ -70,7 +70,7 @@ router.route("/buku")
     })
 
 router.route("/buku/:id")
-    .put(upload.single("img"),upload.single("isi_buku"),async(req,res) => {
+    .put(upload.fields([{name:"img",maxCount:1},{name:"isi_buku",maxCount:1}]),async(req,res) => {
         try{
             let id = req.params.id
             const findItem = await Buku.findByPk(id)
@@ -78,8 +78,8 @@ router.route("/buku/:id")
             if(findItem){
                 findItem.update({
                     ...req.body,
-                    img:req.file && req.file.filename,
-                    isi_buku:req.file && req.file.filename,
+                    img:req.files['img'] && req.files['img'][0].filename,
+                    isi_buku:req.files['isi_buku'] && req.files['isi_buku'][0].filename,
                 })
 
                 res.status(200).json({

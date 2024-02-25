@@ -71,6 +71,10 @@ export default function Router() {
     if(!token && !location.pathname === "/"){
       navigate("/login")
     }
+    if(!token){
+      navigate("/login")
+    }
+    
   },[])
 
   useEffect(() => {
