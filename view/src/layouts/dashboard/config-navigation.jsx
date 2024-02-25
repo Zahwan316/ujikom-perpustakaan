@@ -52,7 +52,7 @@ const navConfig = [
   {
     title: 'Koleksi',
     path: '/koleksi',
-    icon: icon('bookmark-solid'),
+    icon: icon('star-solid'),
     level:[3]
   },
   {

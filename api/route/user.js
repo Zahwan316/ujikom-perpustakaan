@@ -130,7 +130,7 @@ router.route("/user/:id")
             })
             
         }
-    })
+    })  
     .delete(async(req,res) =>{
         try{
             let id = req.params.id

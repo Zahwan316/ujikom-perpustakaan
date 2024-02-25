@@ -54,6 +54,9 @@ export default function LoginView() {
       if(!form.password){
         errors.password = "Password tidak boleh kosong"
       }
+      else if(form.password.length < 8){
+        errors.password = "Panjang password kurang dari 8"
+      }
     }
 
     if(typelogin === "register"){
@@ -67,6 +70,9 @@ export default function LoginView() {
   
       if(!form.password){
         errors.password = "Password tidak boleh kosong"
+      }
+      else if(form.password.length < 8){
+        errors.password = "Panjang password kurang dari 8"
       }
 
       if(!form.username){

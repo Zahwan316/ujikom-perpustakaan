@@ -39,16 +39,20 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: true
     },
-    sinopsis: {
+    slug: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    slug: {
+    sinopsis: {
       type: DataTypes.STRING,
       allowNull: true
     },
     stok: {
       type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    isi_buku: {
+      type: DataTypes.STRING,
       allowNull: true
     }
   }, {

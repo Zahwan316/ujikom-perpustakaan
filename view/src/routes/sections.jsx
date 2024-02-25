@@ -61,6 +61,10 @@ export default function Router() {
       }
       catch(e){
         console.log(e)
+        if(e.response.status === 400){
+          Cookies.remove("token")
+          navigate("/login")
+        }
       }
     }
     fetchakun()

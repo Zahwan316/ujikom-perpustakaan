@@ -27,7 +27,7 @@ const PeminjamanTableBody = (props) => {
     <>
       {
         peminjaman.length != 0 ?
-         peminjaman.filter(item => !search || user.some((user) => user.userID === item.userID && user.nama_lengkap.toLowerCase().includes(search.toLowerCase()))).slice(props.page * props.rowsPerPage,props.page * props.rowsPerPage + props.rowsPerPage).map((item,index) => 
+         peminjaman.filter(item => !search || user.some((user) => user.userID === item.userID && user.nama_lengkap.toLowerCase().includes(search.toLowerCase()))).map((item,index) => 
           <TableRow key={index}>
             <TableCell key={index}>
               {
