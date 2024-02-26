@@ -166,6 +166,17 @@ const BukuForm = () => {
               }
             </Select>
            </Box>
+           <Box className="flex flex-col mb-6">
+            <InputLabel className='mb-2'>Durasi Peminjaman (hari)</InputLabel>
+            <TextField  
+              size='small'
+              type='number'
+              name="durasi_buku"
+              onChange={(e) => {handleForm(e),handleSlug()}}
+              value={form.durasi_buku}
+              onBlur={handleSlug}
+            />
+          </Box>
            <Box className='flex flex-col mb-6'>
               <InputLabel className='mb-2'>Isi Buku</InputLabel>
               <TextField 

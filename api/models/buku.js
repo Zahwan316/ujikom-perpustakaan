@@ -39,11 +39,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: true
     },
-    slug: {
+    sinopsis: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    sinopsis: {
+    slug: {
       type: DataTypes.STRING,
       allowNull: true
     },
@@ -53,6 +53,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     isi_buku: {
       type: DataTypes.STRING,
+      allowNull: true
+    },
+    durasi_buku: {
+      type: DataTypes.INTEGER,
       allowNull: true
     }
   }, {
