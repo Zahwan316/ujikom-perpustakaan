@@ -47,7 +47,7 @@ const navConfig = [
     title: 'ulasan',
     path: '/ulasan',
     icon: icon('comment-solid'),
-    level:[1,3]
+    level:[1]
   },
   {
     title: 'Koleksi',

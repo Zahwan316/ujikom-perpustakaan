@@ -10,6 +10,8 @@ import {v4 as uuidv4} from 'uuid'
 import { Alert, AlertTitle, Snackbar } from '@mui/material';
 import HTMLFlipBook from 'react-pageflip';
 import { pdfjs } from 'react-pdf';
+import UlasanUserViewPage from 'src/sections/ulasanuser/view/ulasanuser';
+import BukuContentPeminjaman from '../bukucontent';
 
 const PeminjamanUserViewPage = () => {
   const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
@@ -37,17 +39,7 @@ const PeminjamanUserViewPage = () => {
     return pagetext
   }
 
-  const fetchPdf = async(url) => {
-    try{
-      const response = await fetch(url)
-      const blob = await response.blob()
-      return blob
-    }
-    catch(e){
-      console.log(e)
-      throw e
-    }
-  }
+  
 
   const handleModal = (peminjamanid) => {
     Swal.fire({
@@ -74,26 +66,21 @@ const PeminjamanUserViewPage = () => {
 
   const handleopenbook = async(id) => {
     try {
-      const mainbuku = buku.find(item => item.bukuID === id);
-      const response = await fetch(`${import.meta.env.VITE_APP_URL_API}img/${mainbuku.isi_buku}`);
-      const blob = await response.blob();
-      const reader = new FileReader();
-      reader.onload = async () => {
-          const arrayBuffer = reader.result;
-          const typedArray = new Uint8Array(arrayBuffer);
-          const pdf = await pdfjs.getDocument(typedArray).promise;
-          let text = '';
-          for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-              const page = await pdf.getPage(pageNum);
-              const textContent = await page.getTextContent();
-              text += textContent.items.map(item => item.str).join(' ');
-          }
-          setPdfText(text);
-      };
-      reader.readAsArrayBuffer(blob);
+      const buku_main = buku.find(item => item.bukuID === id)
+     /*  const fetchPdf = async() => {
+        const text = await readPdf(`${import.meta.env.VITE_APP_URL_API}img/474.64-win11-win10-release-notes.pdf`)
+        setpagetextpdf(text)
+     }
+     fetchPdf() */
+
+     window.location.href = `${import.meta.env.VITE_APP_URL_API}img/${buku_main.isi_buku}`
   } catch (error) {
       console.error('Gagal mengunduh file PDF:', error);
   }
+  }
+
+  const handleMenuModal = () => {
+
   }
 
   useEffect(() => {
@@ -146,33 +133,16 @@ const PeminjamanUserViewPage = () => {
               </Alert>
             </Snackbar>
         }
-        <Stack>
+        <Stack mb={4}>
           <Typography variant='h4' mb={4}>
             Buku yang dipinjam
           </Typography>
-          <Box className='flex flex-wrap flex-row ' gap={3}>
-            {
-              selectedpeminjaman.length != 0 ?
-              selectedpeminjaman.map(item => 
-                buku.map(items => 
-                  item.bukuID === items.bukuID &&
-                  <BookComponent 
-                    title={items.judul}
-                    img={`${import.meta.env.VITE_APP_URL_API}img/${items.img}`}
-                    penulis={items.penulis}
-                    //id={items.bukuID}
-                    slug={items.slug}
-                    handlemodal={handleModal}
-                    id={item.peminjamanID}
-                  />
-                )
-              )
-              :
-              <Typography>Belum ada buku yang dipinjam </Typography>
-            }
-           
-          </Box>
-          <Box>
+         <BukuContentPeminjaman 
+           selectedpeminjaman={selectedpeminjaman}
+           buku={buku}
+           handleModal={handleopenbook}
+         />
+         {/*  <Box>
             <HTMLFlipBook
                width={550}
                height={733}
@@ -191,13 +161,11 @@ const PeminjamanUserViewPage = () => {
              <div className="demoPage">Page 3</div>
              <div className="demoPage">Page 4</div>
               </HTMLFlipBook>
-          </Box>
-          <Box>
-            <iframe 
-              src={`https://docs.google.com/gview?url=${import.meta.env.VITE_APP_URL_API}img/474.64-win11-win10-release-notes.pdf&embedded=true`}
-            />
-          </Box>
+          </Box> */}
+        
         </Stack>
+
+        <UlasanUserViewPage />
       </Container>
     </>
   )

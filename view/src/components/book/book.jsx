@@ -34,6 +34,9 @@ const BookComponent = (props) => {
             <Typography variant="body1">
               {props.penulis}
             </Typography>
+            <Typography variant='body2'>
+              {props.remaining}
+            </Typography>
           </CardContent>
         </CardActionArea>
       </Card>

@@ -97,7 +97,7 @@ const UlasanUserViewPage = () => {
       <Container>
         <Stack>
           <Typography variant='h4' mb={4}>
-            Ulas buku
+            Buku yang pernah dipinjam
           </Typography>
           <Box className='flex flex-row flex-wrap' gap={4}>
             {
