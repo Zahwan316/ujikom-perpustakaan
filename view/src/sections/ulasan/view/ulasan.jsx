@@ -114,7 +114,7 @@ const UlasanViewPage = () => {
           title="Semua Ulasan"
           handlemodal={handleModal}
           size="lg"
-          body={<UlasanModalContent id={editedid} />}
+          body={<UlasanModalContent setmodal={setmodal} id={editedid} />}
           type="view"
         />
       }

@@ -39,11 +39,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: true
     },
-    sinopsis: {
+    slug: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    slug: {
+    sinopsis: {
       type: DataTypes.STRING,
       allowNull: true
     },

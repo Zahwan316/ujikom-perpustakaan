@@ -5,19 +5,64 @@ import useItemStore from "../../../../state/item";
 import React, { useState, useEffect } from 'react';
 import SvgColor from "src/components/svg-color";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import Swal from "sweetalert2";
+import {v4 as uuidv4} from "uuid";
+import axios from "axios";
 
 
 const UlasanModalContent = (props) => {
   const buku = useItemStore((state) => state.buku)
-  const ulasan = useItemStore((state) => state.ulasan)
+  const [ulasan,setulasan] = useItemStore((state) => [state.ulasan,state.setulasan])
   const kategori = useItemStore((state) => state.kategori)
   const user = useItemStore((state) => state.user)
 
   const data = ulasan.filter(item => item.bukuID == props.id)
   const totalrating = data.reduce((total,item) => total + item.rating,0)
   const averagerating = totalrating / ulasan.length
+
+  const [updater,setupdater] = useState()
+  const [isload,setisload] = useState()
+
+  const handleHapusUlasan = async(e) => {
+    const id = e.target.getAttribute("id")
+    props.setmodal(false)
+    Swal.fire({
+      title:"Hapus ulasan ini?",
+      text:"Yakin ingin menghapus ulasan ini?",
+      showCancelButton:true
+    }).then(async(result) => {
+      if(result.isConfirmed){
+        let res = await axios.delete(`${import.meta.env.VITE_APP_URL_API}ulasanbuku/${id}`)
+        setisload(true)
+        setupdater(uuidv4())
+        Swal.fire({
+          title:"Ulasan berhasil dihapus",
+          showConfirmButton:true,
+          icon:"success",
+        }).then(result => {
+          if(result.isConfirmed){
+            props.setmodal(true)
+          }
+        })
+        setTimeout(() => {
+          setisload(false)
+        }, 500);
+      }
+    })
+  }
   
+  useEffect(() => {
+    const refetchdata = async() => {
+      try{
+        let res_result = await axios.get(`${import.meta.env.VITE_APP_URL_API}ulasanbuku`)
+        setulasan(res_result.data.data)
+      }
+      catch(e){
+        console.log(e)
+      }
+    }
+    refetchdata()
+  },[updater])
 
   useEffect(() => {
     console.log(buku)
@@ -69,7 +114,7 @@ const UlasanModalContent = (props) => {
                         <Typography variant="body1">{item.ulasan} </Typography>
                       </Box>
                       <Box className='flex items-center justify-center'>
-                        <Button color="error" variant='contained'>Hapus</Button>
+                        <Button color="error" variant='contained' id={item.ulasanID} onClick={handleHapusUlasan}>Hapus</Button>
                       </Box>
                         
                     </Box>    
