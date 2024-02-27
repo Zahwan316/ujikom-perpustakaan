@@ -6,6 +6,9 @@ const useStateStore = create((set) => ({
     
     search:"",
     setsearch:(data) => set(() => ({search:data})),
+
+    bukuid:"",
+    setbukuid:(data) => set(() => ({bukuid:data})),
 }))
 
 export default useStateStore

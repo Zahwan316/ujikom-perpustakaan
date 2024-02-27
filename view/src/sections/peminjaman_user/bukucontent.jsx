@@ -43,11 +43,11 @@ const BukuContentPeminjaman = (props) => {
                     title={items.judul}
                     img={`${import.meta.env.VITE_APP_URL_API}img/${items.img}`}
                     penulis={items.penulis}
-                    id={items.bukuID}
+                    //id={items.bukuID}
                     slug={items.slug}
                     handlemodal={props.handleModal}
                     remaining={calculateRemainingDays(item.tanggal_pengembalian)}
-                    //id={item.peminjamanID}
+                    id={item.peminjamanID}
                   />
                 )
               )

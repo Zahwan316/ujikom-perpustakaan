@@ -46,18 +46,25 @@ router.route("/buku")
     })
     .post(upload.fields([{name:"img",maxCount:1},{name:"isi_buku",maxCount:1}]),async(req,res) => {
         try{
-            
-            let createItem = await Buku.create({
-                bukuID:RandId(),
-                img:req.files['img'] && req.files['img'][0].filename,
-                isi_buku:req.files['isi_buku'] && req.files['isi_buku'][0].filename,
-                ...req.body,
-            })
-
-            res.status(200).json({
-                message:'Data berhasil dibuat',
-                method:req.method,
-            })
+            const findJudul = await Buku.findOne({where:{judul:req.body.judul}})
+            if(findJudul){
+                res.status(400).json({ 
+                    message:'Buku sudah ada',
+                    method:req.method 
+                })
+            }else{
+                let createItem = await Buku.create({
+                    bukuID:RandId(),
+                    img:req.files['img'] && req.files['img'][0].filename,
+                    isi_buku:req.files['isi_buku'] && req.files['isi_buku'][0].filename,
+                    ...req.body,
+                })
+    
+                res.status(200).json({
+                    message:'Data berhasil dibuat',
+                    method:req.method,
+                })
+            }
             
         }
         catch(e){

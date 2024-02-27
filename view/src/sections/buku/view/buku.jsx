@@ -78,7 +78,7 @@ const BukuViewPage = () => {
       console.log(e)
       Swal.fire({
         title:"Error",
-        text:e.message,
+        text:e.response.data.message,
         icon:"error"
       })
     }

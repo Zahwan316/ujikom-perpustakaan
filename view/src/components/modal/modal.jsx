@@ -13,7 +13,7 @@ const ModalComponent = (props) => {
          
       >
         <Fade in={true} >
-         <Box className='bg-white w-1/3 flex flex-col  justify-center h-auto rounded-md ' p={4}>
+         <Box className={`bg-white ${props.size === "xl" ? "w-2/4" : "w-1/3"} flex flex-col  justify-center h-auto rounded-md `} p={4}>
             <form onSubmit={props.handlesubmit}>
               <Box className="mb-8">
                 <Box>

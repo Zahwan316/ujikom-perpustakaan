@@ -12,6 +12,11 @@ import HTMLFlipBook from 'react-pageflip';
 import { pdfjs } from 'react-pdf';
 import UlasanUserViewPage from 'src/sections/ulasanuser/view/ulasanuser';
 import BukuContentPeminjaman from '../bukucontent';
+import ModalComponent from 'src/components/modal/modal';
+import useStateStore from '../../../../state/state';
+import PeminjamanUserModal from 'src/components/modal/content/peminjamanuser';
+import UlasanForm from 'src/components/form/ulasan';
+import useFormStore from '../../../../state/form';
 
 const PeminjamanUserViewPage = () => {
   const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
@@ -21,8 +26,15 @@ const PeminjamanUserViewPage = () => {
   const [isload,setisload] = useState(false)
   const [success,setsuccess] = useState(false)
   const [pagetextpdf,setpagetextpdf] = useState()
+  const [modal,setmodal] = useState(false)
+  const [modal2,setmodal2] = useState(false)
+  const [bukuid,setbukuid] = useStateStore((state) => [state.bukuid,state.setbukuid])
+  const form = useFormStore((state) => state.form)
+  const [ulasan,setulasan] = useItemStore((state) => [state.ulasan,state.setulasan])
 
   const selectedpeminjaman = peminjaman.filter((item) => item.userID === user.userID && item.status_peminjaman === 1)
+  const filteredpeminjaman = peminjaman && peminjaman.find(item => item.peminjamanID === bukuid) || false
+  const selectedbuku = buku && buku.find(item => filteredpeminjaman.bukuID === item.bukuID)
 
   const readPdf = async(isi_buku) => {
     const awaittask = pdfjs.getDocument(isi_buku)
@@ -39,9 +51,8 @@ const PeminjamanUserViewPage = () => {
     return pagetext
   }
 
-  
-
   const handleModal = (peminjamanid) => {
+    setmodal(false)
     Swal.fire({
       title:"Yakin",
       text:"Apakah anda ingin mengembalikan buku ini",
@@ -52,7 +63,7 @@ const PeminjamanUserViewPage = () => {
         const now = new Date()
         const option = {year:"numeric",month:'2-digit',day:"2-digit"}
         const formatteddate = now.toLocaleDateString("en-CA",option)
-        let res = await axios.put(`${import.meta.env.VITE_APP_URL_API}peminjaman/${peminjamanid}`,{status_peminjaman:2,tanggal_pengembalian:formatteddate})
+        let res = await axios.put(`${import.meta.env.VITE_APP_URL_API}peminjaman/${bukuid}`,{status_peminjaman:2,tanggal_pengembalian:formatteddate})
         setupdater(uuidv4())
         setisload(true)
         setsuccess(true)
@@ -64,23 +75,55 @@ const PeminjamanUserViewPage = () => {
     })
   }
 
-  const handleopenbook = async(id) => {
+  const handleModal2 = () => {
+    setmodal2(!modal2)
+    setmodal(false)
+  }
+
+  const handleopenbook = async() => {
     try {
-      const buku_main = buku.find(item => item.bukuID === id)
-     /*  const fetchPdf = async() => {
-        const text = await readPdf(`${import.meta.env.VITE_APP_URL_API}img/474.64-win11-win10-release-notes.pdf`)
-        setpagetextpdf(text)
-     }
-     fetchPdf() */
-
-     window.location.href = `${import.meta.env.VITE_APP_URL_API}img/${buku_main.isi_buku}`
+     window.location.href = `${import.meta.env.VITE_APP_URL_API}img/${selectedbuku.isi_buku}`
   } catch (error) {
-      console.error('Gagal mengunduh file PDF:', error);
+      Swal.fire({
+        title:"error",
+        icon:"error",
+        text:"Kesalahan server"
+      })
   }
   }
 
-  const handleMenuModal = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setmodal2(false)
+    const sendData = async() => {
+      try{
+        let res = await axios.post(`${import.meta.env.VITE_APP_URL_API}ulasanbuku`,form)
+        Swal.fire({
+          title:"Berhasil",
+          text:"Ulasan berhasil dikirim",
+          icon:"success"
+        }).then((result) => {
+          if(result.isConfirmed){
+            setmodal(true)
+          }
+        })
+        setmodal(false)
+        setisload(true)
+        setupdater(uuidv4())
+        setTimeout(() => {
+          setisload(false)
+        }, 500);
+      }
+      catch(e){
+        console.log(e)
+      }
+    }
+    sendData()
+  }
 
+  const handleMenuModal = (id) => {
+   setmodal(!modal)
+   setbukuid(id)
   }
 
   useEffect(() => {
@@ -107,6 +150,9 @@ const PeminjamanUserViewPage = () => {
       try{
         let res_peminjaman = await axios.get(`${import.meta.env.VITE_APP_URL_API}peminjaman`)
         setpeminjaman(res_peminjaman.data.data)
+
+        let res_ulasan = await axios.get(`${import.meta.env.VITE_APP_URL_API}ulasanbuku`)
+        setulasan(res_ulasan.data.data)
       }
       catch(e){
         console.log(e)
@@ -118,7 +164,7 @@ const PeminjamanUserViewPage = () => {
   },[updater])
 
   useEffect(() => {
-    console.log(pagetextpdf)
+    console.log("modal 2 = ",modal2)
   })
 
   return(
@@ -140,7 +186,7 @@ const PeminjamanUserViewPage = () => {
          <BukuContentPeminjaman 
            selectedpeminjaman={selectedpeminjaman}
            buku={buku}
-           handleModal={handleopenbook}
+           handleModal={handleMenuModal}
          />
          {/*  <Box>
             <HTMLFlipBook
@@ -164,6 +210,32 @@ const PeminjamanUserViewPage = () => {
           </Box> */}
         
         </Stack>
+
+        {
+          modal &&
+          <ModalComponent 
+            title="Menu Buku"
+            handlemodal={handleMenuModal}
+            size="xl"
+            body={<PeminjamanUserModal
+               buku={selectedbuku}
+               handleReturnBook={handleModal}
+               handleOpenBook={handleopenbook} 
+               handleUlasBuku={handleModal2}
+              />}
+            
+          />
+        }
+
+        {
+          modal2 && 
+          <ModalComponent 
+            title="Ulas Buku"
+            handlemodal={handleModal2}
+            body={<UlasanForm id={selectedbuku.bukuID} />}
+            handlesubmit={handleSubmit}
+            />
+        }
 
         <UlasanUserViewPage />
       </Container>
