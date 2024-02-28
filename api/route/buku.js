@@ -117,7 +117,9 @@ router.route("/buku/:id")
 
             if(findItem){
                 findItem.destroy()
-                findItemUlasanBuku.destroy()
+                if(findItemUlasanBuku){
+                    findItemUlasanBuku.destroy()
+                }
                 res.status(200).json({
                     message:'Data berhasil dihapus',
                     method:req.method,

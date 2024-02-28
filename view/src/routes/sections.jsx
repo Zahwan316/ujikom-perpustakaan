@@ -19,6 +19,7 @@ import SearchPage from 'src/pages/search';
 import LaporanPage from 'src/pages/laporan';
 import LandingPage from 'src/pages/landing-page';
 import NotifNewsPage from 'src/pages/notif_news';
+import IndexUserPage from 'src/pages';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -125,7 +126,7 @@ export default function Router() {
     },
     {
       path:"/",
-      element:<LandingPage />,
+      element:<IndexUserPage />,
       index:true
     }
   ]);

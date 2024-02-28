@@ -15,7 +15,7 @@ const BookComponent = (props) => {
   }
   return(
     <>
-      <Card className="w-52 h-96">
+      <Card className="w-52 h-96 border" sx={{borderRadius:"6px"}}>
         <CardActionArea onClick={openmodal}>
           <CardMedia 
             component="img"
