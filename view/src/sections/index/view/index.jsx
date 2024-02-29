@@ -8,12 +8,14 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import KategoriIndex from '../kategori';
 import FooterIndex from '../footer';
+import IndexUserLayout from 'src/layouts/dashboard/indexuser';
 
 const IndexViewPage = () => {
   const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
   const [peminjaman,setpeminjaman] = useItemStore((state) => [state.peminjaman,state.setpeminjaman])
   const [ulasan,setulasan] = useItemStore((state) => [state.ulasan,state.setulasan])
   const [bukusitem,setbukus] = useState()
+  
  
   useEffect(() => {
     const fetchdata = async() => {
@@ -75,10 +77,8 @@ const IndexViewPage = () => {
   })
 
   return(
-    <>
-      <Box className='px-48 py-8'>
-        <NavBarIndexComponent />
-        <Box className='px-8'>
+   <IndexUserLayout>
+    <Box className='px-8'>
           <Box className='mb-8'>
             <Box className='w-full h-64 mb-8'>
               <img src='assets/images/banner.jpg' className='w-full h-full object-cover' />
@@ -88,7 +88,7 @@ const IndexViewPage = () => {
             <Stack flex flexDirection={"row"} gap={4}>
              {
                 bukusitem != undefined &&
-                bukusitem.map(item => 
+                bukusitem.slice(0,4).map(item => 
                   buku.map(items => 
                     items.bukuID == item.bukuID &&
                      <BookComponent 
@@ -115,10 +115,8 @@ const IndexViewPage = () => {
              }
             </Stack>
           </Box>
-        </Box>
-      </Box>
-      <FooterIndex />
-    </>
+    </Box>
+   </IndexUserLayout>
   )
 }
 

@@ -21,7 +21,7 @@ const navConfig = [
   },
   {
     title: 'pengguna',
-    path: '/anggota',
+    path: '/admin/anggota',
     icon: icon('ic_user'),
     level:[1],
   },
@@ -33,7 +33,7 @@ const navConfig = [
   },
   {
     title: 'kategori',
-    path: '/kategori',
+    path: '/admin/kategori',
     icon: icon('list-solid'),
     level:[1]
   },
@@ -45,7 +45,7 @@ const navConfig = [
   },
   {
     title: 'ulasan',
-    path: '/ulasan',
+    path: '/admin/ulasan',
     icon: icon('comment-solid'),
     level:[1]
   },

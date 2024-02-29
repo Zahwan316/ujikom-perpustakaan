@@ -9,7 +9,10 @@ const NavBarIndexComponent = () => {
   const navigate = useNavigate() 
   const token = Cookies.get("token")
   const [typelogin,settypelogin] = useStateStore((state) => [state.typelogin,state.settypelogin])
-  
+
+  const redirectToHome = () => {
+    navigate("/")
+  }
 
   const redirectToLogin = () => {
     navigate("/login")
@@ -22,9 +25,9 @@ const NavBarIndexComponent = () => {
   }
   
   return(
-    <nav className='flex flex-row items-center justify-between mb-8'>
+    <nav className='flex flex-row items-center justify-between mb-8 fixed bg-white w-full h-20 px-48 z-50 shadow-sm'>
       <Box>
-        <Typography variant='h6'>Smea Digital</Typography>
+        <Typography variant='h6' className='cursor-pointer' onClick={redirectToHome}>Smea Digital</Typography>
       </Box>
       <Box className='w-96 flex flex-row gap-8' >
         <Box className='w-64'>

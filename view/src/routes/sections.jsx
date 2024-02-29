@@ -20,6 +20,9 @@ import LaporanPage from 'src/pages/laporan';
 import LandingPage from 'src/pages/landing-page';
 import NotifNewsPage from 'src/pages/notif_news';
 import IndexUserPage from 'src/pages';
+import KategoriIndexPage from 'src/pages/kategoriindex';
+import SelectedKategori from 'src/pages/selectedkategori';
+import BukuIndexPage from 'src/pages/bukuindex';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -100,14 +103,14 @@ export default function Router() {
         { path: 'user', element: <UserPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
-        { path: 'anggota', element: <AnggotaPage /> },
-        { path: 'kategori', element: <KategoriPage /> },
+        { path: 'admin/anggota', element: <AnggotaPage /> },
+        { path: 'admin/kategori', element: <KategoriPage /> },
         { path: 'buku', element: <BukuPage /> },
         { path: 'peminjaman', element: <PeminjamanPage /> },
-        { path: 'ulasan', element: <UlasanPage /> },
+        { path: 'admin/ulasan', element: <UlasanPage /> },
         { path: 'home', element: <HomePage /> },
         { path: 'rekomendasi', element: <RekomendasiPage /> },
-        { path: 'buku/:slug', element: <DetailBukuPage /> },
+        
         { path: 'koleksi', element: <KoleksiPage /> },
         { path: 'setting', element: <SettingPage /> },
         { path: 'laporan', element: <LaporanPage /> },
@@ -131,7 +134,16 @@ export default function Router() {
       path:"/",
       element:<IndexUserPage />,
       index:true
-    }
+    },
+    {
+      path:"/kategori",
+      element:<KategoriIndexPage />,
+    },
+    {
+      path:"/kategori/:kategoriname",
+      element:<SelectedKategori />
+    },
+    { path: 'buku/:slug', element: <BukuIndexPage /> },
   ]);
 
   return routes;
