@@ -30,15 +30,23 @@ const KategoriViewPage = () => {
     seteditedid(id)
   }
 
-  const handleCrud = async(method,id) => {
+  const handleCrud = async(method,id,formdata) => {
     try{
       let res;
       switch(method){
         case "post":
-          res = await axios.post(`${import.meta.env.VITE_APP_URL_API}kategori`,form)
+          res = await axios.post(`${import.meta.env.VITE_APP_URL_API}kategori`,formdata,{
+            headers: {
+              'Content-Type':'multipart/form-data'
+            }
+          })
           break;
         case "put":
-          res = await axios.put(`${import.meta.env.VITE_APP_URL_API}kategori/${id}`,form)
+          res = await axios.put(`${import.meta.env.VITE_APP_URL_API}kategori/${id}`,formdata,{
+            headers: {
+              'Content-Type':'multipart/form-data'
+            }
+          })
           break;
         case "delete":
           res = await axios.delete(`${import.meta.env.VITE_APP_URL_API}kategori/${id}`,form)
@@ -69,13 +77,18 @@ const KategoriViewPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    const formdata = new FormData()
+    for(const key in form){
+      formdata.append(key,form[key])
+     
+    }
 
     switch(typeform){
       case "add":
-        handleCrud("post",null)
+        handleCrud("post",null,formdata)
         break;
       case "edit":
-        handleCrud("put",editedid)
+        handleCrud("put",editedid,formdata)
     }
   }
 

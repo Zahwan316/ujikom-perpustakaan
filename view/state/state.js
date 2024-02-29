@@ -9,6 +9,9 @@ const useStateStore = create((set) => ({
 
     bukuid:"",
     setbukuid:(data) => set(() => ({bukuid:data})),
+
+    typelogin:"login",
+    settypelogin:(data) => set(() => ({typelogin:data})),
 }))
 
 export default useStateStore

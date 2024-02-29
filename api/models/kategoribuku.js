@@ -14,6 +14,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: Sequelize.Sequelize.fn('now')
+    },
+    img: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     sequelize,

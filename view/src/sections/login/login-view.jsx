@@ -25,6 +25,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import validator from 'validator';
 import useItemStore from '../../../state/item';
+import useStateStore from '../../../state/state';
 
 
 // ----------------------------------------------------------------------
@@ -38,7 +39,7 @@ export default function LoginView() {
   const [form,setform,resetform] = useFormStore((state) => [state.form,state.setform,state.resetform])
   const [success,setsuccess] = useState(false)
   const [error,seterror] = useState({})
-  const [typelogin,settypelogin] = useState("login")
+  const [typelogin,settypelogin] = useStateStore((state) => [state.typelogin,state.settypelogin])
   const [page,setpage] = useState(1)
   const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
   

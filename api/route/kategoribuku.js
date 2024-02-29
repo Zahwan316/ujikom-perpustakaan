@@ -7,6 +7,20 @@ const Kategoribuku = kategoribuku(sequelize,DataTypes)
 const RandInt = () => {
     return Math.floor(Math.random() * 9999999)
 }
+const multer = require("multer")
+
+// Konfigurasi Multer
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/'); // Folder tempat menyimpan gambar
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname); // Nama file unik
+    },
+  });
+
+const upload = multer({ storage: storage });
+
 
 router.route("/kategori")
     .get(async(req,res) => {
@@ -27,11 +41,12 @@ router.route("/kategori")
             
         }
     })
-    .post(async(req,res) => {
+    .post(upload.single("img"),async(req,res) => {
         try{
             const create = await Kategoribuku.create({
                 kategoriID:RandInt(),
-                ...req.body
+                ...req.body,
+                img:req.file && req.file.filename,
             })
 
             res.status(200).json({
@@ -48,13 +63,14 @@ router.route("/kategori")
     })
 
 router.route("/kategori/:id")
-    .put(async(req,res) => {
+    .put(upload.single('img'),async(req,res) => {
         try{
             const id = req.params.id
             const findItem = await Kategoribuku.findByPk(id)
             if(findItem){
                 findItem.update({
-                    ...req.body
+                    ...req.body,
+                    img:req.file && req.file.filename
                 })
                 res.status(200).json({
                     message:"Data berhasil diubah",

@@ -75,6 +75,9 @@ export default function Router() {
     if(!token){
       navigate("/login")
     }
+    if(!token && location.pathname === "/"){
+      navigate("/")
+    }
     
   },[])
 

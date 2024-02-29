@@ -6,6 +6,8 @@ import BookComponent from 'src/components/book/book';
 import useItemStore from '../../../../state/item';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import KategoriIndex from '../kategori';
+import FooterIndex from '../footer';
 
 const IndexViewPage = () => {
   const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
@@ -71,20 +73,25 @@ const IndexViewPage = () => {
   useEffect(() => {
     console.log(ulasan);
   })
+
   return(
     <>
-      <Box className='px-32 py-8'>
+      <Box className='px-48 py-8'>
         <NavBarIndexComponent />
-        <Box>
-          <Box>
-            <Typography mb={2} variant='subtitle2'>Buku Populer</Typography>
+        <Box className='px-8'>
+          <Box className='mb-8'>
+            <Box className='w-full h-64 mb-8'>
+              <img src='assets/images/banner.jpg' className='w-full h-full object-cover' />
+            </Box>
+            <KategoriIndex />
+            <Typography mb={2} variant='h6'>Buku Populer</Typography>
             <Stack flex flexDirection={"row"} gap={4}>
              {
                 bukusitem != undefined &&
                 bukusitem.map(item => 
                   buku.map(items => 
                     items.bukuID == item.bukuID &&
-                    <BookComponent 
+                     <BookComponent 
                       img={`${import.meta.env.VITE_APP_URL_API}img/${items.img}`}
                       title={items.judul}
                       penulis={items.penulis}
@@ -94,8 +101,23 @@ const IndexViewPage = () => {
              }
             </Stack>
           </Box>
+          <Box>
+            <Typography variant='h6' mb={2}>Semua Buku</Typography>
+            <Stack flex flexDirection={"row"} gap={4} flexWrap={"wrap"}>
+             {
+                  buku.map(items => 
+                     <BookComponent 
+                      img={`${import.meta.env.VITE_APP_URL_API}img/${items.img}`}
+                      title={items.judul}
+                      penulis={items.penulis}
+                    />
+                    )  
+             }
+            </Stack>
+          </Box>
         </Box>
       </Box>
+      <FooterIndex />
     </>
   )
 }
