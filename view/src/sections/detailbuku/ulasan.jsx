@@ -23,7 +23,7 @@ const UlasanDetailBukuComponent = (props) => {
             {
               props.ulasan.length != 0 ?
                 props.ulasan.map((item,index) => 
-                    <Box className=' p-4 rounded-lg border border-gray-200 flex flex-row gap-4'>
+                    <Box className=' p-4 rounded-lg  flex flex-row gap-4'>
                       <Box>
                         {
                           props.user.map((items) => 
@@ -43,7 +43,7 @@ const UlasanDetailBukuComponent = (props) => {
                                   )
                               }
                           </Typography>
-                          <Typography variant='subtitle2'>{convertedDate(item.created_date)}</Typography>
+                          <Typography variant='subtitle2' className='text-gray-400'>{convertedDate(item.created_date)}</Typography>
                         </Box>
                         <Box className="flex flex-row mb-2">
                           <Typography variant='caption' className='mb-8'>

@@ -36,21 +36,6 @@ const PeminjamanUserViewPage = () => {
   const filteredpeminjaman = peminjaman && peminjaman.find(item => item.peminjamanID === bukuid) || false
   const selectedbuku = buku && buku.find(item => filteredpeminjaman.bukuID === item.bukuID)
 
-  const readPdf = async(isi_buku) => {
-    const awaittask = pdfjs.getDocument(isi_buku)
-    const pdf = await awaittask.promise 
-
-    const numpages = pdf.getPage
-    const pagetext = []
-    for(let pagenum = 1;pagenum <= numpages;pagenum++){
-      const page = await pdf.getPage(pagenum)
-      const text = await page.getTextContent()
-      const textitem = text.items.map(item => item.str)
-      pagetext.push(textitem.join(" "))
-    }
-    return pagetext
-  }
-
   const handleModal = (peminjamanid) => {
     setmodal(false)
     Swal.fire({
@@ -82,7 +67,8 @@ const PeminjamanUserViewPage = () => {
 
   const handleopenbook = async() => {
     try {
-     window.location.href = `${import.meta.env.VITE_APP_URL_API}img/${selectedbuku.isi_buku}`
+
+     window.location.href = `read/${selectedbuku.slug}`
   } catch (error) {
       Swal.fire({
         title:"error",
@@ -217,6 +203,7 @@ const PeminjamanUserViewPage = () => {
             title="Menu Buku"
             handlemodal={handleMenuModal}
             size="xl"
+            type='view'
             body={<PeminjamanUserModal
                buku={selectedbuku}
                handleReturnBook={handleModal}

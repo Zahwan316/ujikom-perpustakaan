@@ -135,12 +135,12 @@ const KoleksiViewPage = () => {
             <Snackbar open={true} autoHideDuration={1000} anchorOrigin={{vertical:"top",horizontal:"right"}} className='w 3/2'>
               <Alert variant='filled' severity='success' className='w-full'>
                 <AlertTitle>Berhasil</AlertTitle>
-                Buku berhasil dihapus dari koleksi
+                Buku berhasil dihapus dari favorit
               </Alert>
             </Snackbar>
         }
         <Stack mb={4}>
-          <Typography variant='h4'>Koleksi Buku Saya</Typography>
+          <Typography variant='h4'>Buku favorit saya</Typography>
         </Stack>
         <Stack direction={'row'} flexWrap={'wrap'} gap={3}>
           {
@@ -162,7 +162,7 @@ const KoleksiViewPage = () => {
             )
             :
             <Typography variant='body1'>
-              Anda belum memiliki koleksi buku
+              Anda belum memiliki favorit buku
             </Typography>
           }
          

@@ -13,12 +13,12 @@ const navConfig = [
     icon: icon('ic_analytics'),
     level:[1],
   },
-  {
+  /* {
     title: 'home',
     path: '/home',
     icon: icon('house-solid'),
     level:[3]
-  },
+  }, */
   {
     title: 'pengguna',
     path: '/admin/anggota',
@@ -50,7 +50,7 @@ const navConfig = [
     level:[1]
   },
   {
-    title: 'Koleksi',
+    title: 'Favorit',
     path: '/koleksi',
     icon: icon('star-solid'),
     level:[3]

@@ -26,7 +26,7 @@ const KategoriIndexViewPage = () => {
 
   return(
    <IndexUserLayout>
-    <Box>
+    <Box className='min-h-96'>
       <Typography variant='h5' mb={2}>Kategori</Typography>
       <Stack flex flexDirection={"row"} flexWrap={"wrap"} gap={6}>
         {

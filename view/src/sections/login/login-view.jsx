@@ -26,13 +26,13 @@ import axios from 'axios';
 import validator from 'validator';
 import useItemStore from '../../../state/item';
 import useStateStore from '../../../state/state';
-
+import {useNavigate} from "react-router-dom"
 
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
   const theme = useTheme();
-
+  const navigate = useNavigate()
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -116,7 +116,8 @@ export default function LoginView() {
             window.location.href = "/buku"
           }
           else if(data.access_level === 3){
-            window.location.href = "/home"
+            window.location.href= '/'
+           
           }
         }, 1000);
       }

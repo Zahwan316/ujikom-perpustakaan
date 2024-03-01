@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useItemStore from '../../../../state/item';
 import BookComponent from 'src/components/book/book';
 import axios from 'axios';
+import IndexUserLayout from 'src/layouts/dashboard/indexuser';
 
 const SearchViewPage = () => {
   const {text} = useParams()
@@ -35,6 +36,7 @@ const SearchViewPage = () => {
   })
   return(
     <>
+    <IndexUserLayout>
       <Container>
         <Stack className='' mb={4}>
           <Typography variant="h4">
@@ -57,6 +59,8 @@ const SearchViewPage = () => {
           }
         </Stack>
       </Container>
+
+    </IndexUserLayout>
     </>
   )
 }

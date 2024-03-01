@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense } from 'react';
 import { Outlet, Navigate, useRoutes, useNavigate, useLocation } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
@@ -23,6 +23,11 @@ import IndexUserPage from 'src/pages';
 import KategoriIndexPage from 'src/pages/kategoriindex';
 import SelectedKategori from 'src/pages/selectedkategori';
 import BukuIndexPage from 'src/pages/bukuindex';
+import ReadPage from 'src/pages/read';
+import useItemStore from '../../state/item';
+import {v4 as uuidv4} from "uuid"
+import React, { useState, useEffect } from 'react';
+
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -40,6 +45,19 @@ export default function Router() {
   const [refuser,setrefuser] = useUserStore((state) => [state.ref_user,state.setrefuser])
   const redirect = useNavigate()
   const location = useLocation()
+  const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
+  const [peminjaman,setpeminjaman] = useItemStore((state) => [state.peminjaman,state.setpeminjaman])
+  const [updater,setupdater] = useState()
+  const [isload,setisload] = useState(false)
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    month = month < 10 ? '0' + month : month;
+    let day = date.getDate();
+    day = day < 10 ? '0' + day : day;
+    return `${year}-${month}-${day}`;
+  };
 
   useEffect(() => {
     const fetchakun = async() => {
@@ -62,6 +80,14 @@ export default function Router() {
             redirect("/home")
           } */
         }
+        if(Object.keys(buku).length === 0){
+          let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}buku`)
+          setbuku(res.data.data)
+        }
+        if(Object.keys(peminjaman).length === 0){
+          let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}peminjaman`)
+          setpeminjaman(res.data.data)
+        }
       }
       catch(e){
         console.log(e)
@@ -83,6 +109,45 @@ export default function Router() {
     }
     
   },[])
+
+  useEffect(() => {
+    const currentDate = new Date();
+    const formattedCurrentDate = formatDate(currentDate);
+    const returnBook = async() => {
+      try{
+        peminjaman.map(async(item) => {
+          if(item.tanggal_pengembalian == formattedCurrentDate && item.status_peminjaman === 1) {
+            let res = await axios.put(`${import.meta.env.VITE_APP_URL_API}peminjaman/${item.peminjamanID}`,{status_peminjaman:2})
+            setupdater(uuidv4())
+            setisload(true)
+            setTimeout(() => {
+              setisload(false)
+            }, 500);
+          }
+        }
+        )
+      }
+      catch(e){
+        console.log(e)
+      }
+    }
+    returnBook()
+  },[buku])
+
+  useEffect(() => {
+    const refetchData = async() => {
+      try{
+        let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}peminjaman`)
+        setpeminjaman(res.data.data)
+      }
+      catch(e){
+        console.log(e)
+      }
+    }
+    if(isload){
+      refetchData()
+    }
+  },[updater])
 
   useEffect(() => {
     console.log(user)
@@ -115,7 +180,7 @@ export default function Router() {
         { path: 'setting', element: <SettingPage /> },
         { path: 'laporan', element: <LaporanPage /> },
         { path: 'news', element: <NotifNewsPage /> },
-        { path: 'search/:text', element: <SearchPage /> },
+        
       ],
     },
     {
@@ -144,6 +209,11 @@ export default function Router() {
       element:<SelectedKategori />
     },
     { path: 'buku/:slug', element: <BukuIndexPage /> },
+    { path: 'search/:text', element: <SearchPage /> },
+    {
+      path:"read/:slug",
+      element:<ReadPage />
+    }
   ]);
 
   return routes;

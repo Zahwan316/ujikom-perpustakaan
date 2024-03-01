@@ -15,11 +15,11 @@ const BookComponent = (props) => {
   }
   return(
     <>
-      <Card className="w-52 h-96 border border-gray-300" sx={{borderRadius:"6px"}}>
+      <Card className="w-52 h-96 drop-shadow-md" sx={{borderRadius:"6px"}}>
         <CardActionArea onClick={openmodal}>
           <CardMedia 
             component="img"
-            className="h-72"
+            className="h-72 px-4 py-2"
             image={props.img || "./assets/images/noimage.jpg"}
             alt={props.alt}
             sx={{objectFit:'fill'}}

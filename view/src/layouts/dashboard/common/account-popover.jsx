@@ -19,12 +19,7 @@ import useFormStore from '../../../../state/form';
 // ----------------------------------------------------------------------
 
 
-const MENU_OPTIONS = [
-  {
-    label:"Pengaturan",
-    onclick:""
-  }
-];
+
 
 // ----------------------------------------------------------------------
 
@@ -34,11 +29,35 @@ export default function AccountPopover() {
   const user = useUserStore((state) => state.user)
   const resetform = useFormStore((state) => state.resetform)
 
+  const MENU_OPTIONS = [
+    {
+      label:"Peminjaman Saya",
+      level:[3],
+      onclick:() => {navigate("/peminjaman")}
+    },
+    {
+      label:"Koleksi Saya",
+      level:[3],
+      onclick:() => {navigate("/koleksi")}
+    },
+    {
+      label:"Pengaturan",
+      onclick:() => {navigate("/setting")},
+      level:[1,2,3],
+    },
+    {
+      label:"Dashboard",
+      level:[1],
+      onclick:() => {navigate("/dashboard")}
+    },
+  ];
+
   const handleLogout = () => {
     Cookies.remove('token')
     resetform()
     setTimeout(() => {
-      navigate("/login")
+      //navigate("/login")
+      window.location.href = '/login'
     },400)
   }
 
@@ -107,11 +126,16 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        {MENU_OPTIONS.map((option) => (
-          <MenuItem key={option.label} page='settings' onClick={redirectToSetting}>
-            {option.label}
-          </MenuItem>
-        ))}
+        {MENU_OPTIONS.map((option) => {
+          if(option.level.includes(user.access_level)){
+            return(
+              <MenuItem key={option.label} page='settings' onClick={option.onclick}>
+                {option.label}
+              </MenuItem>   
+
+            )
+          }
+        })}
 
         <Divider sx={{ borderStyle: 'dashed', m: 0 }} />
 

@@ -6,7 +6,7 @@ const FooterIndex = () => {
     <Box className='w-full border h-2/6 px-36 mt-12 p-8 flex flex-col  '>
       <Box className='flex flex-row justify-between mb-16'>
         <Box className='w-32 h-32'>
-          <img src='assets/images/smk.png' className="w-full h-full mb-2" />
+          <img src={`${import.meta.env.VITE_APP_URL_API}img/smk.png`} className="w-full h-full mb-2" />
           <Typography className='text-center' variant='h6'>Smea Digital</Typography>
         </Box>
         <Box className='w-1/3'>

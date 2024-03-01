@@ -183,12 +183,12 @@ const BukuForm = () => {
                 size='small'
                 onChange={handlePdf}
                 type='file'
-                
+                inputProps={{ accept: 'application/pdf' }}
               />
            </Box>
            <Box className="mb-8">
             <InputLabel className='mb-2'>Cover Buku</InputLabel>
-            <TextField type='file' onChange={handleImg}  />
+            <TextField type='file' onChange={handleImg} inputProps={{ accept: 'image/*' }}  />
             {
               img && 
               <>

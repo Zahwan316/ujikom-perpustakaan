@@ -15,8 +15,12 @@ const IndexViewPage = () => {
   const [peminjaman,setpeminjaman] = useItemStore((state) => [state.peminjaman,state.setpeminjaman])
   const [ulasan,setulasan] = useItemStore((state) => [state.ulasan,state.setulasan])
   const [bukusitem,setbukus] = useState()
-  
+  const navigate = useNavigate()
  
+  const redirectToBuku = (slug) => {
+    navigate(`/buku/${slug}`)
+  }
+
   useEffect(() => {
     const fetchdata = async() => {
       try{
@@ -67,13 +71,13 @@ const IndexViewPage = () => {
       bukus.push({"bukuID":key,"rating":ratingPerBuku[key]});
     }
     setbukus(bukus)
-    console.log('Jumlah total rating per buku:', ratingPerBuku);
+    /* console.log('Jumlah total rating per buku:', ratingPerBuku);
     console.log('Buku dengan rating terbanyak:', maxRatingBukuID);
-    console.log('Bukus : ', bukus);
+    console.log('Bukus : ', bukus); */
   }, [ulasan]);
 
   useEffect(() => {
-    console.log(ulasan);
+    //console.log(ulasan);
   })
 
   return(
@@ -81,7 +85,7 @@ const IndexViewPage = () => {
     <Box className='px-8'>
           <Box className='mb-8'>
             <Box className='w-full h-64 mb-8'>
-              <img src='assets/images/banner.jpg' className='w-full h-full object-cover' />
+              <img src='assets/images/banner2.png' className='w-full h-full object-fill' />
             </Box>
             <KategoriIndex />
             <Typography mb={2} variant='h6'>Buku Populer</Typography>
@@ -95,6 +99,9 @@ const IndexViewPage = () => {
                       img={`${import.meta.env.VITE_APP_URL_API}img/${items.img}`}
                       title={items.judul}
                       penulis={items.penulis}
+                      redirect={redirectToBuku}
+                      id={items.bukuID}
+                      slug={items.slug}
                     />
                     )
                 )
@@ -106,10 +113,14 @@ const IndexViewPage = () => {
             <Stack flex flexDirection={"row"} gap={4} flexWrap={"wrap"}>
              {
                   buku.map(items => 
+                    items.stok !== 0 &&
                      <BookComponent 
                       img={`${import.meta.env.VITE_APP_URL_API}img/${items.img}`}
                       title={items.judul}
                       penulis={items.penulis}
+                      redirect={redirectToBuku}
+                      id={items.bukuID}
+                      slug={items.slug}
                     />
                     )  
              }
