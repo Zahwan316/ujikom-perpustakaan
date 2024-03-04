@@ -210,7 +210,7 @@ const AppView = () => {
               id: item.message_id,
               title: item.title,
               description: item.text,
-              image: `/assets/images/covers/cover_${index + 1}.jpg`,
+              image: `${item.title === "Meminjam Buku" ? '/assets/icons/borrow.svg' : '/assets/icons/return.svg'}`,
               postedAt: filteredDate(item.created_date),
             }))}
           />

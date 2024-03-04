@@ -9,11 +9,34 @@ import { useNavigate } from "react-router-dom";
 
 const KategoriIndex = () => {
   const [kategori,setkategori] = useItemStore((state) => [state.kategori,state.setkategori])
+  const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
   const navigate = useNavigate()
+
+  /* const isFilledKategori = kategori.filter(item => {
+    return buku.some(items => item.kategoriID == items.kategori_id)
+  }) */
+
+  const getKategoriBuku = () => {
+    const kategoriWithBuku = kategori.filter(item => {
+      return buku.some(items => item.kategoriID == items.kategori_id)
+    })
+
+    const kategoriWithoutBuku = kategori.filter(items => {
+      return !kategoriWithBuku.some(item => item.kategoriID === items.kategoriID)
+    })
+
+    return kategoriWithBuku.concat(kategoriWithoutBuku)
+  }
+
+  const isFilledKategori = getKategoriBuku()
 
   const redirectToKategori = () => {
     navigate('/kategori')
   }
+
+  useEffect(() => {
+    console.log(getKategoriBuku())
+  })
 
   useEffect(() => {
     const fetchData = async() => {
@@ -22,6 +45,10 @@ const KategoriIndex = () => {
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}kategori`)
           setkategori(res.data.data)
         }
+        if(Object.keys(buku).length === 0){
+          let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}buku`)
+          setbuku(res.data.data)
+        }
       }
       catch(e){
         console.log(e)
@@ -29,6 +56,7 @@ const KategoriIndex = () => {
     }
     fetchData()
   },[])
+
   return(
     <>
         <Box className='mb-8'>
@@ -39,7 +67,7 @@ const KategoriIndex = () => {
           </Box>
             <Stack flex flexDirection={"row"} gap={4}>
                 {
-                  kategori.slice(0,4).map(item => 
+                  isFilledKategori.slice(0,4).map(item => 
                     <KategoriCardComponent
                       nama={item.nama_kategori}
                       img={`${import.meta.env.VITE_APP_URL_API}img/${item.img}`}

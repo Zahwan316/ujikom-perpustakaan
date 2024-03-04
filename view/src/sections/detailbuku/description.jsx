@@ -205,19 +205,19 @@ const DescriptionDetailBukuComponent = (props) => {
                 {
                   alerttype === "bookmark" &&
                   Object.keys(selectedbookmark).length !== 0 ?
-                  'Buku berhasil ditambahkan ke dalam koleksi pribadi'
+                  'Buku berhasil ditambahkan ke dalam favorit'
                   :
                   (alerttype === "pinjam" &&
                   Object.keys(selectedpeminjaman).length !== 0 ?
                    'Buku berhasil dipinjam' : 'Buku berhasil dikembalikan')
                 }
-                {
+                {/* {
                   alerttype === "pinjam" &&
                   Object.keys(selectedpeminjaman).length !== 0?
                   'Buku berhasil dipinjam'
                   :
                   'Buku berhasil dikembalikan'
-                }
+                } */}
               </Alert>
           </Snackbar>
         }
@@ -241,7 +241,7 @@ const DescriptionDetailBukuComponent = (props) => {
                   } */}
                   {
                     selectedpeminjaman != undefined &&
-                    Object.keys(BookHasOwnedByUser).length === 3 ?
+                    Object.keys(BookHasOwnedByUser).length > 3 ?
                     <Button variant='contained' color='warning' >Buku yang dipinjam sudah dalam batas maksimal </Button>                   
                     : 
                     selectedpeminjaman.status_peminjaman === 2 || Object.keys(selectedpeminjaman).length === 0 ?
@@ -254,9 +254,9 @@ const DescriptionDetailBukuComponent = (props) => {
                     {
                       selectedbookmark != undefined &&
                       Object.keys(selectedbookmark).length === 0 ?
-                      <Button variant='contained' onClick={handlebookmark} startIcon={Bookmarkicon }>Bookmark</Button>
+                      <Button variant='contained' onClick={handlebookmark} startIcon={Bookmarkicon }>Tambahkan ke favorit</Button>
                       :
-                      <Button variant='contained' onClick={handleRemoveBookmark}>Buku sudah di bookmark</Button>
+                      <Button variant='contained' onClick={handleRemoveBookmark}>Buku ini sudah masuk ke favorit</Button>
                     }
                 </Box>
                 <Box>

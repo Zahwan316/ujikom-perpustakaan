@@ -38,7 +38,11 @@ const NotifNewsViewPage = () => {
             <Stack direction="row" alignItems="center" spacing={2}>
             <Box
                 component="img"
-                src={`/assets/images/covers/cover_${index + 1}.jpg`}
+                src={ item.title === "Mengembalikan Buku" ?
+                `/assets/icons/return.svg`
+                :
+                `/assets/icons/borrow.svg`
+              }
                 sx={{ width: 48, height: 48, borderRadius: 1.5, flexShrink: 0 }}
             />
 
