@@ -1,4 +1,4 @@
-# Perpustakaan Online dengan Peminjaman Offline
+# SMEA Digital
 
 Proyek ini adalah sebuah aplikasi perpustakaan online yang memungkinkan pengguna untuk melakukan peminjaman buku secara online dan juga peminjaman buku secara offline di perpustakaan fisik.
 
