@@ -110,7 +110,7 @@ const IndexViewPage = () => {
           </Box>
           <Box>
             <Typography variant='h6' mb={2}>Semua Buku</Typography>
-            <Stack flex flexDirection={"row"} gap={4} flexWrap={"wrap"}>
+            <Stack flex flexDirection={"row"} gap={8} flexWrap={"wrap"}>
              {
                   buku.map(items => 
                     items.stok !== 0 &&

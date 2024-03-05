@@ -23,6 +23,7 @@ const UlasanUserViewPage = () => {
   const [bukuid,setbukuid] = useState()
   const form = useFormStore((state) => state.form)
   const peminjamanfilter = peminjaman.filter((item) => item.userID === user.userID)
+  const [displayedBooks, setDisplayedBooks] = useState(new Set());
 
   const handleModal = (id) => {
     setmodal(!modal)
@@ -105,11 +106,12 @@ const UlasanUserViewPage = () => {
               peminjaman.map((item) => 
                 item.status_peminjaman === 2 && item.userID === user.userID &&
                 buku.map(items => 
+                  
                   items.bukuID === item.bukuID &&
                   <BookComponent 
                     img={`${import.meta.env.VITE_APP_URL_API}img/${items.img}`}
                     title={items.judul}
-                    id={item.bukuID}
+                    id={item.bukuID}  
                     penulis={items.penulis}
                     slug={items.slug}
                     handlemodal={handleModal}

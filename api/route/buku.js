@@ -7,6 +7,8 @@ const Buku = buku(Sequelize,DataTypes)
 const multer = require("multer")
 const ulasanbuku = require("../models/ulasanbuku")
 const Ulasanbuku = ulasanbuku(Sequelize,DataTypes)
+const peminjaman = require("../models/peminjaman")
+const Peminjaman = peminjaman(Sequelize,DataTypes)
 
 // Konfigurasi Multer
 const storage = multer.diskStorage({
@@ -114,11 +116,15 @@ router.route("/buku/:id")
             let id = req.params.id
             let findItem = await Buku.findByPk(id)
             let findItemUlasanBuku = await Ulasanbuku.findOne({where:{bukuID:id}})
+            let findItemPeminjamanBUku = await Peminjaman.findOne({where:{bukuID:id}})
 
             if(findItem){
                 findItem.destroy()
                 if(findItemUlasanBuku){
                     findItemUlasanBuku.destroy()
+                }
+                if(findItemPeminjamanBUku){
+                    findItemPeminjamanBUku.destroy()
                 }
                 res.status(200).json({
                     message:'Data berhasil dihapus',

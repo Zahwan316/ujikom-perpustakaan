@@ -12,6 +12,7 @@ const BukuForm = () => {
   const [page,setpage] = useState(1)
   const [img,setimg] = useState()
   const [pdf,setpdf] = useState()
+  const sortedkategori = kategori.sort((a,b) => {return a.nama_kategori.localeCompare(b.nama_kategori)})
 
   const handleForm = (e) => {
     const {name,value} = e.target
@@ -49,7 +50,7 @@ const BukuForm = () => {
     }
   }
 
-  console.log(form)
+  console.log(sortedkategori)
 
   return(
     <>

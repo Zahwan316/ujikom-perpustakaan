@@ -10,6 +10,7 @@ import BukuForm from 'src/components/form/buku';
 
 const BukuViewPage = () => {
   const tablehead = [
+    "No",
     "Judul Buku",
     "Penulis",
     "Penerbit",

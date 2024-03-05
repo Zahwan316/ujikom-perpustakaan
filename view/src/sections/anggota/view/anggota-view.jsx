@@ -24,6 +24,7 @@ const AnggotaViewPage = () => {
   const [form,setform,resetform] = useFormStore((state) => [state.form,state.setform,state.resetform])
   const [filterrole,setfilteredrole] = useStateStore((state) => [state.filterrole,state.setfilterrole])
   const tablehead = [
+    "No",
     "Perpus",
     "Username",
     "Email",

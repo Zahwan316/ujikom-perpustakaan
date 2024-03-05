@@ -79,6 +79,7 @@ const AnggotaTableBody = (props) => {
         else{
           return(
             <TableRow key={index}>
+              <TableCell>{index + 1}</TableCell>
             <TableCell>
               {
                 perpus.map((items,index) => 

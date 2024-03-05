@@ -24,6 +24,7 @@ const BukuTableBody = (props) => {
         Object.keys(buku).length != 0 ?
          buku.map((item,index) => 
            <TableRow key={index} >
+              <TableCell>{index + 1}</TableCell>
               <TableCell>{item.judul}</TableCell>
               <TableCell>{item.penulis}</TableCell>
               <TableCell>{item.penerbit}</TableCell>

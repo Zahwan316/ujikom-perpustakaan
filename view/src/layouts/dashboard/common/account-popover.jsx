@@ -36,7 +36,7 @@ export default function AccountPopover() {
       onclick:() => {navigate("/peminjaman")}
     },
     {
-      label:"Koleksi Saya",
+      label:"Buku Favorit",
       level:[3],
       onclick:() => {navigate("/koleksi")}
     },

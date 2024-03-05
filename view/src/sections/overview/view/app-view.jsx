@@ -29,8 +29,18 @@ const AppView = () => {
   const [message,setmessage] = useItemStore((state) => [state.message,state.setmessage])
 
   const filteredDate = (item) => {
-    const date = new Date(item)
-    return date.toLocaleDateString("en-CA")
+    const date = new Date(item); // Ubah string tanggal menjadi objek Date
+  const year = date.getFullYear(); // Ambil tahun
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Ambil bulan
+  const day = date.getDate().toString().padStart(2, '0'); // Ambil tanggal
+  const hours = date.getHours().toString().padStart(2, '0'); // Ambil jam
+  const minutes = date.getMinutes().toString().padStart(2, '0'); // Ambil menit
+  const seconds = date.getSeconds().toString().padStart(2, '0'); // Ambil detik
+
+  // Bentuk kembali string dengan format yang diinginkan
+  const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+  return formattedDate;
   }
 
   useEffect(() => {
@@ -65,7 +75,7 @@ const AppView = () => {
   },[])
 
   useEffect(() => {
-    console.log(filteredDate("2024-01-31T06:42:20.729Z"))
+    console.log(new Date())
     //filteredDate(item.created_date)
   })
 

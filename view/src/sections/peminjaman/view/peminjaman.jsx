@@ -14,6 +14,7 @@ import useStateStore from '../../../../state/state';
 
 const PeminjamanViewPage = () => {
   const tablehead = [
+    "No",
     "Nama Perpus",
     "Judul Buku",
     "Tanggal Pinjam",

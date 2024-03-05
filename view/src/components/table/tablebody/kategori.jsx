@@ -24,6 +24,7 @@ const KategoriTableBody = (props) => {
         Object.keys(kategori).length != 0 ?
          kategori.map((item,index) => 
             <TableRow key={index}>
+              <TableCell>{index + 1}</TableCell>
               <TableCell >{item.nama_kategori}</TableCell>
               <TableCell align="right">
                 <IconButton onClick={(e) => handleOpenMenu(e,item.kategoriID)}>

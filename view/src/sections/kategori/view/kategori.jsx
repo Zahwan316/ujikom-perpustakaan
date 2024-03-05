@@ -10,6 +10,7 @@ import KategoriForm from 'src/components/form/kategori';
 
 const KategoriViewPage = () => {
   const tablehead = [
+    "No",
     "Nama Kategori"
   ]
   const [modal,setmodal] = useState(false)
