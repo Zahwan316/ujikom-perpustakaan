@@ -65,7 +65,7 @@ const BukuTableBody = (props) => {
                   Edit
                 </MenuItem>
 
-                <MenuItem onClick={props.handleclick} typebtn="delete" id={item.bukuID} sx={{ color: 'error.main' }}>
+                <MenuItem onClick={props.handleclick} typebtn="softdelete" id={item.bukuID} sx={{ color: 'error.main' }}>
                   <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
                   Hapus
                 </MenuItem>

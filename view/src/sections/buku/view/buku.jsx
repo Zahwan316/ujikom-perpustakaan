@@ -61,7 +61,7 @@ const BukuViewPage = () => {
           res = await axios.delete(`${import.meta.env.VITE_APP_URL_API}buku/${id}`)
           break;
         case "softdelete":
-          res = await axios.put(`${import.meta.env.VITE_APP_URL_API}buku/softdelete/${id}`)
+          res = await axios.put(`${import.meta.env.VITE_APP_URL_API}v2/buku/softdelete/${id}`,{soft_delete:1})
           break;
       }
       setmodal(false)
@@ -176,6 +176,10 @@ const BukuViewPage = () => {
       refetcdata()
     }
   },[editedid])
+
+  useEffect(() => {
+    console.log(typeform)
+  })
 
   return(
     <>

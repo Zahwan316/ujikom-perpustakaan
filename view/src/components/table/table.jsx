@@ -24,12 +24,14 @@ const TableComponent = (props) => {
   const handleClick = (e) => {
     const typebtn = e.target.getAttribute("typebtn")
     const id = e.target.getAttribute("id")
-    if(typebtn != "delete"){
+    if(typebtn === "edit" || typebtn==="add"){
       props.handlemodal()
     }
+
     props.gettypebtn(typebtn,id)
 
-    if(typebtn === "delete"){
+    
+    if(typebtn === "delete" || typebtn === "softdelete"){
       Swal.fire({
         title:"Apakah anda yakin?",
         text:"Data yang dihapus tidak dapat dikembalikan",

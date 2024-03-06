@@ -42,6 +42,7 @@ const PerpusFormComponent = () => {
         <TextField 
           size='small'
           name='no_hp'
+          type='number'
           value={form.no_hp}
           onChange={handleForm}
         />

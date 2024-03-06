@@ -20,8 +20,8 @@ const PerpusViewPage = () => {
   const [updater,setupdater] = useState()
   const [isload,setisload] = useState(false)
   const [modal,setmodal] = useState(false)
-  const [editedid,seteditedid] = useState(false)
-  const [typeform,settypeform] = useState()
+  const [editedid,seteditedid] = useState()
+  const [typeform,settypeform] = useState("")
   const [form,setform,resetform] = useFormStore((state) => [state.form,state.setform,state.resetform])
 
   const handleModal = () => {
@@ -130,6 +130,10 @@ const PerpusViewPage = () => {
       refetchdata()
     }
   },[updater])
+
+  useEffect(() => {
+    console.log(typeform)
+  })
 
   return(
     <>
