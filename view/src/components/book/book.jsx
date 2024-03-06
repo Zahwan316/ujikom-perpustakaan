@@ -15,11 +15,11 @@ const BookComponent = (props) => {
   }
   return(
     <>
-      <Card className="w-52 h-96 drop-shadow-md" sx={{borderRadius:"6px"}}>
+      <Card className="w-56 h-98 drop-shadow-md" sx={{borderRadius:"6px"}}>
         <CardActionArea onClick={openmodal}>
           <CardMedia 
             component="img"
-            className="h-72 px-4 py-2"
+            className="h-72 px-6 py-2"
             image={props.img || "./assets/images/noimage.jpg"}
             alt={props.alt}
             sx={{objectFit:'fill'}}
@@ -33,6 +33,9 @@ const BookComponent = (props) => {
             </Typography>
             <Typography variant="body1">
               {props.penulis}
+            </Typography>
+            <Typography variant="body2">
+              {props.perpus}
             </Typography>
             <Typography variant='body2'>
               {props.remaining}

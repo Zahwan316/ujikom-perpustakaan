@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import useFormStore from '../../../state/form';
 import useItemStore from '../../../state/item';
 import { Input, fromJSON } from 'postcss';
+import useUserStore from '../../../state/user';
 
 const BukuForm = () => {
   const [form,setform] = useFormStore((state) => [state.form,state.setform])
@@ -13,7 +14,7 @@ const BukuForm = () => {
   const [img,setimg] = useState()
   const [pdf,setpdf] = useState()
   const sortedkategori = kategori.sort((a,b) => {return a.nama_kategori.localeCompare(b.nama_kategori)})
-
+  const user = useUserStore((state) => state.user)
   const handleForm = (e) => {
     const {name,value} = e.target
     setform(name,value)
@@ -51,10 +52,10 @@ const BukuForm = () => {
   }
 
   useEffect(() => {
-    setform("perpus_id",perpustakaan[0].perpus_id)
+    setform("perpus_id",user.perpus_id)
   },[])
 
- 
+ console.log(form)
 
   return(
     <>
@@ -161,7 +162,6 @@ const BukuForm = () => {
               size='small'
               name="perpus_id"
               onChange={handleForm}
-              disabled
               value={form.perpus_id || "0"}
             >
               <MenuItem value="0">Pilih Perpustakaan</MenuItem>

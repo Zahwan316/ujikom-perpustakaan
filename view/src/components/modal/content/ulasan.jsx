@@ -18,7 +18,7 @@ const UlasanModalContent = (props) => {
 
   const data = ulasan.filter(item => item.bukuID == props.id)
   const totalrating = data.reduce((total,item) => total + item.rating,0)
-  const averagerating = totalrating / ulasan.length
+  const averagerating = totalrating / data.length
 
   const [updater,setupdater] = useState()
   const [isload,setisload] = useState()

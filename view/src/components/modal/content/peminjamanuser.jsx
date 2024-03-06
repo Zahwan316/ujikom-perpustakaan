@@ -16,9 +16,13 @@ const PeminjamanUserModal = (props) => {
           <Typography variant={"h6"}>Penulis : </Typography>
           <Typography variant={"subtitle1"}>{props.buku.penulis || "Tidak ditemukan"} </Typography>
         </Box>
-        <Box className='mb-6'>
+        <Box className='mb-2'>
           <Typography variant={"h6"}>Penerbit : </Typography>
           <Typography variant={"subtitle1"}>{props.buku.penerbit || "Tidak ditemukan"} </Typography>
+        </Box>
+        <Box className='mb-6'>
+          <Typography variant={"h6"}>Perpustakaan : </Typography>
+          <Typography variant={"subtitle1"}>{props.perpus.map(item => item.perpus_id === props.buku.perpus_id && item.nama_perpus) || "Tidak ditemukan"} </Typography>
         </Box>
         <Box className='flex gap-4'>
           <Button variant="contained" color="primary" onClick={props.handleOpenBook}>Baca buku</Button>

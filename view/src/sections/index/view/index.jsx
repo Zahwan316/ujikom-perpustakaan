@@ -14,6 +14,7 @@ const IndexViewPage = () => {
   const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
   const [peminjaman,setpeminjaman] = useItemStore((state) => [state.peminjaman,state.setpeminjaman])
   const [ulasan,setulasan] = useItemStore((state) => [state.ulasan,state.setulasan])
+  const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
   const [bukusitem,setbukus] = useState()
   const navigate = useNavigate()
  
@@ -36,13 +37,17 @@ const IndexViewPage = () => {
             let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}ulasanbuku`)
             setulasan(res.data.data)
         }
+        if(Object.keys(perpus).length === 0){
+            let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}perpus`)
+            setperpus(res.data.data)
+        }
       }
       catch(e){
         console.log(e)
       }
     }
     fetchdata()
-  })
+  },[])
 
   useEffect(() => {
     const bukus = []
@@ -102,6 +107,7 @@ const IndexViewPage = () => {
                       redirect={redirectToBuku}
                       id={items.bukuID}
                       slug={items.slug}
+                      perpus={perpus.map(item => item.perpus_id === items.perpus_id && item.nama_perpus)}
                     />
                     )
                 )
@@ -121,6 +127,7 @@ const IndexViewPage = () => {
                       redirect={redirectToBuku}
                       id={items.bukuID}
                       slug={items.slug}
+                      perpus={perpus.map(item => item.perpus_id === items.perpus_id && item.nama_perpus)}
                     />
                     )  
              }

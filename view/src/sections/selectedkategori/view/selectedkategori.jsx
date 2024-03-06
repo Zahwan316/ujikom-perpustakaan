@@ -12,6 +12,7 @@ const SelectedKategoriViewPage = () => {
   const {kategoriname} = useParams()
   const [kategori,setkategori] = useItemStore((state) => [state.kategori,state.setkategori])
   const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
+  const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
   const findkategori = kategori && kategori.find(item => item.nama_kategori === kategoriname)
   const filterbuku = buku && buku.filter(item => item.kategori_id === findkategori.kategoriID)
   const navigate = useNavigate()
@@ -30,6 +31,10 @@ const SelectedKategoriViewPage = () => {
         if(Object.keys(buku).length === 0){
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}buku`)
           setbuku(res.data.data)
+        }
+        if(Object.keys(perpus).length === 0){
+          let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}perpus`)
+          setperpus(res.data.data)
         }
       }
       catch(e){
@@ -57,6 +62,7 @@ const SelectedKategoriViewPage = () => {
                 penulis={item.penulis}
                 id={item.bukuID}
                 slug={item.slug}
+                perpus={perpus.map(items => items.perpus_id === item.perpus_id && items.nama_perpus)}
                 redirect={redirectToBuku}
               /> 
             )

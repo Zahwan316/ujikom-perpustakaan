@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
+
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -12,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { alpha, useTheme } from '@mui/material/styles';
 import InputAdornment from '@mui/material/InputAdornment';
-
+import {Select,MenuItem} from "@mui/material"
 import { useRouter } from 'src/routes/hooks';
 
 import { bgGradient } from 'src/theme/css';
@@ -82,6 +83,10 @@ export default function LoginView() {
 
       if(!form.nama_lengkap){
         errors.nama_lengkap = "Nama lengkap tidak boleh kosong"
+      }
+
+      if(!form.perpus_id){
+        errors.nama_lengkap = "Perpustakaan tidak boleh kosong"
       }
 
       if(!form.no_hp){
@@ -194,7 +199,7 @@ export default function LoginView() {
     resetform()
     seterror("")
     if(typelogin === "register"){
-      setform("perpus_id",perpus[0].perpus_id)
+      //setform("perpus_id",perpus[0].perpus_id)
       setform("access_level",3)
     }
   },[typelogin])
@@ -327,6 +332,26 @@ export default function LoginView() {
               size='small'
               type='number'
             />
+          </Box>
+
+          <Box className='flex flex-col flex-wrap'>
+            <InputLabel className='mb-2'>Perpustakaan</InputLabel>
+            <Select
+              name='perpus_id'
+              onChange={handleform}
+              error={error.perpus_id}
+              helperText={error.perpus_id}
+              value={form.perpus_id}
+              size='small'
+  
+            >
+              <MenuItem>Pilih Perpustakaan</MenuItem>
+              {
+                perpus.map(item => 
+                  <MenuItem value={item.perpus_id}>{item.nama_perpus}</MenuItem>  
+                )
+              }
+            </Select>
           </Box>
 
           <Box className='flex flex-col flex-wrap'>

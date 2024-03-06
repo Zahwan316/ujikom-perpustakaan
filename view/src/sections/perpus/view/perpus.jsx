@@ -111,8 +111,9 @@ const PerpusViewPage = () => {
         console.log(e)
       }
     }
-
-    refetchdata()
+    if(editedid){
+      refetchdata()
+    }
   },[editedid])
 
   useEffect(() => {

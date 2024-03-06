@@ -31,7 +31,7 @@ const PeminjamanUserViewPage = () => {
   const [bukuid,setbukuid] = useStateStore((state) => [state.bukuid,state.setbukuid])
   const form = useFormStore((state) => state.form)
   const [ulasan,setulasan] = useItemStore((state) => [state.ulasan,state.setulasan])
-
+  const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
   const selectedpeminjaman = peminjaman.filter((item) => item.userID === user.userID && item.status_peminjaman === 1)
   const filteredpeminjaman = peminjaman && peminjaman.find(item => item.peminjamanID === bukuid) || false
   const selectedbuku = buku && buku.find(item => filteredpeminjaman.bukuID === item.bukuID)
@@ -115,7 +115,10 @@ const PeminjamanUserViewPage = () => {
   useEffect(() => {
     const fetchdata = async() => {
       try{
-
+        if(Object.keys(perpus).length === 0){
+          let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}perpus`)
+          setperpus(res.data.data)
+        }
         if(Object.keys(buku).length === 0){
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}buku`)
           setbuku(res.data.data)
@@ -124,6 +127,7 @@ const PeminjamanUserViewPage = () => {
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}peminjaman`)
           setpeminjaman(res.data.data)
         }
+       
       }
       catch(e){
         console.log(e)
@@ -213,6 +217,7 @@ const PeminjamanUserViewPage = () => {
                handleReturnBook={handleModal}
                handleOpenBook={handleopenbook} 
                handleUlasBuku={handleModal2}
+               perpus={perpus}
               />}
             
           />

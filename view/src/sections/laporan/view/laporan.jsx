@@ -9,7 +9,7 @@ import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import useFormStore from '../../../../state/form';
 import dayjs from 'dayjs';
-
+import * as XLSX from "xlsx"
 
 const styles = StyleSheet.create({
   body:{
@@ -102,6 +102,19 @@ const PDFviewpage = (props) => {
     </Document>
   )
 }
+
+const GenerateExcelButton = ({ data, filename }) => {
+  const exportToExcel = () => {
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.json_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    XLSX.writeFile(wb, `${filename}.xlsx`);
+  };
+
+  return (
+    <Button variant='contained' color='primary' onClick={exportToExcel}>Unduh Laporan</Button>
+  );
+};
 
 const LaporanViewPage = () => {
   const [selectedoption,setselectedoption] = useState("0")
@@ -204,7 +217,23 @@ const LaporanViewPage = () => {
         date >= currentMonthStart && date <= currentMonthEnd
       );
     });
-    setFilteredData(filtered);
+    const relatedFiltered = filtered.map(item => {
+      const filtereduser = user.find(items => items.userID === item.userID && items.nama_lengkap)
+      const filteredbuku = buku.find(items => items.bukuID === item.bukuID && items.judul)
+      const filteredperpustakaan = perpus.find(items => items.perpus_id === item.perpus_id && items.nama_perpus)
+      return {
+          PeminjamanID:item.peminjamanID,
+          Nama_Peminjam:filtereduser.nama_lengkap,
+          Judul_buku:filteredbuku.judul,
+          Tanggal_Peminjaman:item.tanggal_peminjaman,
+          Tanggal_Pengembalian:item.tanggal_pengembalian,
+          Perpustakaan:filteredperpustakaan.nama_perpus,
+          created_date:item.created_date,
+          status_peminjaman:item.peminjaman === 1 ? "Dipinjam" : "Dikembalikan"
+        }
+      
+    })
+    setFilteredData(relatedFiltered);
 
     //setFilteredData(filtered);
   }, [peminjaman]);
@@ -219,7 +248,7 @@ const LaporanViewPage = () => {
         </Stack>
         <Box>
           <InputLabel className='mb-4'>Unduh laporan bulan ini</InputLabel>
-          <PDFDownloadLink 
+          {/* <PDFDownloadLink 
             document={
             <PDFviewpage 
               buku={buku}
@@ -231,7 +260,8 @@ const LaporanViewPage = () => {
              />} fileName='laporan-peminjaman'>
           <Button variant='contained'>Unduh Laporan</Button>
             {({loading}) => (loading ? "Loading..." : "Download")}
-          </PDFDownloadLink>
+          </PDFDownloadLink> */}
+          <GenerateExcelButton data={filteredData} filename="Laporan Peminjaman" />
         </Box>
       </Container>
     </>

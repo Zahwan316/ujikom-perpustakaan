@@ -7,6 +7,7 @@ const BukuTableBody = (props) => {
   const buku = useItemStore((state) => state.buku)
   const perpustakaan = useItemStore((state) => state.perpus)
   const kategori = useItemStore((state) => state.kategori)
+  let indextable = 1
 
   const [open,setopen] = useState({})
 
@@ -23,8 +24,9 @@ const BukuTableBody = (props) => {
       {
         Object.keys(buku).length != 0 ?
          buku.map((item,index) => 
+            item.soft_delete != 1 &&
            <TableRow key={index} >
-              <TableCell>{index + 1}</TableCell>
+              <TableCell>{indextable++}</TableCell>
               <TableCell>{item.judul}</TableCell>
               <TableCell>{item.penulis}</TableCell>
               <TableCell>{item.penerbit}</TableCell>

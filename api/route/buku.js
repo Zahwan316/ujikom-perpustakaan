@@ -207,4 +207,78 @@ router.route("/v2/buku/softdelete/:id")
         }
     })
 
+router.route("/v2/buku/deleteall")
+    .delete(async(req,res) => {
+        try{
+            const findItem = await Buku.findAll({where:{soft_delete:1}})
+            await Promise.all(
+                findItem.map(async(item) => {
+                    await item.destroy()
+                })
+            )
+            res.status(200).json({
+                message:"Semua data berhasil dihapus",
+                method:req.method
+            })
+        }
+        catch(e){
+            res.status(400).json({
+                message:e.message,
+                method:req.method
+            })
+        }
+    })
+
+router.route("/v2/buku/restore/:id")
+    .put(async(req,res) => {
+        try{
+            let id = req.params.id
+            const findItem = await Buku.findByPk(id)
+            if(findItem){
+                findItem.update({
+                    ...req.body
+                })
+                res.status(200).json({
+                    message:"Data berhasil dipulihkan",
+                    method:req.method
+                })
+            }
+            else{
+                res.status(404).json({
+                    message:"Data tidak ditemukan",
+                    method:req.method
+                })
+            }
+        }
+        catch(e){
+            res.status(400).json({
+                message:e.message,
+                method:req.method
+            })
+        }
+    })
+
+router.route("/v2/buku/restoreall")
+    .put(async(req,res) => {
+        try{
+            const findItem = await Buku.findAll({where:{soft_delete:1}})
+             await Promise.all(
+                findItem.map(async(item) => {
+                    await item.update({soft_delete:0})
+                })
+             )
+             res.status(200).json({
+                message:"Semua data berhasil dipulihkan",
+                method:req.method
+            })
+            
+        }
+        catch(e){
+            res.status(400).json({
+                message:e.message,
+                method:req.method
+            })
+        }
+    })
+
 module.exports = router

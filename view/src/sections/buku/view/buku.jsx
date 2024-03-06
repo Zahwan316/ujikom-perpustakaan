@@ -7,6 +7,8 @@ import useFormStore from '../../../../state/form';
 import {v4 as uuidv4} from "uuid"
 import ModalComponent from 'src/components/modal/modal';
 import BukuForm from 'src/components/form/buku';
+import { Typography,Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const BukuViewPage = () => {
   const tablehead = [
@@ -27,6 +29,7 @@ const BukuViewPage = () => {
   const [kategori,setkategori] = useItemStore((state) => [state.kategori,state.setkategori])
   const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
   const [form,setform,resetform] = useFormStore((state) => [state.form,state.setform,state.resetform])
+  const navigate = useNavigate()
 
   const handleModal = (e) => {
     setmodal(!modal)
@@ -105,6 +108,10 @@ const BukuViewPage = () => {
         handleCrud("put",editedid,formdata)
         break;
     }
+  }
+
+  const redirectToSampah = () => {
+    navigate("/sampahbuku")
   }
 
   useEffect(() => {
@@ -187,6 +194,7 @@ const BukuViewPage = () => {
         title="Buku"
         tablehead={tablehead}
         page="buku"
+        filter={<Button variant='contained' color="error" onClick={redirectToSampah}>Sampah</Button>}
         handleCrud={handleCrud}
         handlemodal={handleModal}
         gettypebtn={gettypebtn}

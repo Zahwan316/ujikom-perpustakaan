@@ -1,5 +1,5 @@
 import { Button, Card, MenuItem, Select,TableFooter, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography ,TablePagination} from '@mui/material';
-import { Stack, Container } from '@mui/system';
+import { Stack, Container, Box } from '@mui/system';
 
 import React, { useState, useEffect } from 'react';
 import AnggotaTableBody from './tablebody/anggota';
@@ -8,10 +8,12 @@ import KategoriTableBody from './tablebody/kategori';
 import BukuTableBody from './tablebody/buku';
 import PeminjamanTableBody from './tablebody/peminjaman';
 import PerpustakaanTableComponent from './tablebody/perpustakaan';
+import SampahBukuTableBody from './tablebody/sampahbuku';
 
 const TableComponent = (props) => {
   const [page,setpage] = useState(0)
   const [rowsPerPage,setrowsPerPage] = useState(10)
+  
 
   const handleChangePage = (event,newPage) => {
     setpage(newPage)
@@ -31,7 +33,7 @@ const TableComponent = (props) => {
     props.gettypebtn(typebtn,id)
 
     
-    if(typebtn === "delete" || typebtn === "softdelete"){
+    if(typebtn === "delete" || typebtn === "softdelete" || typebtn === "restore" || typebtn === "restoreall" || typebtn === "deleteall"){
       Swal.fire({
         title:"Apakah anda yakin?",
         text:"Data yang dihapus tidak dapat dikembalikan",
@@ -39,7 +41,7 @@ const TableComponent = (props) => {
         showCancelButton:true,
         confirmButtonColor:"#3085d6",
         cancelButtonColor:"#d33",
-        confirmButtonText:"Ya, Hapus!"
+        confirmButtonText:`Ya, ${typebtn === "delete" || typebtn === "softdelete" || typebtn === "deleteall" ? "Hapus!" : "Pulihkan! "}`
       }).then((result) => {
         if(result.isConfirmed){
           props.handleCrud(typebtn,id)
@@ -53,8 +55,17 @@ const TableComponent = (props) => {
       <Container>
         <Stack alignItems={"center"} justifyContent={"space-between"} direction={"row"} mb={2}>
             <Typography variant="h4" className='w-1/2'>{props.title}</Typography>
-           
-            <Button onClick={handleClick} variant='contained' typebtn="add">+ Tambah</Button>
+
+            {
+              props.page != "sampahbuku" ?
+              <Button onClick={handleClick} variant='contained' typebtn="add">+ Tambah</Button>
+              :
+              <Box className='flex flex-row gap-2'>
+                <Button variant='contained' color='error' typebtn='deleteall' onClick={handleClick}>Hapus Semua</Button>
+                <Button variant='contained' color='primary' typebtn='restoreall' onClick={handleClick}>Pulihkan semua</Button>
+                <Button variant='contained' color='secondary' onClick={() => props.navigate("/buku")}>Kembali</Button>
+              </Box>
+            }
         </Stack>
 
         {props.filter && props.filter}
@@ -106,6 +117,13 @@ const TableComponent = (props) => {
                       props.page === "perpustakaan" && 
                       <PerpustakaanTableComponent 
                         handleclick={handleClick}
+                      />
+                    }
+
+                    {
+                      props.page === "sampahbuku" &&
+                      <SampahBukuTableBody 
+                       handleclick={handleClick}
                       />
                     }
                 </TableBody>
