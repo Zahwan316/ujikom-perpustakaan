@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import KategoriTableBody from './tablebody/kategori';
 import BukuTableBody from './tablebody/buku';
 import PeminjamanTableBody from './tablebody/peminjaman';
+import PerpustakaanTableComponent from './tablebody/perpustakaan';
 
 const TableComponent = (props) => {
   const [page,setpage] = useState(0)
@@ -96,6 +97,13 @@ const TableComponent = (props) => {
                         handleclick={handleClick}
                         page={page}
                         rowsPerPage={rowsPerPage}
+                      />
+                    }
+
+                    {
+                      props.page === "perpustakaan" && 
+                      <PerpustakaanTableComponent 
+                        handleclick={handleClick}
                       />
                     }
                 </TableBody>

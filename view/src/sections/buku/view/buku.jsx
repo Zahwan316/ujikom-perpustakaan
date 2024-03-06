@@ -60,6 +60,9 @@ const BukuViewPage = () => {
         case "delete":
           res = await axios.delete(`${import.meta.env.VITE_APP_URL_API}buku/${id}`)
           break;
+        case "softdelete":
+          res = await axios.put(`${import.meta.env.VITE_APP_URL_API}buku/softdelete/${id}`)
+          break;
       }
       setmodal(false)
       Swal.fire({

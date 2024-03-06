@@ -28,6 +28,10 @@ const AnggotaFormComponent = () => {
   }
 
   useEffect(() => {
+    setform("perpus_id",perpus[0].perpus_id)
+  },[])
+
+  useEffect(() => {
     console.log(form)
   })
 
@@ -123,7 +127,8 @@ const AnggotaFormComponent = () => {
           size="small"
           name='perpus_id'
           onChange={handleForm}
-          value={form.perpus_id}
+          value={form.perpus_id || "0"}
+          disabled
         >
           <MenuItem value="0">Pilih Perpustakaan</MenuItem>
           {

@@ -106,7 +106,7 @@ const AppView = () => {
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-            title="Buku yang pernah dipinjam"
+            title="Transaksi Buku"
             total={peminjaman.length}
             color="warning"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}

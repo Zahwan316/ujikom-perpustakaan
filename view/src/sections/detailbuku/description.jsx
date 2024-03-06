@@ -164,6 +164,9 @@ const DescriptionDetailBukuComponent = (props) => {
 
         let res_peminjaman = await axios.get(`${import.meta.env.VITE_APP_URL_API}peminjaman`)
         setpeminjaman(res_peminjaman.data.data)
+
+        let res_buku = await axios.get(`${import.meta.env.VITE_APP_URL_API}buku`)
+        setbuku(res_buku.data.data)
       }
       catch(e){
         console.log(e)
@@ -229,9 +232,12 @@ const DescriptionDetailBukuComponent = (props) => {
               <Typography variant='h6'>
                 {props.buku && props.buku.penulis}
               </Typography>
-              <Typography variant='body2'>
+              <Typography variant='body2' mb={2}>
                 {props.buku && props.buku.penerbit}
               </Typography>
+              {/* <Typography>
+                Stok : {props.buku && props.buku.stok}
+              </Typography> */}
             </Box>
             <Box>
                 <Box className='flex gap-3 mb-4'>

@@ -95,7 +95,7 @@ const UlasanUserViewPage = () => {
 
   return(
     <>
-      <Container>
+     
         <Stack>
           <Typography variant='h4' mb={4}>
             Buku yang pernah dipinjam
@@ -127,7 +127,7 @@ const UlasanUserViewPage = () => {
           </Box>
         </Stack>
 
-      </Container>
+      
       {
         modal &&
         <ModalComponent 

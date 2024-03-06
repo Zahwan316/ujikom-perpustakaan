@@ -50,6 +50,12 @@ const navConfig = [
     level:[1]
   },
   {
+    title: 'Perpustakaan',
+    path: '/admin/perpus',
+    icon: icon('comment-solid'),
+    level:[1]
+  },
+  {
     title: 'Favorit',
     path: '/koleksi',
     icon: icon('star-solid'),

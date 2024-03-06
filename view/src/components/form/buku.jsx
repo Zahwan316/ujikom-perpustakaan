@@ -50,7 +50,11 @@ const BukuForm = () => {
     }
   }
 
-  console.log(sortedkategori)
+  useEffect(() => {
+    setform("perpus_id",perpustakaan[0].perpus_id)
+  },[])
+
+ 
 
   return(
     <>
@@ -127,7 +131,7 @@ const BukuForm = () => {
             >
               <MenuItem value="0">Pilih Kategori</MenuItem>
               {
-                kategori.map((item,index) => 
+                sortedkategori.map((item,index) => 
                   <MenuItem key={index} value={item.kategoriID}>{item.nama_kategori}</MenuItem>
                 )
               }
@@ -157,6 +161,7 @@ const BukuForm = () => {
               size='small'
               name="perpus_id"
               onChange={handleForm}
+              disabled
               value={form.perpus_id || "0"}
             >
               <MenuItem value="0">Pilih Perpustakaan</MenuItem>

@@ -58,7 +58,11 @@ module.exports = function(sequelize, DataTypes) {
     durasi_buku: {
       type: DataTypes.INTEGER,
       allowNull: true
-    }
+    },
+    soft_delete: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
   }, {
     sequelize,
     tableName: 'buku',

@@ -27,6 +27,7 @@ import ReadPage from 'src/pages/read';
 import useItemStore from '../../state/item';
 import {v4 as uuidv4} from "uuid"
 import React, { useState, useEffect } from 'react';
+import PerpusPage from 'src/pages/perpus';
 
 
 export const IndexPage = lazy(() => import('src/pages/app'));
@@ -175,6 +176,7 @@ export default function Router() {
         { path: 'admin/ulasan', element: <UlasanPage /> },
         { path: 'home', element: <HomePage /> },
         { path: 'rekomendasi', element: <RekomendasiPage /> },
+        { path: 'admin/perpus', element: <PerpusPage /> },
         
         { path: 'koleksi', element: <KoleksiPage /> },
         { path: 'setting', element: <SettingPage /> },

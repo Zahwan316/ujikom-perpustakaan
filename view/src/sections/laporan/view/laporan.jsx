@@ -20,10 +20,14 @@ const styles = StyleSheet.create({
     fontWeight:'bold',
     color:'#000000',
     textAlign:'center',
-    
   },
   text:{
-    fontSize:14
+    fontSize:13
+  },
+  text_title:{
+    fontSize:16,
+    fontWeight:"bold",
+    color:'#000000',
   },
   perpus_title:{
     fontsize:18,
@@ -33,7 +37,13 @@ const styles = StyleSheet.create({
   },
   text_bottom:{
     marginBottom:16,
-    fontSize:14
+    fontSize:13
+  },
+  text_bottom_title:{
+    marginBottom:16,
+    fontSize:16,
+    fontWeight:700,
+    color:'#000000',
   }
  
 })
@@ -43,18 +53,35 @@ const PDFviewpage = (props) => {
     <Document>
       <Page style={styles.body}>
         <Text style={styles.title}>Laporan Buku Bulan {props.month}</Text>
-        <Text style={styles.perpus_title}>Perpustakaan {props.perpus}</Text>
+        <Text style={styles.perpus_title}>Perpustakaan {props.perpus.length != 0 && props.perpus[0].nama_perpus}</Text>
         
-        <Text style={styles.text}>Jumlah buku yang pernah dipinjam : {props.data.length} buku</Text>
-        <Text style={styles.text_bottom}>List orang yang pernah meminjam buku : </Text>
+        <Text style={styles.text_title}>Jumlah buku yang pernah dipinjam : {props.data.length} buku</Text>
+        <Text style={styles.text_bottom_title}>Buku yang sering dipinjam : </Text>
+        {
+          Object.keys(props.frequentBook).length != 0 &&
+          props.frequentBook.map((item,index) => 
+            props.buku.map(items => 
+                item.bookid === items.bukuID &&
+                <Text style={styles.text_bottom}>{index + 1}. Nama buku : {items.judul}</Text>
+            )  
+          )
+        }
+        <Text style={styles.text_bottom_title}>Daftar orang yang pernah meminjam buku : </Text>
         {
           props.data.map((item,index) => 
             <>
-              <Text style={styles.text}>
-      
-          
+              <Text style={styles.text}> 
+                {index + 1}.
+                Nama Peminjam : 
+                {
+                  props.user.map(items => 
+                    item.userID === items.userID &&
+                    items.username  
+                  )
+                }
               </Text> 
               <Text style={styles.text}>
+                
                 Tanggal Peminjaman : 
                 {item.tanggal_peminjaman}
               </Text> 
@@ -86,6 +113,31 @@ const LaporanViewPage = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
   const [namaperpus,setnamaperpus] = useState("")
+
+  const countBookIds = (peminjaman) => {
+    const bookIdCounts = {};
+    peminjaman.filter((item) => {
+      const bookId = item.bukuID;
+      if (bookIdCounts[bookId]) {
+        bookIdCounts[bookId]++;
+      } else {
+        bookIdCounts[bookId] = 1;
+      }
+    });
+    return bookIdCounts;
+  };
+
+  const sortBooksByMostBorrowed = (peminjaman) => {
+    const bookIdCounts = countBookIds(peminjaman);
+    const sortedBookIds = Object.keys(bookIdCounts).sort(
+      (a, b) => bookIdCounts[b] - bookIdCounts[a]
+    );
+    return sortedBookIds.map((bookId) => {
+      return { bookid: parseInt(bookId) };
+    });
+  };
+
+  const sortdata = sortBooksByMostBorrowed(peminjaman)
 
   const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
                    "Juli", "Agustus", "September", "Oktober", "November", "December"];
@@ -129,8 +181,7 @@ const LaporanViewPage = () => {
         if(Object.keys(perpus).length === 0){
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}perpus`)
           setperpus(res.data.data)
-          const data = res.data.data
-          setnamaperpus(data[0].nama_perpustakaan)
+  
         }
         const date = new Date()
         setmonth(monthNames[date.getMonth() ])
@@ -147,13 +198,6 @@ const LaporanViewPage = () => {
   })
 
   useEffect(() => {
-    // const currentMonthStart = dayjs().startOf('month');
-    // const currentMonthEnd = dayjs().endOf('month');
-
-    // const filtered = peminjaman.filter((item) => {
-    //   const date = dayjs(item.tanggal_peminjaman);
-    //   return date.isSame(currentMonthStart, 'month') || date.isBetween(currentMonthStart, currentMonthEnd, 'month', '[]');
-    // });
     const filtered = peminjaman.filter((item) => {
       const date = new Date(item.tanggal_peminjaman );
       return (
@@ -182,7 +226,8 @@ const LaporanViewPage = () => {
               month={month}
               data={filteredData}
               user={user}
-
+              perpus={perpus}
+              frequentBook={sortdata}
              />} fileName='laporan-peminjaman'>
           <Button variant='contained'>Unduh Laporan</Button>
             {({loading}) => (loading ? "Loading..." : "Download")}

@@ -115,6 +115,7 @@ const PeminjamanUserViewPage = () => {
   useEffect(() => {
     const fetchdata = async() => {
       try{
+
         if(Object.keys(buku).length === 0){
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}buku`)
           setbuku(res.data.data)
@@ -139,6 +140,9 @@ const PeminjamanUserViewPage = () => {
 
         let res_ulasan = await axios.get(`${import.meta.env.VITE_APP_URL_API}ulasanbuku`)
         setulasan(res_ulasan.data.data)
+
+        let res_buku = await axios.get(`${import.meta.env.VITE_APP_URL_API}buku`)
+        setbuku(res_buku.data.data)
       }
       catch(e){
         console.log(e)

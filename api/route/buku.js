@@ -178,4 +178,33 @@ router.route("/buku/:id")
         }
     })
 
+router.route("/v2/buku/softdelete/:id")
+    .put(async(req,res) => {
+        try{
+            let id = req.params.id
+            const findItem = await Buku.findByPk(id)
+            if(findItem){
+                findItem.update({
+                    ...req.body
+                })
+
+                res.status(200).json({
+                    message:"Data berhasil dihapus sementara",
+                    method:req.method
+                })
+            }else{
+                res.status(404).json({
+                    message:"Data tidak ditemukan",
+                    method:req.method
+                })
+            }
+        }
+        catch(e){
+            res.status(400).json({
+                message:e.message,
+                method:req.method
+            })
+        }
+    })
+
 module.exports = router

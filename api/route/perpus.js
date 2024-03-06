@@ -83,7 +83,7 @@ router.route("/perpus/:id")
     .delete(async(req,res) => {
         try{
             const id = req.params.id
-            const findItem = await Perpus.findById(id)
+            const findItem = await Perpus.findByPk(id)
             if(findItem){
                 findItem.destroy()
                 res.status(200).json({

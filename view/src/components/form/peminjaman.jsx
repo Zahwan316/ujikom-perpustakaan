@@ -11,11 +11,16 @@ const PeminjamanForm = () => {
   const buku = useItemStore((state) => state.buku)
   const user = useItemStore((state => state.user))
   const ref_peminjaman = useItemStore((state) => state.ref_peminjaman)
+  const sortedbuku = buku.sort((a,b) => {return a.judul.localeCompare(b.judul)})
 
   const handleForm = (e) => {
     const {name,value} = e.target
     setform(name,value)
   }
+
+  useEffect(() => {
+    setform("perpus_id",perpus[0].perpus_id)
+  },[])
 
   useEffect(() => {
     console.log(form)
@@ -48,7 +53,7 @@ const PeminjamanForm = () => {
         >
             <MenuItem value="0">Pilih Nama Buku</MenuItem>
             {
-              buku.map((item,index) => (
+              sortedbuku.map((item,index) => (
                 item.stok != 0 &&
                 <MenuItem key={index} value={item.bukuID}>{item.judul}</MenuItem>
               ))
@@ -103,6 +108,7 @@ const PeminjamanForm = () => {
           name="perpus_id"
           onChange={handleForm}
           value={form.perpus_id || "0"}
+          disabled
         >
           <MenuItem value="0">Pilih Nama Perpustakaan</MenuItem>
           {
