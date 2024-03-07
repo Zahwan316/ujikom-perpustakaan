@@ -8,7 +8,7 @@ import useFormStore from '../../../../state/form';
 import ModalComponent from 'src/components/modal/modal';
 import PeminjamanForm from 'src/components/form/peminjaman';
 import useUserStore from '../../../../state/user';
-import { Box } from '@mui/system';
+import { Box, Container } from '@mui/system';
 import { Button, Input, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import useStateStore from '../../../../state/state';
 
@@ -20,7 +20,8 @@ const PeminjamanViewPage = () => {
     "Tanggal Pinjam",
     "Tanggal Kembali",
     "Nama Peminjam",
-    "Status"
+    "Status",
+    " "
   ]
   const [peminjaman,setpeminjaman] = useItemStore((state) => [state.peminjaman,state.setpeminjaman])
   const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
@@ -191,6 +192,7 @@ const PeminjamanViewPage = () => {
 
   return(
     <>
+    <Container className='bg-white rounded-2xl p-8'>
       <TableComponent 
         tablehead={tablehead}
         gettypebtn={getTypeBtn}
@@ -216,6 +218,8 @@ const PeminjamanViewPage = () => {
           body={<PeminjamanForm />}
         />
       }
+
+    </Container>
      
     </>
   )

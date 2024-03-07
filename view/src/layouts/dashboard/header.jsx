@@ -35,10 +35,10 @@ export default function Header({ onOpenNav }) {
         </IconButton>
       )}
 
-      {
+      {/* {
         user.access_level === 3 &&
         <Searchbar />
-      }
+      } */}
 
       <Box sx={{ flexGrow: 1 }} />
 

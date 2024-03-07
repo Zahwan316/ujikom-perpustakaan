@@ -10,6 +10,7 @@ const PeminjamanForm = () => {
   const perpus = useItemStore((state) => state.perpus)
   const buku = useItemStore((state) => state.buku)
   const user = useItemStore((state => state.user))
+  const user_logged = useUserStore((state) => state.user)
   const ref_peminjaman = useItemStore((state) => state.ref_peminjaman)
   const sortedbuku = buku.sort((a,b) => {return a.judul.localeCompare(b.judul)})
 
@@ -20,6 +21,7 @@ const PeminjamanForm = () => {
 
   useEffect(() => {
     //setform("perpus_id",perpus[0].perpus_id)
+    setform("perpus_id",user_logged.perpus_id)
   },[])
 
   useEffect(() => {
@@ -54,8 +56,10 @@ const PeminjamanForm = () => {
             <MenuItem value="0">Pilih Nama Buku</MenuItem>
             {
               sortedbuku.map((item,index) => (
-                item.stok != 0 &&
+                item.stok != 0 && item.soft_delete != 1 ?
                 <MenuItem key={index} value={item.bukuID}>{item.judul}</MenuItem>
+                :
+                ""
               ))
             }
         </Select>
@@ -109,6 +113,7 @@ const PeminjamanForm = () => {
           onChange={handleForm}
           value={form.perpus_id || "0"}
           //disabled
+         // disabled={user_logged.access_level === 1}
         >
           <MenuItem value="0">Pilih Nama Perpustakaan</MenuItem>
           {

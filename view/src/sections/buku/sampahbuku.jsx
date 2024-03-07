@@ -15,7 +15,8 @@ const SampahBukuViewPage = () => {
     "Penerbit",
     "Tahun Terbit",
     "Kategori",
-    "Perpustakaan"
+    "Perpustakaan",
+    " "
   ]
 
   const [typeform,settypeform] = useState()
@@ -106,7 +107,7 @@ const SampahBukuViewPage = () => {
 
   return(
     <>
-      <Container>
+      <Container className='bg-white p-8 rounded-2xl'>
         <Box>
             <TableComponent 
               tablehead={tablehead}

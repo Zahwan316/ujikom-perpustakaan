@@ -163,6 +163,7 @@ const BukuForm = () => {
               name="perpus_id"
               onChange={handleForm}
               value={form.perpus_id || "0"}
+              disabled={user_logged.access_level === 1}
             >
               <MenuItem value="0">Pilih Perpustakaan</MenuItem>
               {

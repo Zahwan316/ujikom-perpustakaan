@@ -9,6 +9,8 @@ import ModalComponent from 'src/components/modal/modal';
 import BukuForm from 'src/components/form/buku';
 import { Typography,Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { Container } from '@mui/system';
+
 
 const BukuViewPage = () => {
   const tablehead = [
@@ -18,7 +20,8 @@ const BukuViewPage = () => {
     "Penerbit",
     "Tahun Terbit",
     "Kategori",
-    "Perpustakaan"
+    "Perpustakaan",
+    " "
   ]
   const [modal,setmodal] = useState(false)
   const [editedid,seteditedid] = useState()
@@ -190,25 +193,28 @@ const BukuViewPage = () => {
 
   return(
     <>
-      <TableComponent 
-        title="Buku"
-        tablehead={tablehead}
-        page="buku"
-        filter={<Button variant='contained' color="error" onClick={redirectToSampah}>Sampah</Button>}
-        handleCrud={handleCrud}
-        handlemodal={handleModal}
-        gettypebtn={gettypebtn}
-      />
-
-      {
-        modal && 
-        <ModalComponent 
-          title={typeform === "add" ? "Tambah Buku" : "Edit Buku"}
-          handlesubmit={handleSubmit}
+      <Container className='bg-white rounded-2xl p-8'>
+        <TableComponent 
+          title="Buku"
+          tablehead={tablehead}
+          page="buku"
+          filter={<Button variant='contained' color="error" onClick={redirectToSampah}>Sampah</Button>}
+          handleCrud={handleCrud}
           handlemodal={handleModal}
-          body={<BukuForm />}
+          gettypebtn={gettypebtn}
         />
-      }
+
+        {
+          modal && 
+          <ModalComponent 
+            title={typeform === "add" ? "Tambah Buku" : "Edit Buku"}
+            handlesubmit={handleSubmit}
+            handlemodal={handleModal}
+            body={<BukuForm />}
+          />
+        }
+      
+      </Container>
     </>
   )
 }

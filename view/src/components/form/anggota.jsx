@@ -11,6 +11,7 @@ const AnggotaFormComponent = () => {
   const [form,setform] = useFormStore((state) => [state.form,state.setform])
   const perpus = useItemStore((state) => state.perpus)
   const ref_user = useUserStore((state) => state.ref_user)
+  const user_logged = useUserStore((state) => state.user)
 
   const handleForm = (e) => {
     const {name,value} = e.target
@@ -28,7 +29,8 @@ const AnggotaFormComponent = () => {
   }
 
   useEffect(() => {
-    //setform("perpus_id",perpus[0].perpus_id)
+    user_logged.access_level === 1 &&
+    setform("perpus_id",user_logged.perpus_id)
   },[])
 
   useEffect(() => {
@@ -128,7 +130,7 @@ const AnggotaFormComponent = () => {
           name='perpus_id'
           onChange={handleForm}
           value={form.perpus_id || "0"}
-          //disabled
+          disabled={user_logged.access_level === 1}
         >
           <MenuItem value="0">Pilih Perpustakaan</MenuItem>
           {

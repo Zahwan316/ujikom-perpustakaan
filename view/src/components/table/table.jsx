@@ -36,7 +36,7 @@ const TableComponent = (props) => {
     if(typebtn === "delete" || typebtn === "softdelete" || typebtn === "restore" || typebtn === "restoreall" || typebtn === "deleteall"){
       Swal.fire({
         title:"Apakah anda yakin?",
-        text:"Data yang dihapus tidak dapat dikembalikan",
+        text:`${typebtn === 'delete' || typebtn === 'softdelete' || typebtn==='deleteall' ? 'Data yang dihapus tidak dapat dikembalikan' : "Data akan segera dipulihkan"}`,
         icon:"warning",
         showCancelButton:true,
         confirmButtonColor:"#3085d6",

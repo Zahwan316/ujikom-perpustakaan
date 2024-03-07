@@ -16,6 +16,7 @@ const AnggotaViewPage = () => {
   const [user,setuser] = useItemStore((state) => [state.user,state.setuser])
   const [refuser,setrefuser] = useUserStore((state) => [state.ref_user,state.setrefuser])
   const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
+  const user_logged = useUserStore((state) => state.user)
   const [modal,setmodal] = useState(false)
   const [updater,setupdater] = useState()
   const [isload,setisload] = useState()
@@ -23,6 +24,7 @@ const AnggotaViewPage = () => {
   const [editedid,seteditedid] = useState()
   const [form,setform,resetform] = useFormStore((state) => [state.form,state.setform,state.resetform])
   const [filterrole,setfilteredrole] = useStateStore((state) => [state.filterrole,state.setfilterrole])
+  
   const tablehead = [
     "No",
     "Perpus",
@@ -30,7 +32,8 @@ const AnggotaViewPage = () => {
     "Email",
     "Nama Lengkap",
     "Alamat",
-    "Role"
+    "Role",
+    " "
   ]
 
   const handleModal = () => {
@@ -121,7 +124,7 @@ const AnggotaViewPage = () => {
   },[])
 
   useEffect(() => {
-    console.log(form)
+   
   })
 
   useEffect(() => {
@@ -171,7 +174,7 @@ const AnggotaViewPage = () => {
 
   return(
     <>
-    
+      <Container className='bg-white p-8 rounded-2xl'>
         <TableComponent 
           tablehead={tablehead}
           title="Pengguna"
@@ -195,6 +198,7 @@ const AnggotaViewPage = () => {
             </Select> 
           </>}
         />
+      </Container>
            
         {
           modal &&

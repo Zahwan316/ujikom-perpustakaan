@@ -1,5 +1,5 @@
 import { Box, Stack } from '@mui/system';
-import { Typography, Button, TextField } from '@mui/material';
+import { Typography, Button, TextField, Skeleton } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import NavBarIndexComponent from '../nav';
 import BookComponent from 'src/components/book/book';
@@ -96,10 +96,17 @@ const IndexViewPage = () => {
             <Typography mb={2} variant='h6'>Buku Populer</Typography>
             <Stack flex flexDirection={"row"} gap={4}>
              {
-                bukusitem != undefined &&
+                bukusitem === undefined ?
+                <>
+                  <Skeleton variant='rectangular' width={230} height={420} animation={"wave"} />
+                  <Skeleton variant='rectangular' width={230} height={420} animation={"wave"} />
+                  <Skeleton variant='rectangular' width={230} height={420} animation={"wave"} />
+                  <Skeleton variant='rectangular' width={230} height={420} animation={"wave"} />
+                </>
+                :
                 bukusitem.slice(0,4).map(item => 
                   buku.map(items => 
-                    items.bukuID == item.bukuID &&
+                    items.bukuID == item.bukuID && items.soft_delete != 1 ?
                      <BookComponent 
                       img={`${import.meta.env.VITE_APP_URL_API}img/${items.img}`}
                       title={items.judul}
@@ -109,6 +116,8 @@ const IndexViewPage = () => {
                       slug={items.slug}
                       perpus={perpus.map(item => item.perpus_id === items.perpus_id && item.nama_perpus)}
                     />
+                    :
+                    ""
                     )
                 )
              }
@@ -118,8 +127,16 @@ const IndexViewPage = () => {
             <Typography variant='h6' mb={2}>Semua Buku</Typography>
             <Stack flex flexDirection={"row"} gap={8} flexWrap={"wrap"}>
              {
+               Object.keys(buku).length === 0 ?
+                  <>
+                    <Skeleton variant='rectangular' width={230} height={420} animation={"wave"} />
+                    <Skeleton variant='rectangular' width={230} height={420} animation={"wave"} />
+                    <Skeleton variant='rectangular' width={230} height={420} animation={"wave"} />
+                    <Skeleton variant='rectangular' width={230} height={420} animation={"wave"} />
+                  </>
+                  :
                   buku.map(items => 
-                    items.stok !== 0 &&
+                    items.stok !== 0 && items.soft_delete != 1 ?
                      <BookComponent 
                       img={`${import.meta.env.VITE_APP_URL_API}img/${items.img}`}
                       title={items.judul}
@@ -129,6 +146,8 @@ const IndexViewPage = () => {
                       slug={items.slug}
                       perpus={perpus.map(item => item.perpus_id === items.perpus_id && item.nama_perpus)}
                     />
+                    :
+                    ""
                     )  
              }
             </Stack>

@@ -43,11 +43,11 @@ export default function AccountPopover() {
     {
       label:"Pengaturan",
       onclick:() => {navigate("/setting")},
-      level:[1,2,3],
+      level:[0,1,2,3],
     },
     {
       label:"Dashboard",
-      level:[1],
+      level:[0,1],
       onclick:() => {navigate("/dashboard")}
     },
   ];

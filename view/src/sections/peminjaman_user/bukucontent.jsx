@@ -38,7 +38,7 @@ const BukuContentPeminjaman = (props) => {
               props.selectedpeminjaman.length != 0 ?
               props.selectedpeminjaman.map(item => 
                 props.buku.map(items => 
-                  item.bukuID === items.bukuID &&
+                  item.bukuID === items.bukuID && items.soft_delete != 1 ?
                   <BookComponent 
                     title={items.judul}
                     img={`${import.meta.env.VITE_APP_URL_API}img/${items.img}`}
@@ -49,6 +49,8 @@ const BukuContentPeminjaman = (props) => {
                     remaining={calculateRemainingDays(item.tanggal_pengembalian)}
                     id={item.peminjamanID}
                   />
+                  :
+                  ""
                 )
               )
               :

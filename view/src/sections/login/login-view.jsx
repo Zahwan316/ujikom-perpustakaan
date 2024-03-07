@@ -114,7 +114,7 @@ export default function LoginView() {
         Cookies.set("token",token)
         setsuccess(true)
         setTimeout(() => {
-          if(data.access_level === 1 ){
+          if(data.access_level === 1 || data.access_level === 0){
             window.location.href = "/dashboard"
           }
           else if(data.access_level === 2){

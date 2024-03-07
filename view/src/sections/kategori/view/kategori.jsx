@@ -7,11 +7,13 @@ import Swal from 'sweetalert2';
 import useFormStore from '../../../../state/form';
 import {v4 as uuidv4} from "uuid"
 import KategoriForm from 'src/components/form/kategori';
+import { Container } from '@mui/system';
 
 const KategoriViewPage = () => {
   const tablehead = [
     "No",
-    "Nama Kategori"
+    "Nama Kategori",
+    " "
   ]
   const [modal,setmodal] = useState(false)
   const [kategori,setkategori] = useItemStore((state) => [state.kategori,state.setkategori])
@@ -138,24 +140,27 @@ const KategoriViewPage = () => {
 
   return (
     <>
-      <TableComponent
-        tablehead={tablehead}
-        page="kategori"
-        title="Kategori"
-        handlemodal={handleModal}
-        gettypebtn={getTypeBtn}
-        handleCrud={handleCrud}
-      />
-
-      {
-        modal &&
-        <ModalComponent 
+      <Container className='bg-white rounded-2xl p-8'>
+        <TableComponent
+          tablehead={tablehead}
+          page="kategori"
+          title="Kategori"
           handlemodal={handleModal}
-          title={typeform == "add" ? "Tambah Kategori" : "Edit Kategori"}
-          handlesubmit={handleSubmit}
-          body={<KategoriForm />}
+          gettypebtn={getTypeBtn}
+          handleCrud={handleCrud}
         />
-      }
+
+        {
+          modal &&
+          <ModalComponent 
+            handlemodal={handleModal}
+            title={typeform == "add" ? "Tambah Kategori" : "Edit Kategori"}
+            handlesubmit={handleSubmit}
+            body={<KategoriForm />}
+          />
+        }
+
+      </Container>
     </>
   )
 }
