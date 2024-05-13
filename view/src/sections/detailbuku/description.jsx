@@ -148,6 +148,10 @@ const DescriptionDetailBukuComponent = (props) => {
           let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}peminjaman`)
           setpeminjaman(res.data.data)
         }
+        if(Object.keys(perpus).length === 0){
+          let res = await axios.get(`${import.meta.env.VITE_APP_URL_API}perpus`)
+          setperpus(res.data.data)
+        }
       }
       catch(e){
         console.log(e)
@@ -232,8 +236,11 @@ const DescriptionDetailBukuComponent = (props) => {
               <Typography variant='h6'>
                 {props.buku && props.buku.penulis}
               </Typography>
-              <Typography variant='body2' mb={2}>
+              <Typography variant='body2' >
                 {props.buku && props.buku.penerbit}
+              </Typography>
+              <Typography variant='body2' mb={2}>
+                {props.buku && perpus.map(item => item.perpus_id === props.buku.perpus_id && item.nama_perpus)}
               </Typography>
               {/* <Typography>
                 Stok : {props.buku && props.buku.stok}

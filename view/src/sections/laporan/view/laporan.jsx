@@ -240,7 +240,7 @@ const LaporanViewPage = () => {
 
   return(
     <>
-      <Container>
+      <Container className='bg-white p-8 rounded-2xl'>
         <Stack>
           <Typography variant='h4' mb={2}>
             Laporan

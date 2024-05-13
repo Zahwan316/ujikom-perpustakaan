@@ -12,6 +12,9 @@ const PeminjamanTableBody = (props) => {
   const user = useItemStore((state) => state.user)
   const ref_peminjaman = useItemStore((state) => state.ref_peminjaman)
   const search = useStateStore((state) => state.search)
+  const user_logged = useUserStore((state) => state.user)
+
+  const filteredpeminjaman = peminjaman.filter((item) => item.perpus_id === user_logged.perpus_id)
 
   const [open,setopen] = useState({})
 
@@ -27,6 +30,7 @@ const PeminjamanTableBody = (props) => {
     <>
       {
         peminjaman.length != 0 ?
+         user_logged.access_level === 0 ?
          peminjaman.filter(item => !search || user.some((user) => user.userID === item.userID && user.nama_lengkap.toLowerCase().includes(search.toLowerCase()))).map((item,index) => 
           <TableRow key={index}>
              <TableCell>{index + 1}</TableCell>
@@ -91,6 +95,71 @@ const PeminjamanTableBody = (props) => {
               </Popover>
           </TableRow>
          )
+         :
+         filteredpeminjaman.filter(item => !search || user.some((user) => user.userID === item.userID && user.nama_lengkap.toLowerCase().includes(search.toLowerCase()))).map((item,index) => 
+         <TableRow key={index}>
+            <TableCell>{index + 1}</TableCell>
+           <TableCell key={index}>
+             {
+               perpus.map(items => 
+                 items.perpus_id === item.perpus_id &&
+                 items.nama_perpus    
+               )
+             }
+           </TableCell>
+           <TableCell>
+             {
+               buku.map(items => 
+                 items.bukuID === item.bukuID &&
+                 items.judul
+               )
+             }
+           </TableCell>
+           <TableCell>{item.tanggal_peminjaman}</TableCell>
+           <TableCell>{item.tanggal_pengembalian || "Belum dikembalikan"}</TableCell>
+           <TableCell>
+               {
+                 user.map(items => 
+                   items.userID === item.userID &&
+                   items.nama_lengkap
+                 )
+               }
+           </TableCell>
+           <TableCell>
+             {
+               ref_peminjaman.map(items => 
+                 items.ref_peminjaman_id === item.status_peminjaman &&
+                 items.nama
+               )
+             }
+           </TableCell>
+           <TableCell align="right">
+               <IconButton onClick={(e) => handleOpenMenu(e,item.peminjamanID)}>
+                 <Iconify icon="eva:more-vertical-fill" />
+               </IconButton>
+             </TableCell>
+             <Popover
+               open={Boolean(open[item.peminjamanID])}
+               anchorEl={open[item.peminjamanID]}
+               onClose={() => handleClose(item.peminjamanID)}
+               anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+               transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+               PaperProps={{
+                 sx: { width: 140 },
+               }}
+             >
+             <MenuItem onClick={props.handleclick} typebtn="edit" id={item.peminjamanID}>
+                 <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
+                 Edit
+               </MenuItem>
+
+               <MenuItem onClick={props.handleclick} typebtn="delete" id={item.peminjamanID} sx={{ color: 'error.main' }}>
+                 <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
+                 Hapus
+               </MenuItem>
+             </Popover>
+         </TableRow>
+        )
          :
          <TableRow>
            <TableCell>Data masih kosong</TableCell>

@@ -14,7 +14,8 @@ const PerpusViewPage = () => {
     "No",
     "Nama Perpustakaan",
     "Alamat",
-    "Nomor Telepon"
+    "Nomor Telepon",
+    " "
   ]
   const [perpus,setperpus] = useItemStore((state) => [state.perpus,state.setperpus])
   const [updater,setupdater] = useState()
@@ -138,7 +139,7 @@ const PerpusViewPage = () => {
 
   return(
     <>
-      <Container>
+      <Container className='bg-white rounded-lg p-8'>
         <Box>
           <TableComponent 
             tablehead={tablehead}

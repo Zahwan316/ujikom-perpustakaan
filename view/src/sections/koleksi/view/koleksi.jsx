@@ -147,7 +147,7 @@ const KoleksiViewPage = () => {
             Object.keys(filteredkoleksi).length != 0 ?
             filteredkoleksi.map((item) => 
               buku.map(items => 
-                items.bukuID === item.bukuID &&
+                items.bukuID === item.bukuID && item.soft_delete != 1 ?
                 <BookComponent 
                   key={item.bukuID} 
                   title={items.judul}
@@ -158,6 +158,8 @@ const KoleksiViewPage = () => {
                   redirect={redirect}
                   // handlemodal={handleOpenSwal}
                 />
+                :
+                ""
               )
             )
             :

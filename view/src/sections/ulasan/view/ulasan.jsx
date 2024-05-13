@@ -7,6 +7,7 @@ import useItemStore from '../../../../state/item';
 import axios from 'axios';
 import ModalComponent from 'src/components/modal/modal';
 import UlasanModalContent from 'src/components/modal/content/ulasan';
+import useUserStore from '../../../../state/user';
 
 const UlasanViewPage = () => {
   const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
@@ -16,6 +17,8 @@ const UlasanViewPage = () => {
   const [modal,setmodal] = useState(false)
   const [ulasan,setulasan] = useItemStore((state) => [state.ulasan,state.setulasan])
   const [editedid,seteditedid] = useState()
+  const user_logged = useUserStore((state) => state.user)
+  const filteredbuku = buku.filter((item) => item.perpus_id === user_logged.perpus_id)
 
   const handleModal = (id) => {
     setmodal(!modal)
@@ -92,6 +95,7 @@ const UlasanViewPage = () => {
             rating="8"
           /> */}
           {
+            user_logged.access_level === 0 ?
             buku.map((item,index) =>
               <BookComponent
                 key={index}
@@ -104,6 +108,19 @@ const UlasanViewPage = () => {
                 
               />
             )
+            :
+            filteredbuku.map((item,index) =>
+            <BookComponent
+              key={index}
+              img={`${import.meta.env.VITE_APP_URL_API}img/${item.img}`}
+              title={item.judul}
+              penulis={item.penulis}
+              rating={item.rating}
+              id={item.bukuID}
+              handlemodal={handleModal}
+              
+            />
+          )
           }
          
         </Stack>

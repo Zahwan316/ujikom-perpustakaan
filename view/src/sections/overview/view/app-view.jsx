@@ -18,6 +18,7 @@ import AppConversionRates from '../app-conversion-rates';
 import useItemStore from '../../../../state/item';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import useUserStore from '../../../../state/user';
 
 // ----------------------------------------------------------------------
 
@@ -27,6 +28,11 @@ const AppView = () => {
   const [peminjaman,setpeminjaman] = useItemStore((state) => [state.peminjaman,state.setpeminjaman])
   const [user,setuser] = useItemStore((state) => [state.user,state.setuser])
   const [message,setmessage] = useItemStore((state) => [state.message,state.setmessage])
+  const user_logged = useUserStore((state) => state.user)
+
+  const filteredbuku = buku.filter((item) => item.perpus_id === user_logged.perpus_id )|| 0
+  const filteredpeminjaman = peminjaman.filter((item) => item.perpus_id === user_logged.perpus_id)
+  const filtereduser = user.filter((item) => item.perpus_id === user_logged.perpus_id)
 
   const filteredDate = (item) => {
     const date = new Date(item); // Ubah string tanggal menjadi objek Date
@@ -75,7 +81,7 @@ const AppView = () => {
   },[])
 
   useEffect(() => {
-    console.log(new Date())
+    console.log(filteredbuku.length)
     //filteredDate(item.created_date)
   })
 
@@ -89,7 +95,7 @@ const AppView = () => {
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="Buku tersimpan"
-            total={buku.length}
+            total={user_logged.access_level === 0 ? buku.length : (filteredbuku.length === 0 ? "0" : filteredbuku.length)}
             color="success"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_bag.png" />}
           />
@@ -98,7 +104,7 @@ const AppView = () => {
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="Pengguna terdaftar"
-            total={user.length}
+            total={user_logged.access_level === 0 ? user.length : filtereduser.length}
             color="info"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
           />
@@ -107,20 +113,24 @@ const AppView = () => {
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="Transaksi Buku"
-            total={peminjaman.length}
+            total={user_logged.access_level === 0 ? peminjaman.length : filteredpeminjaman.length}
             color="warning"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
           />
         </Grid>
 
-        <Grid xs={12} sm={6} md={3}>
-          <AppWidgetSummary
-            title="Perpus terdaftar"
-            total={perpus.length}
-            color="error"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
-          />
-        </Grid>
+        {
+          user_logged.access_level === 0 &&
+          <Grid xs={12} sm={6} md={3}>
+            <AppWidgetSummary
+              title="Perpus terdaftar"
+              total={perpus.length}
+              color="error"
+              icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
+            />
+          </Grid>
+
+        }
 
        {/*  <Grid xs={12} md={6} lg={8}>
           <AppWebsiteVisits

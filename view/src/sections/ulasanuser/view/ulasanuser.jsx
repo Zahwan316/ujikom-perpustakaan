@@ -107,7 +107,7 @@ const UlasanUserViewPage = () => {
                 item.status_peminjaman === 2 && item.userID === user.userID &&
                 buku.map(items => 
                   
-                  items.bukuID === item.bukuID &&
+                  items.bukuID === item.bukuID && items.soft_delete != 1 ?
                   <BookComponent 
                     img={`${import.meta.env.VITE_APP_URL_API}img/${items.img}`}
                     title={items.judul}
@@ -116,7 +116,8 @@ const UlasanUserViewPage = () => {
                     slug={items.slug}
                     handlemodal={handleModal}
                   />
-
+                  :
+                  ""
                 )
               )
               :

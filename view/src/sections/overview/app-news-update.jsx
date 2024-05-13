@@ -45,7 +45,7 @@ export default function AppNewsUpdate({ title, subheader, list, ...other }) {
           endIcon={<Iconify icon="eva:arrow-ios-forward-fill" />}
           onClick={redirectToNews}
         >
-          View all
+          Lihat Semua
         </Button>
       </Box>
     </Card>

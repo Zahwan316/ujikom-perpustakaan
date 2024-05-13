@@ -1,5 +1,5 @@
 import { Box, Stack } from "@mui/system";
-import { Typography,Button } from '@mui/material';
+import { Typography,Button, Skeleton } from '@mui/material';
 import KategoriCardComponent from "src/components/card/kategori";
 import useItemStore from "../../../state/item";
 import axios from "axios";
@@ -67,6 +67,14 @@ const KategoriIndex = () => {
           </Box>
             <Stack flex flexDirection={"row"} gap={4}>
                 {
+                  Object.keys(isFilledKategori).length === 0 ?
+                  <>
+                    <Skeleton variant='rectangular' width={270} height={120} animation={"wave"} />
+                    <Skeleton variant='rectangular' width={270} height={120} animation={"wave"} />
+                    <Skeleton variant='rectangular' width={270} height={120} animation={"wave"} />
+                    <Skeleton variant='rectangular' width={270} height={120} animation={"wave"} />
+                  </>
+                  :
                   isFilledKategori.slice(0,4).map(item => 
                     <KategoriCardComponent
                       nama={item.nama_kategori}
