@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import CssBaseline from '@mui/material/CssBaseline';
+// import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
 
 import { palette } from './palette';
@@ -30,7 +30,7 @@ export default function ThemeProvider({ children }) {
 
   return (
     <MUIThemeProvider theme={theme}>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       {children}
     </MUIThemeProvider>
   );

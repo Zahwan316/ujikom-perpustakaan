@@ -52,7 +52,7 @@ export default function LoginView() {
       if(!form.email){
         errors.email = "Email tidak boleh kosong"
       }
-  
+      
       if(!form.password){
         errors.password = "Password tidak boleh kosong"
       }
