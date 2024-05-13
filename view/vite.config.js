@@ -6,6 +6,11 @@ import react from '@vitejs/plugin-react-swc';
 // ----------------------------------------------------------------------
 
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      external: ['@mui/material'],
+    },
+  },
   plugins: [
     react(),
   
