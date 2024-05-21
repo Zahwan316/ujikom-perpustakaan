@@ -9,16 +9,19 @@ const ulasanbuku = require("../models/ulasanbuku")
 const Ulasanbuku = ulasanbuku(Sequelize,DataTypes)
 const peminjaman = require("../models/peminjaman")
 const Peminjaman = peminjaman(Sequelize,DataTypes)
+const supabase = require("../supabase")
 
 // Konfigurasi Multer
-const storage = multer.diskStorage({
+/* const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'uploads/'); // Folder tempat menyimpan gambar
     },
     filename: function (req, file, cb) {
       cb(null, file.originalname); // Nama file unik
     },
-  });
+  }); */
+
+const storage = multer.memoryStorage();
 
 const upload = multer({ storage: storage });
 
@@ -61,7 +64,24 @@ router.route("/buku")
                     isi_buku:req.files['isi_buku'] && req.files['isi_buku'][0].filename,
                     ...req.body,
                 })
-    
+
+                const img = req.files['img'] && req.files['img'][0].filename
+                const buku = req.files['isi_buku'] && req.files['isi_buku'][0].filename
+
+                
+
+                const { data, error } = await supabase.storage
+                .from('your_bucket_name') // Ganti dengan nama bucket yang Anda buat di Supabase
+                .upload({img,buku}, [img.buffer,buku.buffer], {
+                  cacheControl: '3600',
+                  upsert: false,
+                  contentType: file.mimetype,
+                });
+
+                if (error) {
+                    throw error;
+                  }
+
                 res.status(200).json({
                     message:'Data berhasil dibuat',
                     method:req.method,

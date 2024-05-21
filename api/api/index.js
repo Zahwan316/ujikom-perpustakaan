@@ -25,6 +25,7 @@ app.use((req, res, next) => {
 
 app.use('/img', (req, res, next) => {
     res.setHeader('Content-Disposition', 'inline');
+    
     next();
   });
 
@@ -54,7 +55,17 @@ app.use(Koleksipribadi)
 app.use(User)
 app.use(Perpus)
 app.use(Message)
-app.use("/img",express.static("uploads",options))
+app.use("/img/:filename",(req,res) => {
+  const fileName = req.params.filename
+  const { publicURL } = supabase.storage
+  .from('your_bucket_name')
+  .getPublicUrl(fileName);
+
+  res.status(200).json({
+    message:"Data berhasil diambil",
+    data:publicURL
+  })
+})
 
 
 app.get('/pdf/:file', (req, res) => {
