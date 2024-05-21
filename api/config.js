@@ -1,14 +1,16 @@
 const {Sequelize} = require("sequelize")
+const dotenv = require("dotenv")
+dotenv.config({path:"../.env"})
 
-const sequelize = new Sequelize("rplsma09_smeadigital","smeadigital","darthside",{
-    host:"103.28.148.114",
-    dialect:"mysql",
-    pool:{
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000,
-    } 
+const sequelize = new Sequelize(process.env.DATABASE_URL,{
+    dialect: 'postgres',
+    protocol: 'postgres',
+    dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false, // Important for Supabase SSL connections
+    },
+  },
 })
 
 module.exports = sequelize
