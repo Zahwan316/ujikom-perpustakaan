@@ -3,6 +3,7 @@ const dotenv = require("dotenv")
 dotenv.config({path:"../.env"})
 
 const sequelize = new Sequelize(process.env.DATABASE_URL,{
+    dialectModule: require('pg'),
     dialect: 'postgres',
     protocol: 'postgres',
     dialectOptions: {
