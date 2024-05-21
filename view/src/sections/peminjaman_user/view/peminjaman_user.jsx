@@ -1,21 +1,20 @@
 import { Box, Container, Stack } from '@mui/system';
 import React, { useState, useEffect } from 'react';
 import { Typography,Button } from '@mui/material';
-import BookComponent from 'src/components/book/book';
+
 import useItemStore from '../../../../state/item';
 import useUserStore from '../../../../state/user';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import {v4 as uuidv4} from 'uuid'
 import { Alert, AlertTitle, Snackbar } from '@mui/material';
-import HTMLFlipBook from 'react-pageflip';
-import { pdfjs } from 'react-pdf';
-import UlasanUserViewPage from 'src/sections/ulasanuser/view/ulasanuser';
+
+import UlasanUserViewPage from 'src/sections/ulasanuser/view/ulasanuser'  ;
 import BukuContentPeminjaman from '../bukucontent';
 import ModalComponent from 'src/components/modal/modal';
 import useStateStore from '../../../../state/state';
-import PeminjamanUserModal from 'src/components/modal/content/peminjamanuser';
-import UlasanForm from 'src/components/form/ulasan';
+import PeminjamanUserModal from 'src/components/modal/content/peminjamanuser' ;
+import UlasanForm from 'src/components/form/ulasan' ;
 import useFormStore from '../../../../state/form';
 
 const PeminjamanUserViewPage = () => {
@@ -157,9 +156,6 @@ const PeminjamanUserViewPage = () => {
     }
   },[updater])
 
-  useEffect(() => {
-    console.log("modal 2 = ",modal2)
-  })
 
   return(
     <>
@@ -182,27 +178,7 @@ const PeminjamanUserViewPage = () => {
            buku={buku}
            handleModal={handleMenuModal}
          />
-         {/*  <Box>
-            <HTMLFlipBook
-               width={550}
-               height={733}
-               size="stretch"
-               minWidth={315}
-               maxWidth={1000}
-               minHeight={400}
-               maxHeight={1533}
-               maxShadowOpacity={0.5}
-               showCover={true}
-               mobileScrollSupport={true}
-            >
-            
-             <div className="demoPage bg-gray-400">Page 1</div>
-             <div className="demoPage">Page 2</div>
-             <div className="demoPage">Page 3</div>
-             <div className="demoPage">Page 4</div>
-              </HTMLFlipBook>
-          </Box> */}
-        
+      
         </Stack>
 
         {

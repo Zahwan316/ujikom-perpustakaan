@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet"
 import IndexViewPage from "src/sections/index/view"
+import React from "react"
 
 const IndexUserPage = () => {
   return(

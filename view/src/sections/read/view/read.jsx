@@ -1,6 +1,5 @@
 import { Viewer } from "@react-pdf-viewer/core"
 import '@react-pdf-viewer/core/lib/styles/index.css';
-import { GlobalWorkerOptions } from '@react-pdf-viewer/core';
 import { Worker } from '@react-pdf-viewer/core';
 import useItemStore from "../../../../state/item";
 import axios from "axios";

@@ -1,5 +1,5 @@
 import { IconButton, MenuItem, Popover, TableCell, TableRow } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import useUserStore from '../../../../state/user';
 import useItemStore from '../../../../state/item';
 import Iconify from 'src/components/iconify';

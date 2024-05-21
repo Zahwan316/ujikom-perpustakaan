@@ -12,12 +12,12 @@ import UlasanPage from 'src/pages/ulasan';
 import useUserStore from '../../state/user';
 import HomePage from 'src/pages/home';
 import RekomendasiPage from 'src/pages/rekomendasi';
-import DetailBukuPage from 'src/pages/detailbuku';
+
 import KoleksiPage from 'src/pages/koleksi';
 import SettingPage from 'src/pages/settings';
 import SearchPage from 'src/pages/search';
 import LaporanPage from 'src/pages/laporan';
-import LandingPage from 'src/pages/landing-page';
+
 import NotifNewsPage from 'src/pages/notif_news';
 import IndexUserPage from 'src/pages';
 import KategoriIndexPage from 'src/pages/kategoriindex';
@@ -152,7 +152,7 @@ export default function Router() {
   },[updater])
 
   useEffect(() => {
-    console.log(user)
+ 
   })
 
   const routes = useRoutes([
@@ -165,7 +165,6 @@ export default function Router() {
         </DashboardLayout>
       ),
       children: [
-        //{ element: <IndexPage />, index: true },
         {path:"dashboard",element:<IndexPage />},
         { path: 'user', element: <UserPage /> },
         { path: 'products', element: <ProductsPage /> },

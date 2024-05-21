@@ -1,6 +1,6 @@
 import { Box } from "@mui/system"
 import { Typography,Button } from '@mui/material';
-
+import React from "react"
 const FooterIndex = () => {
   return(
     <Box className='w-full border h-2/6 px-36 mt-12 p-8 flex flex-col  '>

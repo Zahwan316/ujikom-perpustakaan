@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { Box, Container, Stack } from '@mui/system';
-import { Typography,Button } from '@mui/material';
+import { Box,  Stack } from '@mui/system';
+import { Typography } from '@mui/material';
 import useItemStore from '../../../../state/item';
 import axios from 'axios';
 import useUserStore from '../../../../state/user';
@@ -89,9 +89,7 @@ const UlasanUserViewPage = () => {
     fetchdata()
   },[])
 
-  useEffect(() => {
-    console.log(bukuid)
-  })
+
 
   return(
     <>

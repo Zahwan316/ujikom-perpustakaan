@@ -3,8 +3,6 @@ import { Typography,Button } from '@mui/material';
 import Link from '@mui/material/Link';
 import useItemStore from "../../../../state/item";
 import React, { useState, useEffect } from 'react';
-import SvgColor from "src/components/svg-color";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Swal from "sweetalert2";
 import {v4 as uuidv4} from "uuid";
 import axios from "axios";

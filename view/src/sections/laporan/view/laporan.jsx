@@ -1,14 +1,14 @@
 import { Box, Container, Stack } from '@mui/system';
 import React, { useState, useEffect } from 'react';
 import { Typography,Button } from '@mui/material';
-import { InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { InputLabel } from '@mui/material';
 import useItemStore from '../../../../state/item';
-import { Input } from 'postcss';
+
 import axios from 'axios';
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
-import { PDFDownloadLink } from '@react-pdf/renderer';
+import { Page, Text,  Document, StyleSheet } from '@react-pdf/renderer';
+
 import useFormStore from '../../../../state/form';
-import dayjs from 'dayjs';
+
 import * as XLSX from "xlsx"
 
 const styles = StyleSheet.create({
@@ -206,9 +206,7 @@ const LaporanViewPage = () => {
     fetchData()
   },[])
 
-  useEffect(() => {
-    console.log(filteredData)
-  })
+ 
 
   useEffect(() => {
     const filtered = peminjaman.filter((item) => {
@@ -235,7 +233,6 @@ const LaporanViewPage = () => {
     })
     setFilteredData(relatedFiltered);
 
-    //setFilteredData(filtered);
   }, [peminjaman]);
 
   return(
@@ -248,19 +245,6 @@ const LaporanViewPage = () => {
         </Stack>
         <Box>
           <InputLabel className='mb-4'>Unduh laporan bulan ini</InputLabel>
-          {/* <PDFDownloadLink 
-            document={
-            <PDFviewpage 
-              buku={buku}
-              month={month}
-              data={filteredData}
-              user={user}
-              perpus={perpus}
-              frequentBook={sortdata}
-             />} fileName='laporan-peminjaman'>
-          <Button variant='contained'>Unduh Laporan</Button>
-            {({loading}) => (loading ? "Loading..." : "Download")}
-          </PDFDownloadLink> */}
           <GenerateExcelButton data={filteredData} filename="Laporan Peminjaman" />
         </Box>
       </Container>

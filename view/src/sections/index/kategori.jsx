@@ -1,5 +1,5 @@
 import { Box, Stack } from "@mui/system";
-import { Typography,Button, Skeleton } from '@mui/material';
+import { Typography,Skeleton } from '@mui/material';
 import KategoriCardComponent from "src/components/card/kategori";
 import useItemStore from "../../../state/item";
 import axios from "axios";
@@ -11,10 +11,6 @@ const KategoriIndex = () => {
   const [kategori,setkategori] = useItemStore((state) => [state.kategori,state.setkategori])
   const [buku,setbuku] = useItemStore((state) => [state.buku,state.setbuku])
   const navigate = useNavigate()
-
-  /* const isFilledKategori = kategori.filter(item => {
-    return buku.some(items => item.kategoriID == items.kategori_id)
-  }) */
 
   const getKategoriBuku = () => {
     const kategoriWithBuku = kategori.filter(item => {
@@ -34,9 +30,7 @@ const KategoriIndex = () => {
     navigate('/kategori')
   }
 
-  useEffect(() => {
-    console.log(getKategoriBuku())
-  })
+
 
   useEffect(() => {
     const fetchData = async() => {

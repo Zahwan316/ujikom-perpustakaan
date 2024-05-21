@@ -1,7 +1,5 @@
 import { Button, Fade, Modal, Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
-import React, { useState, useEffect } from 'react';
-import { Form } from 'react-router-dom';
 
 const ModalComponent = (props) => {
   return(

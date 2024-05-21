@@ -1,6 +1,7 @@
 {
   "name": "@minimal/material-kit-react",
   "author": "minimals.cc",
+  "homepage": "https://smeadigital.rplsmart.com/",
   "licence": "MIT",
   "version": "1.8.0",
   "private": false,
@@ -15,15 +16,19 @@
     "re:build-npm": "npm run rm:all && npm install && npm run build",
     "dev:host": "vite --host",
     "vite:start": "vite",
-    "vite:build": "vite build"
+    "vite:build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@faker-js/faker": "^8.1.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@iconify/react": "^4.1.1",
     "@mui/lab": "^5.0.0-alpha.147",
+    "@mui/material": "^5.15.18",
     "@mui/system": "^5.15.5",
     "@react-pdf-viewer/core": "^3.12.0",
     "@react-pdf/renderer": "^3.3.8",
@@ -55,6 +60,8 @@
     "uuid": "^9.0.1",
     "uuidv4": "^6.2.13",
     "validator": "^13.11.0",
+    "vite-plugin-commonjs": "^0.10.1",
+    "vite-plugin-node-polyfills": "^0.22.0",
     "xlsx": "^0.18.5",
     "zustand": "^4.5.0"
   },

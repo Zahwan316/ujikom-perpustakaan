@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
-
+import React from "react"
 import { palette } from './palette';
 import { shadows } from './shadows';
 import { overrides } from './overrides';

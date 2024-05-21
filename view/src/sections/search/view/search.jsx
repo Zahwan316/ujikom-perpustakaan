@@ -1,6 +1,6 @@
 import { Container, Stack } from '@mui/system';
 import React, { useState, useEffect } from 'react';
-import { Typography,Button } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import useItemStore from '../../../../state/item';
 import BookComponent from 'src/components/book/book';
@@ -31,9 +31,7 @@ const SearchViewPage = () => {
     fetchdata()
   },[])
 
-  useEffect(() => {
-    console.log(text)
-  })
+ 
   return(
     <>
     <IndexUserLayout>

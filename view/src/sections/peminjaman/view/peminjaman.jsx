@@ -7,9 +7,9 @@ import axios from 'axios';
 import useFormStore from '../../../../state/form';
 import ModalComponent from 'src/components/modal/modal';
 import PeminjamanForm from 'src/components/form/peminjaman';
-import useUserStore from '../../../../state/user';
+
 import { Box, Container } from '@mui/system';
-import { Button, Input, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import useStateStore from '../../../../state/state';
 
 const PeminjamanViewPage = () => {

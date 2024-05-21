@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
-
-import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
+
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -33,9 +30,6 @@ import {useNavigate} from "react-router-dom"
 
 export default function LoginView() {
   const theme = useTheme();
-  const navigate = useNavigate()
-  const router = useRouter();
-
   const [showPassword, setShowPassword] = useState(false);
   const [form,setform,resetform] = useFormStore((state) => [state.form,state.setform,state.resetform])
   const [success,setsuccess] = useState(false)
@@ -253,7 +247,7 @@ export default function LoginView() {
 
   const renderRegister = (
     <>
-      <Stack spacing={3} mb={2}>
+      <Stack spacing={3} mb={2} className='overflow-scroll h-full'>
           <Box className='flex flex-wrap flex-row gap-4'>
             <Box className='w-full flex flex-row gap-8'>
               <Box className='flex flex-col w-1/2'>
@@ -388,10 +382,7 @@ export default function LoginView() {
     </>
   )
 
-  useEffect(() => {
-    console.log(form)
-    console.log(typelogin)
-  })
+  
 
   return (
     <>
@@ -401,7 +392,7 @@ export default function LoginView() {
           color: alpha(theme.palette.background.default, 0.9),
           imgUrl: '/assets/background/overlay_4.jpg',
         }),
-        height: 1,
+        height: '100vh',
       }}
     >
       <Logo
@@ -412,7 +403,7 @@ export default function LoginView() {
         }}
       />
 
-      <Stack alignItems="center" justifyContent="center" sx={{ height: 1 }}>
+      <Stack alignItems="center" justifyContent="center" flex={'flex'} sx={{ height: 1 }}>
         <Card
           sx={{
             p: 5,

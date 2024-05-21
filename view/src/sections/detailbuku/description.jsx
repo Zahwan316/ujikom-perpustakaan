@@ -1,4 +1,4 @@
-import { Stack, Container, Box } from '@mui/system';
+import { Box } from '@mui/system';
 import { Typography,Button } from '@mui/material';
 import useFormStore from '../../../state/form';
 import useUserStore from '../../../state/user';
@@ -26,9 +26,8 @@ const DescriptionDetailBukuComponent = (props) => {
   const selectedbookmark = koleksi.find(item => item.userID === user.userID && item.bukuID === props.buku.bukuID) || false
   const selectedpeminjamanlast = peminjaman.filter(item => item.userID === user.userID && item.bukuID === props.buku.bukuID) || false
   const selectedpeminjaman = selectedpeminjamanlast[selectedpeminjamanlast.length - 1] || false
- // const findPeminjamantest = peminjaman.find(item => item.bukuID === props.buku.bukuID && item.userID === user.userID )
   const BookHasOwnedByUser = peminjaman != [] && peminjaman.filter(item => item.userID === user.userID && item.status_peminjaman === 1)
-  const CheckBookUser = peminjaman && peminjaman.find(item => item.userID === user.userID && item.status_peminjaman === 1 && item.bukuID === props.buku.bukuID) || false
+  
 
   const handlebookmark = () => {
     if(Object.keys(user).length === 0){
@@ -103,19 +102,6 @@ const DescriptionDetailBukuComponent = (props) => {
     }
   }
 
-  const checkobjvalue = (obj,key,value) => {
-    const keys = Object.keys(obj)
-    for(const k of keys){
-      if(k === key && obj[k] === value){
-        return true
-      }
-    }
-    return false
-  }
-
-  const handleBacaBuku = () => {
-    window.location.href = `/read/${props.buku.slug}`
-  }
 
   useEffect(() => {
     console.log(BookHasOwnedByUser)
@@ -196,12 +182,7 @@ const DescriptionDetailBukuComponent = (props) => {
     }
   },[peminjaman,updater])
 
-  useEffect(() => {
-   // console.log(checkobjvalue(selectedpeminjaman,"status_peminjaman",2))
-   //console.log(hitungTanggalPengembalian(BookHasOwnedByUser[0].tanggal_peminjaman,props.buku.durasi_buku))
-  console.log(CheckBookUser)
-  })
-
+ 
   return(
     <>
         {
@@ -218,13 +199,7 @@ const DescriptionDetailBukuComponent = (props) => {
                   Object.keys(selectedpeminjaman).length !== 0 ?
                    'Buku berhasil dipinjam' : 'Buku berhasil dikembalikan')
                 }
-                {/* {
-                  alerttype === "pinjam" &&
-                  Object.keys(selectedpeminjaman).length !== 0?
-                  'Buku berhasil dipinjam'
-                  :
-                  'Buku berhasil dikembalikan'
-                } */}
+               
               </Alert>
           </Snackbar>
         }
@@ -242,16 +217,11 @@ const DescriptionDetailBukuComponent = (props) => {
               <Typography variant='body2' mb={2}>
                 {props.buku && perpus.map(item => item.perpus_id === props.buku.perpus_id && item.nama_perpus)}
               </Typography>
-              {/* <Typography>
-                Stok : {props.buku && props.buku.stok}
-              </Typography> */}
+             
             </Box>
             <Box>
                 <Box className='flex gap-3 mb-4'>
-                  {/* {
-                    CheckBookUser &&
-                    <Button variant='contained' onClick={handleBacaBuku} color='success'>Baca Buku</Button>
-                  } */}
+                 
                   {
                     selectedpeminjaman != undefined &&
                     Object.keys(BookHasOwnedByUser).length > 3 ?

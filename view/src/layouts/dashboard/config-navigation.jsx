@@ -1,5 +1,5 @@
 import SvgColor from 'src/components/svg-color';
-
+import React from "react"
 // ----------------------------------------------------------------------
 
 const icon = (name) => (
@@ -13,12 +13,7 @@ const navConfig = [
     icon: icon('ic_analytics'),
     level:[0,1],
   },
-  /* {
-    title: 'home',
-    path: '/home',
-    icon: icon('house-solid'),
-    level:[3]
-  }, */
+ 
   {
     title: 'pengguna',
     path: '/admin/anggota',

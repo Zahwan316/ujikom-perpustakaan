@@ -1,13 +1,11 @@
 import { Box, Container, Stack } from "@mui/system"
 import { Typography,Button } from '@mui/material';
-import { InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { InputLabel,TextField } from '@mui/material';
 import useFormStore from "../../../../state/form";
 import useUserStore from "../../../../state/user";
 import React, { useState, useEffect } from 'react';
 import useItemStore from "../../../../state/item";
 import axios from "axios";
-import { Form } from "react-router-dom";
-import ModalComponent from "src/components/modal/modal";
 import {v4 as uuidv4} from "uuid"
 import Swal from "sweetalert2";
 
@@ -120,9 +118,7 @@ const SettingViewPage = () => {
     }
   },[])
 
-  useEffect(() => {
-    console.log(form)
-  })
+ 
 
   return(
     <>
@@ -187,22 +183,7 @@ const SettingViewPage = () => {
                     onChange={handleform}
                     />
                 </Box>
-                {/* <Box className='flex flex-col mb-6'>
-                    <InputLabel className="mb-2">Perpustakaan</InputLabel>
-                    <Select
-                    size='small'
-                    name='perpus_id'
-                    defaultValue={form.perpus_id}
-                    value={form.perpus_id}
-                    onChange={handleform}
-                    >
-                    {
-                        perpus.map((item,index) => (
-                        <MenuItem key={index} value={item.perpus_id}>{item.nama_perpus}</MenuItem>
-                        ))
-                    }
-                    </Select>
-                </Box> */}
+          
                 </Box>
 
                 <Box className='flex flex-col mb-6'>

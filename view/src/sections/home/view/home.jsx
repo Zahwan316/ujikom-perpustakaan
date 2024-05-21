@@ -30,21 +30,6 @@ const HomePageView = () => {
   const limitbuku = buku.slice(buku.length - 6,buku.length - 1)
 
 
-  const grouprating = ulasan.reduce((acc,rating) => {
-    if(!acc[rating.bukuID]){
-      acc[rating.bukuID] = []
-    }
-    acc[rating.bukuID].push(rating)
-    return acc
-  },{})
-
- /*  const bukuwithrating = buku.map(buku => {
-    const ratingbuku = grouprating[buku.bukuID]
-    const totalrating = ratingbuku.reduce((acc,rating) => acc + rating.rating,0)
-    const avgrating = ratingbuku.length ? totalrating / ratingbuku.length : 0
-    return {...buku,avgrating}
-  }) */
-
   const buttongroup = kategori.map(item => {return {value:item.kategoriID,label:item.nama_kategori}})
   
   const handleCurrKategori = (category) => {
@@ -59,16 +44,10 @@ const HomePageView = () => {
     navigate(`/buku/${slug}`)
   }
 
-  const redirectToKategoriPage = () => {
-    navigate("/kategori")
-  }
 
   const bukuOrderByKategori = buku.filter(item => currkategori != 0 ? item.kategori_id == currkategori : item)
-  const bukuOrderByKategoriLimit = bukuOrderByKategori.slice(0,5)
 
-  const redirectToRekomendasiPage = () => {
-    navigate("/rekomendasi")
-  }
+
 
   useEffect(() => {
     const fetchdata = async() => {
@@ -93,9 +72,6 @@ const HomePageView = () => {
     fetchdata()
   },[])
 
-  useEffect(() => {
-    console.log(form)
-  })
 
   return(
     <>

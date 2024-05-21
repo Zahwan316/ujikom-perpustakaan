@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { Button } from '@mui/material';
-import {ButtonGroup} from '@mui/material';
+
 
 const BtnGroup = (props) => {
   const [activedbtn,setactivedbtn] = useState(0);

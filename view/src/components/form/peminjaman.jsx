@@ -1,6 +1,6 @@
 import { InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import useFormStore from '../../../state/form';
 import useItemStore from '../../../state/item';
 import useUserStore from '../../../state/user';
@@ -20,13 +20,9 @@ const PeminjamanForm = () => {
   }
 
   useEffect(() => {
-    //setform("perpus_id",perpus[0].perpus_id)
     setform("perpus_id",user_logged.perpus_id)
   },[])
 
-  useEffect(() => {
-    console.log(form)
-  })
   return(
     <>
       <Box className="mb-6 flex flex-col">
@@ -112,8 +108,7 @@ const PeminjamanForm = () => {
           name="perpus_id"
           onChange={handleForm}
           value={form.perpus_id || "0"}
-          //disabled
-         // disabled={user_logged.access_level === 1}
+         
         >
           <MenuItem value="0">Pilih Nama Perpustakaan</MenuItem>
           {

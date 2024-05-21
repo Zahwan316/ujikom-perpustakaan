@@ -1,5 +1,4 @@
 import { Stack, Container, Box } from '@mui/system';
-import { Typography,Button } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import DescriptionDetailBukuComponent from '../description';
 import UlasanDetailBukuComponent from '../ulasan';
@@ -69,9 +68,6 @@ const DetailBukuView = () => {
     fetchdata()
   },[])
 
-  useEffect(() => {
-    
-  })
 
   return(
     <>

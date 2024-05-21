@@ -12,12 +12,9 @@ import { useResponsive } from 'src/hooks/use-responsive';
 import { bgBlur } from 'src/theme/css';
 
 import Iconify from 'src/components/iconify';
-
-import Searchbar from './common/searchbar';
 import { NAV, HEADER } from './config-layout';
 import AccountPopover from './common/account-popover';
-import LanguagePopover from './common/language-popover';
-import NotificationsPopover from './common/notifications-popover';
+
 import useUserStore from '../../../state/user';
 
 // ----------------------------------------------------------------------
@@ -35,16 +32,13 @@ export default function Header({ onOpenNav }) {
         </IconButton>
       )}
 
-      {/* {
-        user.access_level === 3 &&
-        <Searchbar />
-      } */}
+    
 
       <Box sx={{ flexGrow: 1 }} />
 
       <Stack direction="row" alignItems="center" spacing={1}>
        
-        {/* <NotificationsPopover /> */}
+      
         <AccountPopover />
       </Stack>
     </>

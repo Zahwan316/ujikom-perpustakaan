@@ -1,13 +1,13 @@
 import { Box, Stack } from '@mui/system';
 import { Typography, Button, TextField, Skeleton } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import NavBarIndexComponent from '../nav';
+
 import BookComponent from 'src/components/book/book';
 import useItemStore from '../../../../state/item';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import KategoriIndex from '../kategori';
-import FooterIndex from '../footer';
+
 import IndexUserLayout from 'src/layouts/dashboard/indexuser';
 
 const IndexViewPage = () => {
@@ -76,14 +76,8 @@ const IndexViewPage = () => {
       bukus.push({"bukuID":key,"rating":ratingPerBuku[key]});
     }
     setbukus(bukus)
-    /* console.log('Jumlah total rating per buku:', ratingPerBuku);
-    console.log('Buku dengan rating terbanyak:', maxRatingBukuID);
-    console.log('Bukus : ', bukus); */
   }, [ulasan]);
 
-  useEffect(() => {
-    //console.log(ulasan);
-  })
 
   return(
    <IndexUserLayout>

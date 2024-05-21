@@ -1,4 +1,4 @@
-import { Button, Typography } from '@mui/material';
+import {Typography } from '@mui/material';
 import { Container, Stack } from '@mui/system';
 
 import React, { useState, useEffect } from 'react';
@@ -75,10 +75,7 @@ const UlasanViewPage = () => {
     }
   },[editedid])
 
-  useEffect(() => {
-    console.log(editedid)
-    console.log(ulasan)
-  })
+ 
 
   return(
     <>
@@ -88,12 +85,7 @@ const UlasanViewPage = () => {
     
         </Stack>
         <Stack flexWrap={"wrap"} direction={"row"} gap={"2em"}>
-          {/* <BookComponent
-            img="./assets/images/zee.jpg"
-            title="Zee"
-            penulis="Azizi Shafa Ashadel"
-            rating="8"
-          /> */}
+      
           {
             user_logged.access_level === 0 ?
             buku.map((item,index) =>

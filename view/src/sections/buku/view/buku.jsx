@@ -7,7 +7,7 @@ import useFormStore from '../../../../state/form';
 import {v4 as uuidv4} from "uuid"
 import ModalComponent from 'src/components/modal/modal';
 import BukuForm from 'src/components/form/buku';
-import { Typography,Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Container } from '@mui/system';
 
@@ -187,9 +187,6 @@ const BukuViewPage = () => {
     }
   },[editedid])
 
-  useEffect(() => {
-    console.log(typeform)
-  })
 
   return(
     <>

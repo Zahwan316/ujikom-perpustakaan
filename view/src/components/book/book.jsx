@@ -1,11 +1,5 @@
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/material"
-import { Box } from "@mui/system"
-import SvgColor from 'src/components/svg-color';
 
-
-const icon = (name) => (
-    <SvgColor src={`./assets/icons/${name}.svg`} sx={{ width: 1, height: 1 }} />
-  );
 
   
 const BookComponent = (props) => {

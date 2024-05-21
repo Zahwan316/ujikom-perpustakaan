@@ -10,7 +10,6 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
 import { account } from 'src/_mock/account';
-import Router from 'src/routes/sections';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import useUserStore from '../../../../state/user';
@@ -56,7 +55,6 @@ export default function AccountPopover() {
     Cookies.remove('token')
     resetform()
     setTimeout(() => {
-      //navigate("/login")
       window.location.href = '/login'
     },400)
   }
@@ -69,9 +67,7 @@ export default function AccountPopover() {
     setOpen(null);
   };
 
-  const redirectToSetting = () => {
-    navigate("setting/")
-  }
+
 
   return (
     <>

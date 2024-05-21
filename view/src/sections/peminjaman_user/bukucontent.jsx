@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Container, Stack } from '@mui/system';
-import { Typography,Button } from '@mui/material';
+import { Box } from '@mui/system';
+import { Typography } from '@mui/material';
 import BookComponent from 'src/components/book/book';
 const BukuContentPeminjaman = (props) => {
   const calculateRemainingDays = (tanggalPengembalian) => {
@@ -28,9 +28,6 @@ const BukuContentPeminjaman = (props) => {
       }
   };
 
-  useEffect(() => {
-    console.log(calculateRemainingDays("2024-03-2"))
-  })
   return(
     <>
       <Box className='flex flex-wrap flex-row ' gap={3}>
@@ -43,7 +40,6 @@ const BukuContentPeminjaman = (props) => {
                     title={items.judul}
                     img={`${import.meta.env.VITE_APP_URL_API}img/${items.img}`}
                     penulis={items.penulis}
-                    //id={items.bukuID}
                     slug={items.slug}
                     handlemodal={props.handleModal}
                     remaining={calculateRemainingDays(item.tanggal_pengembalian)}

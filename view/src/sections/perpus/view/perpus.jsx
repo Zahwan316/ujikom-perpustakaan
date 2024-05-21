@@ -133,9 +133,7 @@ const PerpusViewPage = () => {
     }
   },[updater])
 
-  useEffect(() => {
-    console.log(typeform)
-  })
+ 
 
   return(
     <>

@@ -1,8 +1,8 @@
 import { Box, Stack } from "@mui/system"
 import { useNavigate, useParams } from "react-router-dom"
 import IndexUserLayout from "src/layouts/dashboard/indexuser"
-import { Typography,Button } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import { Typography} from '@mui/material';
+import React, {  useEffect } from 'react';
 import useItemStore from "../../../../state/item";
 import BookComponent from "src/components/book/book";
 import axios from "axios";
@@ -44,9 +44,7 @@ const SelectedKategoriViewPage = () => {
     fetchdata()
   },[])
 
-  useEffect(() => {
-    console.log(buku)
-  })
+ 
   
   return(
     <IndexUserLayout>
