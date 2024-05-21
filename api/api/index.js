@@ -2,14 +2,14 @@ const express = require('express');
 const port = 3008
 const app = express();
 const cors = require("cors")
-const Buku = require("./route/buku")
-const Peminjaman = require("./route/peminjaman")
-const Kategori = require("./route/kategoribuku")
-const Ulasanbuku = require("./route/ulasanbuku")
-const Koleksipribadi = require("./route/koleksipribadi")
-const User = require("./route/user")
-const Message = require("./route/message")
-const Perpus = require("./route/perpus")
+const Buku = require("../route/buku")
+const Peminjaman = require("../route/peminjaman")
+const Kategori = require("../route/kategoribuku")
+const Ulasanbuku = require("../route/ulasanbuku")
+const Koleksipribadi = require("../route/koleksipribadi")
+const User = require("../route/user")
+const Message = require("../route/message")
+const Perpus = require("../route/perpus")
 const fs = require("fs");
 const mime = require("mime-types")
 //const mime = require('mime');
@@ -30,7 +30,7 @@ app.use('/img', (req, res, next) => {
 
 app.get("/",(req,res) => {
     res.status(200).json({
-        message:"success"
+        message:"This Index Page"
     })
 })
 
