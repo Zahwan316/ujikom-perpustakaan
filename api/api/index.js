@@ -34,6 +34,12 @@ app.get("/",(req,res) => {
     })
 })
 
+app.get("/production",(req,res) => {
+    res.status(200).json({
+        message:"This Production Page"
+    })
+})
+
 const options = {
     setHeaders:function(res,path,stat){
         res.setHeader('Content-Disposition',"inline")
