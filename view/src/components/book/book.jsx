@@ -1,7 +1,5 @@
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/material"
 
-
-  
 const BookComponent = (props) => {
   const openmodal = () => {
     props.handlemodal && props.handlemodal(props.id)

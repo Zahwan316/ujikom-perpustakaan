@@ -13,7 +13,7 @@ export default defineConfig({
   }, */
   build: {
     rollupOptions: {
-      external: ['@mui/material'],
+     
     },
     chunkSizeWarningLimit: 10000,
     outDir: 'dist',

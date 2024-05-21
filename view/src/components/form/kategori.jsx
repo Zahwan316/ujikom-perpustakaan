@@ -1,4 +1,4 @@
-import { InputLabel, TextField } from '@mui/material';
+import { InputLabel, TextField } from '../../../node_modules/@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import useFormStore from '../../../state/form';

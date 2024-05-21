@@ -1,4 +1,4 @@
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '../../../node_modules/@mui/material/';
 import { Stack, Container, Box } from '@mui/system';
 
 import React, { useState, useEffect } from 'react';

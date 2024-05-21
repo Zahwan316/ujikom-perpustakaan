@@ -1,4 +1,4 @@
-import { IconButton, MenuItem, Popover, TableCell, TableRow } from '@mui/material';
+import { IconButton, MenuItem, Popover, TableCell, TableRow } from '../../../../node_modules/@mui/material';
 import React, { useState } from 'react';
 import useUserStore from '../../../../state/user';
 import useItemStore from '../../../../state/item';

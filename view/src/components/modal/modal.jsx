@@ -1,4 +1,4 @@
-import { Button, Fade, Modal, Typography } from '@mui/material';
+import { Button, Fade, Modal, Typography } from '../../../node_modules/@mui/material';
 import { Box, Stack } from '@mui/system';
 
 const ModalComponent = (props) => {

@@ -1,5 +1,5 @@
 import { Box, Stack } from "@mui/system"
-import { Typography,Button } from '@mui/material';
+import { Typography,Button } from '../../../../node_modules/@mui/material';
 
 const PeminjamanUserModal = (props) => {
   return(

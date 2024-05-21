@@ -1,18 +1,21 @@
 const fs = require('fs');
 const path = require('path');
 
-const directoryPath = path.join(__dirname, 'src'); // ganti sesuai dengan folder sumber kode Anda
+const directoryPath = path.join(__dirname, 'src/components'); // ganti sesuai dengan folder sumber kode Anda
 
 function replaceInFile(filePath) {
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
       return console.log(err);
     }
-    const result = data.replace(/'@mui\/material\/';/g, "'./node_modules/@mui/material/';");
+    //const result = data.replace(/'@mui\/material\';/g, "'../../../node_modules/@mui/material/';");
+    const result = data.replace(/'@mui\/material\';/g, "'../../../node_modules/@mui/material/';");
 
     fs.writeFile(filePath, result, 'utf8', (err) => {
       if (err) return console.log(err);
     });
+
+    console.log(`Replaced in ${filePath}`);
   });
 }
 
@@ -29,7 +32,7 @@ function traverseDirectory(directory) {
         }
         if (stats.isDirectory()) {
           traverseDirectory(fullPath);
-        } else if (stats.isFile() && fullPath.endsWith('.js')) { // ganti sesuai ekstensi file Anda, bisa juga .jsx, .ts, .tsx
+        } else if (stats.isFile() && fullPath.endsWith('.jsx')) { // ganti sesuai ekstensi file Anda, bisa juga .jsx, .ts, .tsx
           replaceInFile(fullPath);
         }
       });

@@ -1,5 +1,5 @@
 import { Box } from "@mui/system"
-import { Typography,Button } from '@mui/material';
+import { Typography,Button } from '../../../../node_modules/@mui/material';
 import Link from '@mui/material/Link';
 import useItemStore from "../../../../state/item";
 import React, { useState, useEffect } from 'react';
