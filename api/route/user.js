@@ -8,7 +8,7 @@ const {DataTypes} = require("sequelize")
 const user = require("../models/user")
 const User = user(sequelize,DataTypes)
 const jwt = require("jsonwebtoken")
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 const jwttoken = process.env.JWT_SECRET_KEY
 const RandInt = () => {
     return Math.floor(Math.random() * 99999999)
