@@ -12,7 +12,12 @@ const Message = require("../route/message")
 const Perpus = require("../route/perpus")
 const fs = require("fs");
 const mime = require("mime-types")
+const Supabase = require("../supabase")
 //const mime = require('mime');
+
+
+
+
 
 app.use(express.json())
 app.use(cors())
@@ -55,18 +60,41 @@ app.use(Koleksipribadi)
 app.use(User)
 app.use(Perpus)
 app.use(Message)
-app.use("/img/:filename",(req,res) => {
-  const fileName = req.params.filename
-  const { publicURL } = supabase.storage
-  .from('your_bucket_name')
-  .getPublicUrl(fileName);
 
-  res.status(200).json({
-    message:"Data berhasil diambil",
-    data:publicURL
-  })
+app.use("/img/:filename",async(req,res) => {
+  try{
+    const fileName = req.params.filename
+    const { publicURL,error } = Supabase.storage.from('upload').getPublicUrl("222295.jpg");
+  
+    if (error) {
+      console.log(error);
+      return res.status(400).json({ message: "Error getting public URL" });
+    }
+
+    console.log(publicURL)
+    
+  
+    if(publicURL){
+      res.status(200).json({
+        message:"Data berhasil diambil",
+        data:publicURL
+      })
+    }
+    else{
+      res.status(404).json({
+        message:"Data tidak ditemukan",
+      })
+    }
+
+  }
+  catch(e){
+    console.log(e)
+    res.status(404).json({
+      message:"Kesalahan Server",
+      
+    })
+  }
 })
-
 
 app.get('/pdf/:file', (req, res) => {
     const filename = req.params.file

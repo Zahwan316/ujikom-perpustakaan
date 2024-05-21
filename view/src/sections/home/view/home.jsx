@@ -87,7 +87,7 @@ const HomePageView = () => {
             {
               limitbuku.map(item => 
                 <BookComponent 
-                  img={`${import.meta.env.VITE_APP_URL_API}img/${item.img}`}
+                  img={`${import.meta.env.IMG_URL}img/${item.img}`}
                   title={item.judul}
                   penulis={item.penulis}
                   id={item.id}
@@ -119,7 +119,7 @@ const HomePageView = () => {
               bukuOrderByKategori.map(item => 
                 item.stok != 0 &&
                 <BookComponent 
-                  img={`${import.meta.env.VITE_APP_URL_API}img/${item.img}`}
+                  img={`${import.meta.env.IMG_URL}img/${item.img}`}
                   title={item.judul}
                   penulis={item.penulis}
                   handlemodal={handlemodal}

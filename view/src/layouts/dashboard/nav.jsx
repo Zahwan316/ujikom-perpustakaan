@@ -51,7 +51,7 @@ export default function Nav({ openNav, onCloseNav }) {
         bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
       }}
     >
-      <Avatar src={`${user.img ?  `${import.meta.env.VITE_APP_URL_API}img/${user.img}` : "/assets/images/noimage.jpg"}`} alt="photoURL" />
+      <Avatar src={`${user.img ?  `${import.meta.env.IMG_URL}img/${user.img}` : "/assets/images/noimage.jpg"}`} alt="photoURL" />
 
       <Box sx={{ ml: 2 }}>
         <Typography variant="subtitle2">{user.nama_lengkap}</Typography>

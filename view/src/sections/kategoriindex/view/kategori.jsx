@@ -34,7 +34,7 @@ const KategoriIndexViewPage = () => {
           kategori.map(item => 
             <KategoriCardComponent
               nama={item.nama_kategori}
-              img={`${import.meta.env.VITE_APP_URL_API}img/${item.img}`}
+              img={`${import.meta.env.IMG_URL}img/${item.img}`}
             />
           )
           :

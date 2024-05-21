@@ -84,7 +84,7 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src={`${import.meta.env.VITE_APP_URL_API}img/${user.img}`}
+          src={`${import.meta.env.IMG_URL}img/${user.img}`}
           alt={account.displayName}
           sx={{
             width: 36,
