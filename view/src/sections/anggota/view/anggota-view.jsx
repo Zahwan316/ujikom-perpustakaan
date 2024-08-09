@@ -74,7 +74,6 @@ const AnggotaViewPage = () => {
       }, 500);
     }
     catch(e){
-      console.log(e)
       setmodal(false)
       Swal.fire({
         title:"Gagal",

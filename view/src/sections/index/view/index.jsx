@@ -43,7 +43,7 @@ const IndexViewPage = () => {
         }
       }
       catch(e){
-        console.log(e)
+        
       }
     }
     fetchdata()

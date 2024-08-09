@@ -66,7 +66,7 @@ const HomePageView = () => {
         }
       }
       catch(e){
-        console.log(e)
+        
       }
     }
     fetchdata()

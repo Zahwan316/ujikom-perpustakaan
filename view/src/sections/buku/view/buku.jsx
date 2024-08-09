@@ -85,7 +85,7 @@ const BukuViewPage = () => {
     }
     catch(e){
       setmodal(false)
-      console.log(e)
+      
       Swal.fire({
         title:"Error",
         text:e.response.data.message,
