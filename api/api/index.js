@@ -16,13 +16,8 @@ const Supabase = require("../supabase")
 //const mime = require('mime');
 
 const corsOptions = {
-  origin:"http://smeadigital.rplsmart.com/",
-  methods:[],
-  allowedHeaders:[],
-  exposedHeader:[],
+  origin: "*",
 }
-
-
 
 app.use(express.json())
 app.use(cors(corsOptions))
