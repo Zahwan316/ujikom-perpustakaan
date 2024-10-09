@@ -38,10 +38,7 @@ export default function NotFoundView() {
             mx: 'auto',
             display: 'flex',
             minHeight: '100vh',
-            textAlign: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-            justifyContent: 'center',
+            
           }}
         >
           <Typography variant="h3" sx={{ mb: 3 }}>
